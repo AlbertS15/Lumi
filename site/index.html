@@ -10,409 +10,324 @@
 <meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f2f0eb">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --text: #1d1d1f;
-  --muted: #6e6e73;
-  --faint: #86868b;
-  --gray: #f5f5f7;
-  --line: #d2d2d7;
-  --blue: #0071e3;
-  --link: #0066cc;
-  --teal: #5dcaa5;
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Inter, "Segoe UI", sans-serif;
-}
+:root { --paper: #f2f0eb; --paper2: #e9e6df; --ink: #111; --gray: #6a6862; --line: #111; --soft: #c9c5bc; --red: #ff3b1f; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: #fff; color: var(--text); font: 17px/1.47 var(--font); letter-spacing: -0.022em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-a { color: var(--link); text-decoration: none; }
-a:hover { text-decoration: underline; }
-h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.03em; }
-.wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
-.wide { max-width: 1240px; margin: 0 auto; padding: 0 22px; }
-.more { font-size: 19px; font-weight: 400; }
-.more::after { content: " ›"; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.45 "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 900; letter-spacing: -0.05em; line-height: .88; }
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.pad { padding-left: 28px; padding-right: 28px; }
+.red { color: var(--red); }
+canvas.px { image-rendering: pixelated; }
 
-/* ---------- product nav, like Apple's local nav */
-.lnav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.08); }
-.lnav .wide { display: flex; align-items: center; height: 52px; gap: 24px; }
-.lnav .name { font-size: 21px; font-weight: 600; color: var(--text); display: flex; gap: 8px; align-items: center; letter-spacing: -0.02em; }
-.lnav .name:hover { text-decoration: none; }
-.lnav canvas { width: 22px; height: 20px; image-rendering: pixelated; }
-.lnav .links { margin-left: auto; display: flex; gap: 22px; align-items: center; font-size: 12px; }
-.lnav .links a { color: var(--text); opacity: .8; }
-.lnav .links a:hover { opacity: 1; text-decoration: none; }
-.lnav .lang { background: none; border: 0; color: var(--muted); font: 600 12px var(--font); cursor: pointer; padding: 0; }
-.pillbtn { display: inline-block; background: var(--blue); color: #fff !important; opacity: 1 !important; border-radius: 980px; padding: 4px 12px; font-size: 12px; font-weight: 400; }
-.pillbtn:hover { background: #0077ed; text-decoration: none; }
-@media (max-width: 734px) { .lnav .links .hide-sm { display: none; } }
+/* ---------- nav */
+nav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 2px solid var(--line); display: flex; align-items: center; gap: 28px; height: 58px; }
+nav .logo { font-weight: 900; font-size: 22px; letter-spacing: -0.04em; display: flex; gap: 10px; align-items: center; text-decoration: none; }
+nav .logo canvas { width: 24px; height: 22px; }
+nav .r { margin-left: auto; display: flex; gap: 26px; align-items: center; }
+nav .r a { text-decoration: none; }
+nav .r a:hover { color: var(--red); }
+nav .lang { background: none; border: 1px solid var(--line); border-radius: 0; font: inherit; padding: 3px 7px; cursor: pointer; color: var(--ink); }
+nav .get { background: var(--ink); color: var(--paper) !important; padding: 8px 14px; }
+nav .get:hover { background: var(--red); }
+@media (max-width: 760px) { nav .hide-sm { display: none; } }
 
 /* ---------- hero */
-.hero { text-align: center; padding: 64px 0 0; overflow: hidden; }
-.eyebrow { font-size: 21px; font-weight: 600; color: #bf4800; letter-spacing: -0.01em; }
-.eyebrow.teal { color: #138a67; }
-.hero h1 { font-size: clamp(48px, 9vw, 96px); line-height: 1.05; margin-top: 10px; }
-.hero h1 .grad { background: linear-gradient(90deg, #138a67, #3fb592 40%, #2f8fd8); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hero .sub { font-size: clamp(21px, 2.6vw, 28px); font-weight: 600; color: var(--text); margin: 18px auto 0; max-width: 760px; line-height: 1.2; letter-spacing: -0.02em; }
-.hero .ctas { margin-top: 30px; display: flex; gap: 28px; justify-content: center; align-items: center; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; border-radius: 980px; padding: 12px 22px; font-size: 17px; font-weight: 400; transition: background .2s; }
-.btn:hover { background: #0077ed; text-decoration: none; }
-.btn .os { opacity: .85; }
-.hero .meta { margin-top: 16px; color: var(--faint); font-size: 14px; }
+.meta { display: flex; justify-content: space-between; gap: 16px; padding-top: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.hero h1 { font-size: clamp(68px, 15vw, 236px); margin: 34px 0 30px; }
+.hero h1 .w { display: inline-block; opacity: 0; transform: translateY(40%); animation: rise .9s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.hero-low { display: grid; grid-template-columns: 6fr 2fr 4fr; gap: 0; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .hero-low { grid-template-columns: 1fr; } }
+.hero-low .lead { font-size: clamp(22px, 2.4vw, 31px); line-height: 1.14; font-weight: 500; letter-spacing: -0.025em; padding: 26px 28px 34px 0; }
+.hero-low .ctas { grid-column: 3; display: flex; flex-direction: column; gap: 10px; padding: 26px 0 34px; justify-content: flex-end; }
+@media (max-width: 860px) { .hero-low .ctas { grid-column: 1; padding-top: 0; } }
+.btn { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--ink); color: var(--paper); text-decoration: none; padding: 19px 20px; font-weight: 700; font-size: 18px; transition: background .15s; }
+.btn::after { content: "→"; transition: transform .2s; }
+.btn:hover::after { transform: translateX(5px); }
+.btn.accent { background: var(--red); color: #fff; }
+.btn.accent:hover { background: var(--ink); }
+.btn .os { font-weight: 500; opacity: .8; margin-left: 6px; }
 
-/* the laptop */
-.device { margin: 54px auto 0; width: min(1040px, 94vw); transform-origin: 50% 0; will-change: transform; }
-.screen { position: relative; aspect-ratio: 16 / 10; background: #0d0d0f; border-radius: 22px 22px 0 0; padding: 1.6%; box-shadow: 0 0 0 2px #2c2c2e inset; }
-.display { position: relative; width: 100%; height: 100%; border-radius: 8px; overflow: hidden;
-  background: radial-gradient(120% 90% at 15% 10%, #ffd9b8, transparent 55%), radial-gradient(120% 90% at 90% 20%, #b7c9ff, transparent 55%), radial-gradient(130% 100% at 50% 110%, #8fe0c4, transparent 60%), #e9e3f5; }
-.base { height: 18px; margin: 0 -5%; background: linear-gradient(#e3e3e6, #b9b9be 60%, #8e8e93); border-radius: 0 0 22px 22px; position: relative; }
-.base::before { content: ""; position: absolute; left: 50%; top: 0; width: 16%; height: 7px; transform: translateX(-50%); background: #a1a1a6; border-radius: 0 0 10px 10px; }
-.menubar { height: 3.4%; min-height: 18px; background: rgba(255,255,255,0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; align-items: center; gap: 16px; padding: 0 14px; font-size: clamp(9px, 1.1vw, 12px); font-weight: 600; color: rgba(0,0,0,0.8); }
-.menubar .r { margin-left: auto; display: flex; gap: 12px; align-items: center; }
-.menubar canvas { width: 14px; height: 13px; image-rendering: pixelated; }
-.win { position: absolute; background: rgba(255,255,255,0.92); border-radius: 12px; box-shadow: 0 18px 50px rgba(0,0,0,0.18); overflow: hidden; }
-.win .tb { height: 26px; display: flex; gap: 7px; align-items: center; padding: 0 12px; border-bottom: 1px solid rgba(0,0,0,0.06); }
-.win .tb i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; } .win .tb i:nth-child(2) { background: #febc2e; } .win .tb i:nth-child(3) { background: #28c840; }
-.win .lines { padding: 18px; } .win .lines div { height: 9px; border-radius: 5px; background: rgba(0,0,0,0.08); margin-bottom: 11px; }
-.win.a { left: 7%; top: 12%; width: 48%; height: 62%; } .win.b { right: 6%; top: 28%; width: 40%; height: 58%; }
-.veil { position: absolute; inset: 0; background: rgba(0,0,0,0.12); opacity: 0; transition: opacity .35s; }
-.display.active .veil { opacity: 1; }
-.bar { position: absolute; left: 50%; top: 18%; width: 66%; transform: translate(-50%, 6px) scale(.97); opacity: 0; transition: opacity .25s, transform .35s cubic-bezier(.2,.9,.3,1.15);
-  background: rgba(246,246,248,0.82); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-radius: 16px; border: 1px solid rgba(255,255,255,0.7);
-  box-shadow: 0 0 0 0.5px rgba(0,0,0,0.12), 0 24px 70px rgba(0,0,0,0.25); text-align: left; }
-.display.active .bar { opacity: 1; transform: translate(-50%, 0) scale(1); }
-.bar .input { display: flex; align-items: center; gap: 12px; padding: 13px 16px; font-size: clamp(13px, 1.75vw, 21px); color: #1d1d1f; }
-.bar .input canvas { width: 22px; height: 20px; image-rendering: pixelated; flex: none; }
-.bar .typed { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 1.3em; }
-.ph { color: #a1a1a6; }
-.caret { display: inline-block; width: 2px; height: 1.05em; background: var(--blue); vertical-align: -0.15em; margin-left: 1px; animation: blink 1s steps(1) infinite; }
+/* the demo: a plain bordered bar on the grid */
+.demo { border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); display: grid; grid-template-columns: 2fr 10fr; }
+@media (max-width: 860px) { .demo { grid-template-columns: 1fr; } }
+.demo .side { border-right: 1px solid var(--line); padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+@media (max-width: 860px) { .demo .side { border-right: 0; border-bottom: 1px solid var(--line); flex-direction: row; align-items: center; } }
+.keys { display: flex; gap: 6px; }
+kbd { display: inline-block; min-width: 46px; padding: 9px 11px; text-align: center; border: 2px solid var(--ink); background: var(--paper); font: 700 17px "Inter Tight", sans-serif; box-shadow: 4px 4px 0 var(--ink); transition: transform .08s, box-shadow .08s, background .08s, color .08s; }
+kbd.down { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); background: var(--red); color: #fff; border-color: var(--red); }
+.demo .main { padding: 26px 28px 30px; min-height: 290px; }
+.bar { border: 2px solid var(--ink); background: #fbfaf7; opacity: .25; transition: opacity .25s; }
+.bar.open { opacity: 1; }
+.bar .input { display: flex; align-items: center; gap: 14px; padding: 16px 18px; font-size: clamp(18px, 2.4vw, 28px); font-weight: 500; letter-spacing: -0.02em; }
+.bar .input canvas { width: 30px; height: 28px; flex: none; }
+.bar .typed { flex: 1; min-height: 1.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph { color: #a8a49b; }
+.caret { display: inline-block; width: 3px; height: 1em; background: var(--red); vertical-align: -0.1em; margin-left: 2px; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
-.bar .model { font-size: 11px; color: var(--muted); background: rgba(0,0,0,0.05); padding: 3px 9px; border-radius: 7px; font-weight: 600; }
-.bar .answer { display: none; border-top: 1px solid rgba(0,0,0,0.08); padding: 12px 16px 16px; font-size: clamp(12px, 1.45vw, 16.5px); line-height: 1.5; }
+.bar .model { padding: 4px 8px; border: 1px solid var(--ink); }
+.bar .answer { display: none; border-top: 1px solid var(--ink); padding: 16px 18px 20px; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.4; }
 .bar .answer.show { display: block; }
-.bar .answer .q { color: var(--faint); font-size: .85em; font-weight: 600; margin-bottom: 3px; }
-.dock { position: absolute; left: 50%; bottom: 2.5%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: rgba(255,255,255,0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; border: 1px solid rgba(255,255,255,0.6); }
-kbd { display: inline-block; min-width: 34px; padding: 4px 9px; border-radius: 7px; text-align: center; background: #fff; border: 1px solid #d2d2d7; border-bottom-width: 3px; font: 600 clamp(11px, 1.3vw, 15px) var(--font); color: var(--text); transition: transform .08s, border-bottom-width .08s, color .1s; }
-kbd.down { transform: translateY(2px); border-bottom-width: 1px; color: var(--blue); border-color: var(--blue); }
-.caption { color: var(--faint); font-size: 12px; margin: 14px 0 0; }
-@media (max-width: 734px) { .dock { display: none; } .bar { top: 10%; width: 86%; } .win .tb { height: 18px; } }
+.bar .answer .q { margin-bottom: 6px; color: var(--gray); }
 
-/* ---------- statement that lights up word by word */
-.statement { padding: 150px 0 140px; }
-.statement p { font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin: 0; }
-.statement .w { color: #d2d2d7; transition: color .25s; }
-.statement .w.on { color: var(--text); }
-.statement .w.key { color: #d2d2d7; }
-.statement .w.key.on { background: linear-gradient(90deg, #138a67, #2f8fd8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* ---------- statement */
+.statement { padding-top: 120px; padding-bottom: 120px; border-bottom: 2px solid var(--line); }
+.statement p { margin: 0; font-size: clamp(38px, 6vw, 88px); font-weight: 900; letter-spacing: -0.05em; line-height: .95; max-width: 1300px; }
+.statement .w { color: var(--soft); transition: color .2s; }
+.statement .w.on { color: var(--ink); }
+.statement .w.key.on { color: var(--red); }
 
-/* ---------- section heads */
-section { scroll-margin-top: 52px; }
-.head { text-align: center; }
-.head h2 { font-size: clamp(40px, 6vw, 64px); line-height: 1.06; }
-.head p { font-size: clamp(19px, 2.2vw, 24px); color: var(--muted); max-width: 720px; margin: 16px auto 0; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em; }
+/* ---------- numbered features */
+.sec-head { display: grid; grid-template-columns: 2fr 10fr; border-bottom: 1px solid var(--line); padding-top: 18px; padding-bottom: 18px; }
+@media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+.sec-title { padding-top: 60px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.sec-title h2 { font-size: clamp(54px, 9vw, 140px); }
+.row { display: grid; grid-template-columns: 2fr 5fr 5fr; border-bottom: 1px solid var(--line); padding-top: 30px; padding-bottom: 30px; align-items: start; gap: 0; }
+@media (max-width: 860px) { .row { grid-template-columns: 60px 1fr; gap: 14px 0; } .row .ex { grid-column: 1 / -1; } }
+.row .n { font-weight: 900; font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.05em; color: var(--red); line-height: .9; }
+.row h3 { font-size: clamp(34px, 4.4vw, 64px); }
+.row p { margin: 14px 0 0; font-size: 19px; color: #3d3b37; max-width: 440px; }
+.row .ex { border: 2px solid var(--ink); background: #fbfaf7; padding: 18px 20px; min-height: 150px; font-size: 18px; }
+.ex .q { color: var(--gray); margin-bottom: 8px; }
+.ex .app { display: flex; align-items: center; gap: 12px; padding: 7px 10px; font-weight: 600; transition: background .2s, color .2s; }
+.ex .app.sel { background: var(--ink); color: var(--paper); }
+.ex .app i { width: 12px; height: 12px; display: inline-block; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--ink); padding: 6px 11px; font-weight: 600; font-size: 16px; transition: background .2s, color .2s; }
+.chip.on { background: var(--ink); color: var(--paper); }
+.hello { font-weight: 900; font-size: clamp(52px, 6vw, 84px); letter-spacing: -0.05em; line-height: 1; height: 1.05em; overflow: hidden; position: relative; }
+.hello span { position: absolute; left: 0; top: 0; transition: transform .55s cubic-bezier(.7,0,.2,1); }
+.ex .keys { flex-wrap: wrap; align-items: center; font-weight: 700; }
 
-/* ---------- tiles on gray */
-.gray { background: var(--gray); padding: 110px 0 120px; }
-.tiles { margin-top: 64px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
-.tile { background: #fff; border-radius: 28px; padding: 40px 36px; overflow: hidden; position: relative; min-height: 380px; display: flex; flex-direction: column; }
-.tile .label { font-size: 17px; font-weight: 600; color: var(--muted); }
-.tile h3 { font-size: clamp(26px, 3vw, 34px); line-height: 1.12; margin-top: 8px; }
-.tile .body { margin-top: auto; padding-top: 28px; }
-.t1 { grid-column: span 4; } .t2 { grid-column: span 2; } .t3, .t4, .t5 { grid-column: span 2; }
-@media (max-width: 1000px) { .tiles { grid-template-columns: 1fr 1fr; } .t1 { grid-column: span 2; } .t2, .t3, .t4, .t5 { grid-column: span 1; } }
-@media (max-width: 640px) { .tiles { grid-template-columns: 1fr; } .tile { grid-column: span 1 !important; min-height: 0; } }
-.stream { background: var(--gray); border-radius: 18px; padding: 18px 20px; font-size: 17px; min-height: 7.4em; }
-.stream .q { color: var(--faint); font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-.apps .row { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 10px; font-weight: 500; color: var(--text); transition: background .25s, color .25s; }
-.apps .row.sel { background: var(--blue); color: #fff; }
-.apps .ic { width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 12px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { padding: 8px 14px; border-radius: 980px; background: var(--gray); font-weight: 600; font-size: 15px; color: var(--muted); transition: all .3s; }
-.chip.on { background: var(--text); color: #fff; }
-.hello { font-size: clamp(40px, 5vw, 56px); font-weight: 700; height: 1.25em; overflow: hidden; position: relative; letter-spacing: -0.03em; }
-.hello span { position: absolute; left: 0; top: 0; transition: transform .6s cubic-bezier(.2,.9,.3,1), opacity .4s; }
-.keys { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--faint); font-weight: 600; }
-.keys kbd { font-size: 20px; padding: 10px 16px; min-width: 52px; border-radius: 11px; }
-
-/* ---------- dark privacy / offline */
-.dark { background: #000; color: #f5f5f7; padding: 130px 0 140px; text-align: center; overflow: hidden; }
-.dark .eyebrow { color: #5dcaa5; }
-.dark h2 { font-size: clamp(44px, 7vw, 80px); line-height: 1.04; }
-.dark p.lead { font-size: clamp(19px, 2.2vw, 24px); color: #a1a1a6; max-width: 700px; margin: 20px auto 0; font-weight: 500; line-height: 1.3; }
-.ghostglow { margin: 56px auto 0; width: 160px; height: 148px; image-rendering: pixelated; filter: drop-shadow(0 0 40px rgba(93,202,165,0.7)) drop-shadow(0 0 90px rgba(93,202,165,0.35)); animation: float 3.4s ease-in-out infinite; }
-@keyframes float { 50% { transform: translateY(-12px); } }
-.compare { margin-top: 80px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; text-align: center; }
-@media (max-width: 734px) { .compare { grid-template-columns: 1fr; gap: 50px; } }
-.compare > div { padding: 0 24px; border-left: 1px solid #333336; }
-.compare > div:first-child { border-left: 0; }
-@media (max-width: 734px) { .compare > div { border-left: 0; } }
-.compare .nm { font-size: 28px; font-weight: 700; }
-.compare .rec { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: #000; background: #5dcaa5; border-radius: 980px; padding: 3px 10px; visibility: hidden; }
-.compare .is-rec .rec { visibility: visible; }
-.compare .big { font-size: 48px; font-weight: 700; margin-top: 26px; letter-spacing: -0.03em; }
-.compare .unit { color: #86868b; font-size: 14px; margin-top: 2px; }
-.compare .desc { color: #a1a1a6; font-size: 17px; margin-top: 22px; line-height: 1.4; }
-.howto { margin-top: 70px; color: #a1a1a6; font-size: 17px; }
-.howto b { color: #f5f5f7; font-weight: 600; }
-.dark a { color: #2997ff; }
+/* ---------- offline */
+.offline { background: var(--ink); color: var(--paper); }
+.offline .sec-head, .offline .sec-title, .offline .trow { border-color: #3a3936; }
+.offline .lead { font-size: clamp(22px, 2.4vw, 31px); font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; max-width: 820px; padding-top: 30px; padding-bottom: 40px; border-bottom: 1px solid #3a3936; }
+.trow { display: grid; grid-template-columns: 2fr 4fr 2fr 4fr; border-bottom: 1px solid #3a3936; padding-top: 22px; padding-bottom: 22px; align-items: baseline; transition: background .2s; }
+@media (max-width: 860px) { .trow { grid-template-columns: 1fr 1fr; gap: 6px; } }
+.trow.headrow { color: #8d8a83; padding-top: 14px; padding-bottom: 14px; }
+.trow .nm { font-size: clamp(30px, 3.4vw, 46px); font-weight: 900; letter-spacing: -0.05em; }
+.trow .gb { font-size: clamp(30px, 3.4vw, 46px); font-weight: 900; letter-spacing: -0.05em; }
+.trow .d { color: #b9b5ac; font-size: 18px; }
+.trow.rec { background: var(--red); color: #fff; }
+.trow.rec .d { color: #fff; }
+.trow .tag { display: none; }
+.trow.rec .tag { display: inline-block; margin-left: 10px; vertical-align: middle; }
+.howto { padding-top: 30px; padding-bottom: 50px; color: #b9b5ac; font-size: 19px; }
+.howto b { color: var(--paper); font-weight: 600; }
+.ghostbig { display: block; width: 120px; height: 112px; margin-top: 40px; }
 
 /* ---------- download */
-.dl { padding: 120px 0 110px; }
-.plats { margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-@media (max-width: 834px) { .plats { grid-template-columns: 1fr; } }
-.plat { background: var(--gray); border-radius: 28px; padding: 40px 34px 36px; text-align: center; display: flex; flex-direction: column; align-items: center; position: relative; }
-.plat.mine { background: #fff; box-shadow: 0 0 0 2px var(--blue); }
-.plat .yours { position: absolute; top: 18px; font-size: 12px; font-weight: 600; color: var(--blue); visibility: hidden; }
+.plats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--line); }
+@media (max-width: 860px) { .plats { grid-template-columns: 1fr; } }
+.plat { padding: 30px 28px 28px; border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 380px; }
+.plat:last-child { border-right: 0; }
+@media (max-width: 860px) { .plat { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; } }
+.plat .top { display: flex; justify-content: space-between; }
+.plat .yours { color: var(--red); visibility: hidden; }
 .plat.mine .yours { visibility: visible; }
-.plat h3 { font-size: 32px; margin-top: 16px; }
-.plat .hk { margin-top: 14px; display: flex; gap: 6px; align-items: center; color: var(--faint); }
-.plat .hk kbd { font-size: 14px; }
-.plat p { color: var(--muted); font-size: 15px; margin: 18px 0 26px; line-height: 1.45; }
+.plat h3 { font-size: clamp(48px, 5vw, 72px); margin-top: 26px; }
+.plat .hk { margin-top: 18px; display: flex; gap: 6px; align-items: center; }
+.plat .hk kbd { font-size: 14px; min-width: 0; padding: 5px 9px; box-shadow: 3px 3px 0 var(--ink); }
+.plat p { color: #3d3b37; font-size: 17px; margin: 18px 0 26px; max-width: 340px; }
 .plat .btn { margin-top: auto; }
-.plat:not(.mine) .btn { background: transparent; color: var(--link); padding: 0; }
-.plat:not(.mine) .btn::after { content: " ›"; }
-code { font: 13px ui-monospace, "SF Mono", Menlo, monospace; background: rgba(0,0,0,0.05); border-radius: 5px; padding: 1px 5px; color: var(--text); }
+.plat:not(.mine) .btn { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.plat:not(.mine) .btn:hover { background: var(--ink); color: var(--paper); }
+.plat.mine .btn { background: var(--red); color: #fff; }
+code { font: 500 14px "JetBrains Mono", monospace; background: var(--paper2); padding: 1px 5px; }
 
 /* ---------- faq */
-.faq { padding: 30px 0 120px; }
-.faq .list { max-width: 820px; margin: 50px auto 0; border-top: 1px solid var(--line); }
-details { border-bottom: 1px solid var(--line); padding: 22px 0; }
-details summary { cursor: pointer; list-style: none; font-size: 21px; font-weight: 600; display: flex; justify-content: space-between; gap: 20px; align-items: center; letter-spacing: -0.02em; }
+details { border-bottom: 1px solid var(--line); }
+details summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 2fr 9fr 1fr; align-items: baseline; padding: 24px 28px; font-size: clamp(22px, 2.4vw, 32px); font-weight: 700; letter-spacing: -0.03em; }
+@media (max-width: 860px) { details summary { grid-template-columns: 40px 1fr 30px; } }
 details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "+"; font-weight: 300; font-size: 30px; color: var(--muted); line-height: 1; transition: transform .25s; }
-details[open] summary::after { transform: rotate(45deg); }
-details p { color: var(--muted); margin: 12px 0 0; font-size: 17px; max-width: 700px; }
+details summary::after { content: "+"; justify-self: end; font-weight: 400; transition: transform .25s; }
+details[open] summary::after { transform: rotate(45deg); color: var(--red); }
+details summary .n { color: var(--red); font-family: "JetBrains Mono", monospace; font-size: 14px; font-weight: 500; }
+details p { margin: 0; padding: 0 28px 28px; font-size: 19px; color: #3d3b37; max-width: 900px; margin-left: calc(2 / 12 * 100%); }
+@media (max-width: 860px) { details p { margin-left: 40px; } }
 
 /* ---------- footer */
-footer { background: var(--gray); color: var(--muted); font-size: 12px; padding: 22px 0 40px; line-height: 1.5; }
-footer .notes { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 16px; }
-footer .row { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; }
-footer .row .r { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
-footer a { color: var(--muted); } footer a:hover { color: var(--text); }
+footer { border-top: 2px solid var(--line); }
+footer .big { font-size: clamp(80px, 22vw, 340px); font-weight: 900; letter-spacing: -0.07em; line-height: .8; padding-top: 40px; display: flex; align-items: flex-end; gap: 3vw; }
+footer .big canvas { width: clamp(70px, 14vw, 210px); height: auto; aspect-ratio: 14 / 13; margin-bottom: 1.5vw; }
+footer .bottom { display: flex; flex-wrap: wrap; gap: 10px 26px; padding-top: 20px; padding-bottom: 30px; border-top: 1px solid var(--line); margin-top: 30px; }
+footer .bottom .r { margin-left: auto; display: flex; gap: 22px; flex-wrap: wrap; }
+footer a { text-decoration: none; } footer a:hover { color: var(--red); }
+footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; font-family: "Inter Tight", sans-serif; font-size: 14px; width: 100%; }
 
-/* reveal on scroll */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .ghostglow { animation: none; } .device { transform: none !important; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .hero h1 .w { animation: none; opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
 
-<nav class="lnav">
-  <div class="wide">
-    <a class="name" href="#"><canvas class="ghost" width="14" height="13"></canvas>Lumi</a>
-    <div class="links">
-      <a class="hide-sm" href="#features" data-i18n="nav_features">Обзор</a>
-      <a class="hide-sm" href="#offline" data-i18n="nav_offline">Без интернета</a>
-      <a class="hide-sm" href="#faq" data-i18n="nav_faq">Вопросы</a>
-      <button class="lang" id="lang" aria-label="Language">EN</button>
-      <a class="pillbtn" href="#download" data-i18n="download">Скачать</a>
-    </div>
+<nav class="pad">
+  <a class="logo" href="#"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+  <div class="r mono">
+    <a class="hide-sm" href="#features" data-i18n="nav_features">Обзор</a>
+    <a class="hide-sm" href="#offline" data-i18n="nav_offline">Офлайн</a>
+    <a class="hide-sm" href="#faq" data-i18n="nav_faq">Вопросы</a>
+    <button class="lang mono" id="lang">EN</button>
+    <a class="get" href="#download" data-i18n="download">Скачать</a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="eyebrow teal" data-i18n="eyebrow">Новое: Lumi 2.0 для Linux</div>
-    <h1 data-i18n-html="hero_title">Нейросеть.<br><span class="grad">Одной клавишей.</span></h1>
-    <p class="sub" data-i18n="hero_sub">Спросите что угодно из любого окна. Ответ — прямо в строке.</p>
+  <div class="meta mono pad"><span>Lumi 2.0</span><span>Mac / Windows / Linux</span><span data-i18n="meta_free">MIT · Бесплатно</span></div>
+  <h1 class="pad" id="title" data-i18n-html="hero_title"><span class="w">Нейросеть</span><br><span class="w red" style="animation-delay:.12s">одной</span> <span class="w" style="animation-delay:.24s">клавишей.</span></h1>
+  <div class="hero-low pad">
+    <p class="lead" data-i18n="hero_lead">Нажмите клавишу в любом окне. Спросите. Ответ появится прямо в строке — без браузера, вкладок и аккаунтов.</p>
     <div class="ctas">
-      <a class="btn" id="dl-main" href="#download"><span data-i18n="download_free">Скачать бесплатно</span><span class="os" id="dl-os"></span></a>
-      <a class="more" href="#features" data-i18n="see_how">Как это работает</a>
+      <a class="btn accent" id="dl-main" href="#download"><span><span data-i18n="download_free">Скачать бесплатно</span><span class="os" id="dl-os"></span></span></a>
+      <a class="btn" href="https://github.com/AlbertS15/Lumi" data-i18n="source">Исходный код на GitHub</a>
     </div>
-    <div class="meta" data-i18n="meta">Mac, Windows и Linux · Открытый код · Может работать без интернета</div>
   </div>
-
-  <div class="device" id="device">
-    <div class="screen">
-      <div class="display" id="display">
-        <div class="menubar"><span></span><span>Finder</span><span>File</span><span>Edit</span><span>View</span><div class="r"><canvas class="ghost" width="14" height="13"></canvas><span id="clock">9:41</span></div></div>
-        <div class="win a"><div class="tb"><i></i><i></i><i></i></div><div class="lines"><div style="width:70%"></div><div style="width:92%"></div><div style="width:58%"></div><div style="width:82%"></div><div style="width:44%"></div><div style="width:76%"></div></div></div>
-        <div class="win b"><div class="tb"><i></i><i></i><i></i></div><div class="lines"><div style="width:62%"></div><div style="width:85%"></div><div style="width:48%"></div><div style="width:74%"></div></div></div>
-        <div class="veil"></div>
-        <div class="bar">
-          <div class="input"><canvas class="ghost live" width="14" height="13"></canvas><div class="typed" id="typed"></div><span class="model">Lumi</span></div>
-          <div class="answer" id="answer"><div class="q" id="asked"></div><div id="answer-text"></div></div>
-        </div>
-        <div class="dock"><kbd id="k1">⌥</kbd><kbd id="k2">Ё</kbd></div>
+  <div class="demo">
+    <div class="side">
+      <span class="mono" data-i18n="demo_label">Демонстрация</span>
+      <div class="keys"><kbd id="k1">⌥</kbd><kbd id="k2">Ё</kbd></div>
+    </div>
+    <div class="main">
+      <div class="bar" id="bar">
+        <div class="input"><canvas class="px ghost live" width="14" height="13"></canvas><div class="typed" id="typed"></div><span class="model mono">Lumi</span></div>
+        <div class="answer" id="answer"><div class="q mono" id="asked"></div><div id="answer-text"></div></div>
       </div>
+      <p class="mono" style="color:var(--gray);margin:16px 0 0" data-i18n="demo_note">Настоящие ответы модели Lumi на ноутбуке без интернета</p>
     </div>
-    <div class="base"></div>
   </div>
-  <p class="caption" data-i18n="caption">Ответы настоящие: модель Lumi на ноутбуке без интернета.</p>
 </header>
 
-<section class="statement">
-  <div class="wrap">
-    <p id="statement" data-i18n-statement="statement">Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* — и спросите.</p>
+<section class="statement pad">
+  <p id="statement">Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* — и спросите.</p>
+</section>
+
+<section id="features">
+  <div class="sec-head pad mono"><span>01—05</span><span data-i18n="f_label">Что умеет Lumi</span></div>
+  <div class="sec-title pad reveal"><h2 data-i18n="f_title">Одна строка.<br>Всё под рукой.</h2></div>
+  <div class="row pad reveal"><div class="n">01</div><div><h3 data-i18n="r1_h">Ответы в строке</h3><p data-i18n="r1_p">Ответ печатается сразу, как в чате. Уточняйте — разговор продолжится.</p></div><div class="ex" id="stream"></div></div>
+  <div class="row pad reveal"><div class="n">02</div><div><h3 data-i18n="r2_h">Программы и файлы</h3><p data-i18n="r2_p">Начните вводить название — Enter откроет нужное. Lumi сама отличает поиск от вопроса.</p></div><div class="ex" id="apps"></div></div>
+  <div class="row pad reveal"><div class="n">03</div><div><h3 data-i18n="r3_h">Любая нейросеть</h3><p data-i18n="r3_p">Claude, ChatGPT и Gemini по вашей подписке — без API-ключей. Или любой сервис по ключу.</p></div><div class="ex chips" id="chips"><span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">Lumi</span><span class="chip">DeepSeek</span><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip">YandexGPT</span><span class="chip">Mistral</span></div></div>
+  <div class="row pad reveal"><div class="n">04</div><div><h3 data-i18n="r4_h">Пять языков</h3><p data-i18n="r4_p">Интерфейс на пяти языках. Отвечает Lumi на языке вопроса.</p></div><div class="ex"><div class="hello" id="hello"></div></div></div>
+  <div class="row pad reveal"><div class="n">05</div><div><h3 data-i18n="r5_h">Своя клавиша</h3><p data-i18n="r5_p">Alt+Ё по умолчанию. Или любое другое сочетание, какое удобно вам.</p></div><div class="ex"><div class="keys" id="keyshow"></div></div></div>
+</section>
+
+<section class="offline" id="offline">
+  <div class="sec-head pad mono"><span>06</span><span data-i18n="o_label">Без интернета</span></div>
+  <div class="sec-title pad reveal"><h2 data-i18n-html="o_title">Свой ИИ.<br><span class="red">Ноль серверов.</span></h2></div>
+  <p class="lead pad reveal" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы его не покидают — у Lumi нет своих серверов. Ставится одной кнопкой, размер подбирается сам.</p>
+  <div class="trow headrow pad mono"><span data-i18n="th_model">Модель</span><span data-i18n="th_for">Для кого</span><span data-i18n="th_ram">Память</span><span data-i18n="th_dl">Загрузка</span></div>
+  <div class="trow pad reveal" data-tier="0"><span class="nm">Mini</span><span class="d" data-i18n="d0">Старые ноутбуки. Самая быстрая.</span><span class="gb">8 GB</span><span class="d">4.6 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
+  <div class="trow pad reveal" data-tier="1"><span class="nm">Lumi</span><span class="d" data-i18n="d1">Большинство компьютеров. Лучший баланс.</span><span class="gb">12 GB</span><span class="d">6.6 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
+  <div class="trow pad reveal" data-tier="2"><span class="nm">Pro</span><span class="d" data-i18n="d2">Мощные компьютеры. Самая умная.</span><span class="gb">32 GB</span><span class="d">24 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
+  <div class="howto pad reveal"><span data-i18n-html="howto"><b>Подключить модель</b> → <b>Ollama</b> → <b>Установить Lumi</b>. Ollama Lumi тоже поставит сама.</span>
+    <canvas class="px ghost live ghostbig" width="14" height="13"></canvas></div>
+</section>
+
+<section id="download">
+  <div class="sec-head pad mono"><span>07</span><span data-i18n="d_label">Скачать</span></div>
+  <div class="sec-title pad reveal"><h2 data-i18n-html="d_title">Mac.<br>Windows.<br><span class="red">Linux.</span></h2></div>
+  <div class="plats">
+    <div class="plat reveal" data-os="mac"><div class="top mono"><span>macOS 14+</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+      <h3>Mac</h3><div class="hk"><kbd>⌥</kbd><kbd class="lk">Ё</kbd></div>
+      <p data-i18n="pm">Перетащите Lumi в «Программы». Первый запуск: правый клик → «Открыть».</p>
+      <a class="btn" data-asset="mac" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-macOS.dmg</a></div>
+    <div class="plat reveal" data-os="win"><div class="top mono"><span>Windows 10/11</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+      <h3>Windows</h3><div class="hk"><kbd>Alt</kbd><kbd class="lk">Ё</kbd></div>
+      <p data-i18n="pw">Установщик без прав администратора. Если SmartScreen спросит — «Подробнее» → «Выполнить».</p>
+      <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-Setup.exe</a></div>
+    <div class="plat reveal" data-os="linux"><div class="top mono"><span>x86-64</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+      <h3>Linux</h3><div class="hk"><kbd>Ctrl</kbd><kbd data-i18n="space">Пробел</kbd></div>
+      <p data-i18n-html="pl">Один файл AppImage: <code>chmod +x</code> и запуск. Версия новая — расскажите, как работает.</p>
+      <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi.AppImage</a></div>
   </div>
 </section>
 
-<section class="gray" id="features">
-  <div class="wide">
-    <div class="head reveal">
-      <h2 data-i18n="f_title">Познакомьтесь с Lumi.</h2>
-      <p data-i18n="f_sub">Одна строка для программ, файлов и ответов. Она сама понимает, что вам нужно.</p>
-    </div>
-    <div class="tiles">
-      <div class="tile t1 reveal">
-        <div class="label" data-i18n="t1_l">Ответы</div>
-        <h3 data-i18n="t1_h">Ответ печатается прямо в строке.</h3>
-        <div class="body"><div class="stream" id="stream"></div></div>
-      </div>
-      <div class="tile t2 reveal">
-        <div class="label" data-i18n="t2_l">Поиск</div>
-        <h3 data-i18n="t2_h">Программы и файлы — по первым буквам.</h3>
-        <div class="body apps" id="apps"></div>
-      </div>
-      <div class="tile t3 reveal">
-        <div class="label" data-i18n="t3_l">Модели</div>
-        <h3 data-i18n="t3_h">Любая нейросеть. Даже ваша подписка.</h3>
-        <div class="body chips" id="chips"><span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">Lumi</span><span class="chip">DeepSeek</span><span class="chip">GigaChat</span><span class="chip">YandexGPT</span></div>
-      </div>
-      <div class="tile t4 reveal">
-        <div class="label" data-i18n="t4_l">Языки</div>
-        <h3 data-i18n="t4_h">Отвечает на языке вопроса.</h3>
-        <div class="body"><div class="hello" id="hello"></div></div>
-      </div>
-      <div class="tile t5 reveal">
-        <div class="label" data-i18n="t5_l">Клавиша</div>
-        <h3 data-i18n="t5_h">Любое сочетание. Ваше.</h3>
-        <div class="body keys" id="keyshow"></div>
-      </div>
-    </div>
-  </div>
+<section id="faq">
+  <div class="sec-head pad mono"><span>08</span><span data-i18n="q_label">Вопросы</span></div>
+  <details><summary><span class="n">Q1</span><span data-i18n="q1">Это правда бесплатно?</span></summary><p data-i18n="a1">Да. Lumi бесплатная и с открытым кодом. Платить нужно только за саму нейросеть, если вы выбираете платный сервис, — или не платить вовсе со своей моделью Lumi.</p></details>
+  <details><summary><span class="n">Q2</span><span data-i18n="q2">Нужен ли интернет?</span></summary><p data-i18n="a2">Для облачных нейросетей — да. Своя модель Lumi работает полностью без интернета: интернет нужен только один раз, чтобы её скачать.</p></details>
+  <details><summary><span class="n">Q3</span><span data-i18n="q3">Куда уходят мои вопросы?</span></summary><p data-i18n="a3">Только в тот сервис, который вы выбрали. Со своей моделью Lumi — никуда, всё остаётся на компьютере. У Lumi нет своих серверов.</p></details>
+  <details><summary><span class="n">Q4</span><span data-i18n="q4">Почему система предупреждает при первом запуске?</span></summary><p data-i18n="a4">Lumi — независимый проект без платного сертификата Apple и Microsoft, поэтому система её «не знает». Код полностью открыт на GitHub.</p></details>
+  <details><summary><span class="n">Q5</span><span data-i18n="q5">Lumi связана с Apple, Anthropic, OpenAI или Google?</span></summary><p data-i18n="a5">Нет, это независимый проект. Claude, ChatGPT, Gemini, Mac и Spotlight — товарные знаки их владельцев.</p></details>
 </section>
 
-<section class="dark" id="offline">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow" data-i18n="o_eyebrow">Приватность</div>
-      <h2 data-i18n-html="o_title">Свой ИИ.<br>Без интернета.</h2>
-      <p class="lead" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы никуда не уходят — у Lumi даже нет своих серверов.</p>
+<footer class="pad">
+  <div class="big"><span>Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
+  <div class="bottom mono">
+    <span>© 2026 Lumi · MIT</span>
+    <div class="r">
+      <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
+      <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
+      <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
+      <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
     </div>
-    <canvas class="ghost live ghostglow reveal" width="14" height="13"></canvas>
-    <div class="compare" id="compare">
-      <div class="reveal" data-tier="0"><div class="nm">Lumi Mini</div><span class="rec" data-i18n="rec">Для вашего компьютера</span><div class="big">8 GB</div><div class="unit" data-i18n="ram">памяти и больше</div><div class="desc" data-i18n="d0">Самая лёгкая и быстрая. Для старых ноутбуков.</div></div>
-      <div class="reveal" data-tier="1"><div class="nm">Lumi</div><span class="rec" data-i18n="rec">Для вашего компьютера</span><div class="big">12 GB</div><div class="unit" data-i18n="ram">памяти и больше</div><div class="desc" data-i18n="d1">Лучший баланс скорости и ума. Для большинства.</div></div>
-      <div class="reveal" data-tier="2"><div class="nm">Lumi Pro</div><span class="rec" data-i18n="rec">Для вашего компьютера</span><div class="big">32 GB</div><div class="unit" data-i18n="ram">памяти и больше</div><div class="desc" data-i18n="d2">Самая умная. Для мощных компьютеров.</div></div>
-    </div>
-    <div class="howto reveal" data-i18n-html="howto">Ставится одной кнопкой: <b>Подключить модель</b> → <b>Ollama</b> → <b>Установить Lumi</b>. Размер Lumi подберёт сама.</div>
-  </div>
-</section>
-
-<section class="dl" id="download">
-  <div class="wide">
-    <div class="head reveal">
-      <h2 data-i18n="d_title">Mac. Windows. Linux.</h2>
-      <p data-i18n="d_sub">Бесплатно. С открытым кодом. Без регистрации.</p>
-    </div>
-    <div class="plats">
-      <div class="plat reveal" data-os="mac"><span class="yours" data-i18n="yours">Ваша система</span>
-        <h3>macOS</h3><div class="hk"><kbd>⌥</kbd>+<kbd class="lk">Ё</kbd></div>
-        <p data-i18n="pm">Перетащите Lumi в «Программы». Первый запуск: правый клик → «Открыть».</p>
-        <a class="btn" data-asset="mac" href="https://github.com/AlbertS15/Lumi/releases/latest" data-i18n="get">Скачать</a>
-      </div>
-      <div class="plat reveal" data-os="win"><span class="yours" data-i18n="yours">Ваша система</span>
-        <h3>Windows</h3><div class="hk"><kbd>Alt</kbd>+<kbd class="lk">Ё</kbd></div>
-        <p data-i18n="pw">Установщик без прав администратора. Если SmartScreen спросит — «Подробнее» → «Выполнить».</p>
-        <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest" data-i18n="get">Скачать</a>
-      </div>
-      <div class="plat reveal" data-os="linux"><span class="yours" data-i18n="yours">Ваша система</span>
-        <h3>Linux</h3><div class="hk"><kbd>Ctrl</kbd>+<kbd data-i18n="space">Пробел</kbd></div>
-        <p data-i18n-html="pl">Один файл AppImage: <code>chmod +x</code> и запуск. Версия новая — расскажите, как работает.</p>
-        <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest" data-i18n="get">Скачать</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="faq" id="faq">
-  <div class="wrap">
-    <div class="head reveal"><h2 data-i18n="q_title">Вопросы и ответы.</h2></div>
-    <div class="list">
-      <details class="reveal"><summary data-i18n="q1">Это правда бесплатно?</summary><p data-i18n="a1">Да. Lumi бесплатная и с открытым кодом. Платить нужно только за саму нейросеть, если вы выбираете платный сервис, — или не платить вовсе со своей моделью Lumi.</p></details>
-      <details class="reveal"><summary data-i18n="q2">Нужен ли интернет?</summary><p data-i18n="a2">Для облачных нейросетей — да. Своя модель Lumi работает полностью без интернета: интернет нужен только один раз, чтобы её скачать.</p></details>
-      <details class="reveal"><summary data-i18n="q3">Куда уходят мои вопросы?</summary><p data-i18n="a3">Только в тот сервис, который вы выбрали. Со своей моделью Lumi — никуда, всё остаётся на компьютере. У Lumi нет своих серверов.</p></details>
-      <details class="reveal"><summary data-i18n="q4">Почему система предупреждает при первом запуске?</summary><p data-i18n="a4">Lumi — независимый проект без платного сертификата Apple и Microsoft, поэтому система её «не знает». Код полностью открыт на GitHub.</p></details>
-      <details class="reveal"><summary data-i18n="q5">Lumi связана с Apple, Anthropic, OpenAI или Google?</summary><p data-i18n="a5">Нет, это независимый проект. Claude, ChatGPT, Gemini, Mac и Spotlight — товарные знаки их владельцев.</p></details>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wide">
-    <div class="notes" data-i18n="legal">Lumi — независимый проект с открытым кодом (лицензия MIT). Не связан с Apple, Anthropic, OpenAI и Google. Ответы в демонстрации — настоящие ответы модели Lumi, сокращённые для экрана.</div>
-    <div class="row">
-      <span>© 2026 Lumi</span>
-      <div class="r">
-        <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
-        <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
-        <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
-        <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
-      </div>
-    </div>
+    <span class="legal" data-i18n="legal">Независимый проект с открытым кодом. Не связан с Apple, Anthropic, OpenAI и Google. Ответы в демонстрации — настоящие ответы модели Lumi, сокращённые для экрана.</span>
   </div>
 </footer>
 
 <script>
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// ---------- the pixel ghost, from the same grid as the apps
+// ---------- the pixel ghost in ink, from the same grid as the apps
 const GHOST = ["....BBBBBB....","..BBBBBBBBBB..",".BBBBBBBBBBBB.",".BBBBBBBBBBBB.","BBBEEBBBBEEBBB","BBBEEBBBBEEBBB",
                "BBBBBBBBBBBBBB","BBBBBBEEBBBBBB","BBBBBBBBBBBBBB","BBBBBBBBBBBBBB"];
 const HEMS = ["BB..BBBBBB..BB", "..BBBB..BBBB.."];
 function drawGhost(canvas, step) {
+  const dark = canvas.closest(".offline");
   const c = canvas.getContext("2d");
   c.clearRect(0, 0, 14, 13);
   const lift = step ? 0 : 1;
   [...GHOST, HEMS[step]].forEach((row, y) => [...row].forEach((ch, x) => {
     if (ch === ".") return;
-    c.fillStyle = ch === "E" ? "#1d1d1f" : "#5dcaa5";
+    c.fillStyle = ch === "E" ? (dark ? "#111" : "#f2f0eb") : (dark ? "#f2f0eb" : "#111");
     c.fillRect(x, y + lift, 1, 1);
   }));
 }
 document.querySelectorAll("canvas.ghost").forEach(g => drawGhost(g, 0));
 let gstep = 0;
-if (!reduced) setInterval(() => { gstep = 1 - gstep; document.querySelectorAll("canvas.live").forEach(g => drawGhost(g, gstep)); }, 420);
+if (!reduced) setInterval(() => { gstep = 1 - gstep; document.querySelectorAll("canvas.live").forEach(g => drawGhost(g, gstep)); }, 480);
 
 // ---------- texts
 const EN = {
-  nav_features: "Overview", nav_offline: "Offline", nav_faq: "FAQ", download: "Download",
-  eyebrow: "New: Lumi 2.0 for Linux", hero_title: "AI.<br><span class=\"grad\">On one key.</span>",
-  hero_sub: "Ask anything from any window. The answer appears right in the bar.",
-  download_free: "Download for free", see_how: "See how it works",
-  meta: "Mac, Windows and Linux · Open source · Can work offline",
-  caption: "Real answers: the Lumi model running on a laptop, offline.",
+  nav_features: "Overview", nav_offline: "Offline", nav_faq: "FAQ", download: "Download", meta_free: "MIT · Free",
+  hero_title: '<span class="w">AI on</span><br><span class="w red" style="animation-delay:.12s">one</span> <span class="w" style="animation-delay:.24s">key.</span>',
+  hero_lead: "Press a key in any window. Ask. The answer appears right in the bar: no browser, no tabs, no accounts.",
+  download_free: "Download for free", source: "Source code on GitHub", demo_label: "Demo",
+  demo_note: "Real answers from the Lumi model on a laptop, offline",
   statement: "No browser to open. No website to find. No account to sign in to. Just press *Alt+`* and ask.",
-  f_title: "Meet Lumi.", f_sub: "One bar for apps, files and answers. It knows what you want.",
-  t1_l: "Answers", t1_h: "The answer appears right in the bar.",
-  t2_l: "Search", t2_h: "Apps and files by their first letters.",
-  t3_l: "Models", t3_h: "Any AI. Even your subscription.",
-  t4_l: "Languages", t4_h: "Answers in the language you ask in.",
-  t5_l: "Hotkey", t5_h: "Any shortcut. Yours.",
-  o_eyebrow: "Privacy", o_title: "Your own AI.<br>No internet.",
-  o_lead: "The Lumi model runs right on your computer. Your questions never leave it, and Lumi doesn't even have servers.",
-  rec: "For your computer", ram: "of memory or more",
-  d0: "The lightest and fastest. For older laptops.", d1: "The best balance of speed and smarts. For most people.", d2: "The smartest. For powerful computers.",
-  howto: "One button installs it: <b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi picks the size for you.",
-  d_title: "Mac. Windows. Linux.", d_sub: "Free. Open source. No sign-up.", yours: "Your system", get: "Download",
+  f_label: "What Lumi does", f_title: "One bar.<br>Everything at hand.",
+  r1_h: "Answers in the bar", r1_p: "The answer streams in like a chat. Follow up and the conversation goes on.",
+  r2_h: "Apps and files", r2_p: "Start typing a name, Enter opens it. Lumi tells a search from a question by itself.",
+  r3_h: "Any AI", r3_p: "Claude, ChatGPT and Gemini with your subscription, no API keys. Or any service with a key.",
+  r4_h: "Five languages", r4_p: "The interface speaks five languages. Lumi answers in the language you ask in.",
+  r5_h: "Your own key", r5_p: "Alt + the key left of 1 by default. Or any shortcut you like.",
+  o_label: "Offline", o_title: 'Your own AI.<br><span class="red">Zero servers.</span>',
+  o_lead: "The Lumi model runs right on your computer. Your questions never leave it: Lumi has no servers of its own. One button installs it and the size is picked for you.",
+  th_model: "Model", th_for: "For", th_ram: "Memory", th_dl: "Download",
+  d0: "Older laptops. The fastest.", d1: "Most computers. The best balance.", d2: "Powerful computers. The smartest.", rec: "● Your computer",
+  howto: "<b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi installs Ollama for you too.",
+  d_label: "Download", d_title: 'Mac.<br>Windows.<br><span class="red">Linux.</span>', yours: "● Your system",
   pm: "Drag Lumi to Applications. First launch: right-click → Open.",
   pw: "An installer with no admin rights needed. If SmartScreen asks: “More info” → “Run anyway”.",
   pl: "One AppImage file: <code>chmod +x</code> and run. It's new, so tell us how it works for you.", space: "Space",
-  q_title: "Questions and answers.",
+  q_label: "Questions",
   q1: "Is it really free?", a1: "Yes. Lumi is free and open source. You only pay for the AI itself if you choose a paid service, or nothing at all with Lumi's own model.",
   q2: "Does it need the internet?", a2: "Cloud AIs do. Lumi's own model works fully offline; you only need the internet once to download it.",
   q3: "Where do my questions go?", a3: "Only to the service you picked. With Lumi's own model, nowhere: everything stays on your computer. Lumi has no servers of its own.",
   q4: "Why does my system warn me on first launch?", a4: "Lumi is an independent project without a paid Apple or Microsoft certificate, so the system doesn't know it yet. The code is fully open on GitHub.",
   q5: "Is Lumi made by Apple, Anthropic, OpenAI or Google?", a5: "No, it's an independent project. Claude, ChatGPT, Gemini, Mac and Spotlight are trademarks of their owners.",
-  legal: "Lumi is an independent open-source project (MIT license), not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
   releases: "All versions", bug: "Report a bug",
+  legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
 };
 const RU = {};
 document.querySelectorAll("[data-i18n]").forEach(e => RU[e.dataset.i18n] = e.textContent);
@@ -436,7 +351,7 @@ const STREAM = {
   ru: ["объясни как пятилетнему: что такое инфляция", "Представь, что у тебя есть 10 монет, и на них можно купить 5 конфет. Если завтра эти же 10 монет купят только 4 конфеты, это и есть инфляция."],
   en: ["what's the difference between weather and climate?", "Weather describes the atmosphere over a short period in one place. Climate is the long-term average of weather patterns for a region."],
 };
-const APPS = [["Te", "#2aabee", "Telegram"], ["Fi", "#a259ff", "Figma"], ["No", "#ffcc00", "Notes"], ["Sp", "#1db954", "Spotify"]];
+const APPS = [["#2aabee", "Telegram"], ["#a259ff", "Figma"], ["#f5c400", "Notes"], ["#1db954", "Spotify"]];
 const HELLO = ["Привет.", "Hello.", "Hallo.", "Hola.", "Bonjour."];
 
 let lang = "ru";
@@ -452,21 +367,26 @@ function hotkey() {
   return [os === "win" ? "Alt" : "⌥", lang === "ru" ? "Ё" : "`"];
 }
 
-// The statement lights up word by word as it scrolls past; *words* get the gradient.
+// The statement lights up word by word as it scrolls past; the *key* turns red.
 function buildStatement() {
   const el = document.getElementById("statement");
   const [a, b] = hotkey();
-  const text = (lang === "ru" ? RU.statement : EN.statement).replace(/\*[^*]+\*/, "*" + (a === "⌥" ? "⌥" : a) + "+" + b + "*");
+  const text = (lang === "ru" ? RU.statement : EN.statement).replace(/\*[^*]+\*/, "*" + a + "+" + b + "*");
   el.innerHTML = "";
   for (const part of text.split(/(\*[^*]+\*)/)) {
     if (!part) continue;
-    if (part.startsWith("*")) {
-      const s = document.createElement("span"); s.className = "w key"; s.textContent = part.slice(1, -1); el.append(s, " ");
-    } else {
-      for (const word of part.trim().split(/\s+/)) { const s = document.createElement("span"); s.className = "w"; s.textContent = word; el.append(s, " "); }
-    }
+    if (part.startsWith("*")) { const s = document.createElement("span"); s.className = "w key"; s.textContent = part.slice(1, -1); el.append(s, " "); }
+    else for (const word of part.trim().split(/\s+/)) { const s = document.createElement("span"); s.className = "w"; s.textContent = word; el.append(s, " "); }
   }
 }
+function lightStatement() {
+  const el = document.getElementById("statement");
+  const r = el.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
+  const words = el.querySelectorAll(".w");
+  words.forEach((w, i) => w.classList.toggle("on", reduced || i < Math.round(p * words.length)));
+}
+addEventListener("scroll", () => requestAnimationFrame(lightStatement), { passive: true });
 
 function applyLang() {
   const dict = lang === "ru" ? RU : EN;
@@ -479,14 +399,14 @@ function applyLang() {
   const [a, b] = hotkey();
   document.getElementById("k1").textContent = a; document.getElementById("k2").textContent = b;
   const space = lang === "ru" ? "Пробел" : "Space";
-  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>→</span><kbd>Ctrl</kbd><kbd>${space}</kbd>`;
+  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;→&nbsp;</span><kbd>Ctrl</kbd><kbd>${space}</kbd>`;
   buildStatement(); lightStatement();
   setOs();
 }
 
 function setOs() {
   const label = { mac: "Mac", win: "Windows", linux: "Linux" }[os];
-  document.getElementById("dl-os").textContent = label ? (lang === "ru" ? " для " : " for ") + label : "";
+  document.getElementById("dl-os").textContent = label ? (lang === "ru" ? "для " : "for ") + label : "";
   document.getElementById("dl-main").href = (os && assets[os]) || "#download";
   document.querySelectorAll("[data-asset]").forEach(a => { if (assets[a.dataset.asset]) a.href = assets[a.dataset.asset]; });
   document.querySelectorAll(".plat").forEach(p => p.classList.toggle("mine", p.dataset.os === os));
@@ -518,17 +438,17 @@ let run = 0;
 const loop = fn => { const id = run; const wait = async ms => { await sleep(ms); if (id !== run) throw 0; }; fn(wait).catch(() => {}); };
 
 async function heroDemo(wait) {
-  const display = document.getElementById("display"), typed = document.getElementById("typed");
+  const bar = document.getElementById("bar"), typed = document.getElementById("typed");
   const answer = document.getElementById("answer"), asked = document.getElementById("asked"), out = document.getElementById("answer-text");
   const k1 = document.getElementById("k1"), k2 = document.getElementById("k2");
   for (let i = 0; ; i = (i + 1) % DEMO[lang].length) {
     const [q, a] = DEMO[lang][i];
-    display.classList.remove("active"); answer.classList.remove("show"); k1.classList.remove("down"); k2.classList.remove("down");
+    bar.classList.remove("open"); answer.classList.remove("show"); k1.classList.remove("down"); k2.classList.remove("down");
     typed.innerHTML = '<span class="ph">' + (lang === "ru" ? "Поиск или вопрос" : "Search or ask") + "</span>";
     await wait(1000);
-    k1.classList.add("down"); await wait(110); k2.classList.add("down"); await wait(240);
+    k1.classList.add("down"); await wait(110); k2.classList.add("down"); await wait(260);
     k1.classList.remove("down"); k2.classList.remove("down");
-    display.classList.add("active"); await wait(450);
+    bar.classList.add("open"); await wait(350);
     for (let n = 1; n <= q.length; n++) { typed.innerHTML = q.slice(0, n).replace(/</g, "&lt;") + '<span class="caret"></span>'; await wait(36); }
     await wait(380);
     asked.textContent = q; out.textContent = "";
@@ -543,7 +463,7 @@ async function streamDemo(wait) {
   const box = document.getElementById("stream");
   while (true) {
     const [q, a] = STREAM[lang];
-    box.innerHTML = '<div class="q"></div><div class="txt"></div>';
+    box.innerHTML = '<div class="q mono"></div><div class="txt"></div>';
     box.querySelector(".q").textContent = q;
     const txt = box.querySelector(".txt");
     await wait(700);
@@ -554,24 +474,21 @@ async function streamDemo(wait) {
 
 async function appsDemo(wait) {
   const box = document.getElementById("apps");
-  box.innerHTML = APPS.map(([ic, col, name]) => `<div class="row"><span class="ic" style="background:${col}">${ic}</span>${name}</div>`).join("");
+  box.innerHTML = APPS.map(([col, name]) => `<div class="app"><i style="background:${col}"></i>${name}</div>`).join("");
   const rows = [...box.children];
   for (let i = 0; ; i = (i + 1) % rows.length) { rows.forEach((r, j) => r.classList.toggle("sel", i === j)); await wait(1300); }
 }
 
 async function chipsDemo(wait) {
   const chips = [...document.querySelectorAll("#chips .chip")];
-  for (let i = 0; ; i = (i + 1) % chips.length) { chips.forEach((c, j) => c.classList.toggle("on", i === j)); await wait(1100); }
+  for (let i = 0; ; i = (i + 1) % chips.length) { chips.forEach((c, j) => c.classList.toggle("on", i === j)); await wait(1000); }
 }
 
 async function helloDemo(wait) {
   const box = document.getElementById("hello");
   box.innerHTML = HELLO.map(h => `<span>${h}</span>`).join("");
   const spans = [...box.children];
-  for (let i = 0; ; i = (i + 1) % spans.length) {
-    spans.forEach((s, j) => { s.style.transform = `translateY(${(j - i) * 110}%)`; s.style.opacity = j === i ? 1 : 0; });
-    await wait(1600);
-  }
+  for (let i = 0; ; i = (i + 1) % spans.length) { spans.forEach((s, j) => s.style.transform = `translateY(${(j - i) * 105}%)`); await wait(1600); }
 }
 
 function restart() {
@@ -580,40 +497,16 @@ function restart() {
   [heroDemo, streamDemo, appsDemo, chipsDemo, helloDemo].forEach(loop);
 }
 
-// ---------- the recommended model: Chrome tells memory (rounded, capped at 8); elsewhere assume 16
+// ---------- the recommended model: Chrome tells memory (rounded, capped at 8); elsewhere assume 12+
 const mem = navigator.deviceMemory;
 const tier = mem && mem < 8 ? 0 : 1;
-document.querySelectorAll("#compare [data-tier]").forEach(d => d.classList.toggle("is-rec", +d.dataset.tier === tier));
-
-// ---------- scroll: the laptop grows into view, the statement lights up
-const device = document.getElementById("device");
-function lightStatement() {
-  const el = document.getElementById("statement");
-  const r = el.getBoundingClientRect();
-  const p = Math.min(1, Math.max(0, (innerHeight * 0.8 - r.top) / (r.height + innerHeight * 0.35)));
-  const words = el.querySelectorAll(".w");
-  words.forEach((w, i) => w.classList.toggle("on", i < Math.round(p * words.length)));
-}
-function onScroll() {
-  if (!reduced) {
-    const r = device.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, 1 - r.top / innerHeight));
-    device.style.transform = `scale(${0.9 + 0.1 * p})`;
-  }
-  lightStatement();
-}
-addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
-
-// ---------- the clock in the mock menu bar
-const clock = () => { const d = new Date(); document.getElementById("clock").textContent = d.getHours() + ":" + String(d.getMinutes()).padStart(2, "0"); };
-clock(); setInterval(clock, 30000);
+document.querySelectorAll(".trow[data-tier]").forEach(d => d.classList.toggle("rec", +d.dataset.tier === tier));
 
 // ---------- reveal sections as they scroll in
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
-document.querySelectorAll(".reveal").forEach((e, i) => { e.style.transitionDelay = (i % 3) * 100 + "ms"; io.observe(e); });
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(e => io.observe(e));
 
 applyLang();
-onScroll();
 restart();
 </script>
 </body>
