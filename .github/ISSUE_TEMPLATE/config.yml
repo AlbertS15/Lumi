@@ -3,3 +3,6 @@ contact_links:
   - name: News and setup guides (Telegram, in Russian) / Новости и гайды
     url: https://t.me/+3IU-_WIhrTU4MjAy
     about: Release notes and how to connect Ollama, OpenRouter and other models. / Обновления и как подключить модели.
+  - name: Website / Сайт Lumi
+    url: https://alberts15.github.io/Lumi/
+    about: Download Lumi and see what it can do. / Скачать Lumi и посмотреть, что она умеет.

@@ -9,13 +9,12 @@ body:
         Спасибо, что сообщаете! Можно писать по-русски.
 
         ⚠️ Never paste API keys or tokens here — screenshots too. / Не вставляйте сюда API-ключи и токены, в том числе на скриншотах.
-  - type: dropdown
+  - type: input
     id: os
     attributes:
       label: System / Система
-      options:
-        - macOS
-        - Windows
+      description: Filled in automatically from Lumi's menu → "Report a problem…". / Заполняется само, если открыть через меню Lumi → «Сообщить об ошибке…».
+      placeholder: "macOS 15.4 / Windows 11 / Ubuntu 24.04, GNOME (wayland)"
     validations:
       required: true
   - type: input
@@ -23,25 +22,14 @@ body:
     attributes:
       label: Lumi version / Версия Lumi
       description: |
-        Mac: Finder → Applications → Lumi → right-click → Get Info. Windows: Settings → Apps → Lumi.
-        Mac: Finder → Программы → Lumi → правый клик → «Свойства». Windows: «Параметры» → «Приложения» → Lumi.
-      placeholder: "1.3.1"
-  - type: dropdown
+        Easiest: Lumi's menu → "Report a problem…" fills it in. / Проще всего: меню Lumi → «Сообщить об ошибке…» — заполнится само.
+      placeholder: "2.0.0"
+  - type: input
     id: model
     attributes:
       label: Model / Модель
-      options:
-        - Claude (Claude Code)
-        - ChatGPT (Codex CLI)
-        - Gemini (Gemini CLI)
-        - OpenRouter
-        - Ollama / LM Studio
-        - DeepSeek
-        - YandexGPT / GigaChat
-        - Other OpenAI-compatible service / Другой OpenAI-совместимый сервис
-        - Not about models (search, hotkey, install) / Не про модели (поиск, клавиша, установка)
-    validations:
-      required: true
+      description: Or "not about models" (search, hotkey, install). / Или «не про модели» (поиск, клавиша, установка).
+      placeholder: "Claude / lumi / OpenRouter / …"
   - type: textarea
     id: what
     attributes:

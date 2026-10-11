@@ -166,6 +166,8 @@ public sealed class App : Application
         login.Click += (_, _) => Settings.LaunchesAtLogin = !Settings.LaunchesAtLogin;
         menu.Items.Add(login);
         menu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
+        menu.Items.Add(S.MenuReportBug, null, (_, _) =>
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(BugReport.Url()) { UseShellExecute = true }));
         menu.Items.Add(S.MenuQuit, null, (_, _) => Quit());
     }
 

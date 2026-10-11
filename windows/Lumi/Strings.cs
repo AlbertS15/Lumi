@@ -68,6 +68,7 @@ public static class S
         ["menu_open_search"] = new[] { "Open search  ({0})", "Открыть поиск  ({0})", "Suche öffnen  ({0})", "Abrir búsqueda  ({0})", "Ouvrir la recherche  ({0})" },
         ["menu_window"] = new[] { "Lumi window…", "Окно Lumi…", "Lumi-Fenster…", "Ventana de Lumi…", "Fenêtre Lumi…" },
         ["menu_launch_at_login"] = new[] { "Open at login", "Запускать при входе", "Beim Anmelden öffnen", "Abrir al iniciar sesión", "Ouvrir à la connexion" },
+        ["menu_report_bug"] = new[] { "Report a problem…", "Сообщить об ошибке…", "Problem melden…", "Informar de un problema…", "Signaler un problème…" },
         ["menu_quit"] = new[] { "Quit", "Выйти", "Beenden", "Salir", "Quitter" },
         ["model_auto"] = new[] { "Claude", "Claude", "Claude", "Claude", "Claude" },
         ["note_auto"] = new[] { "as in Claude Code", "как в Claude Code", "wie in Claude Code", "como en Claude Code", "comme dans Claude Code" },
@@ -192,6 +193,7 @@ public static class S
     public static string MenuOpenSearch(string a0) => F("menu_open_search", a0);
     public static string MenuWindow => F("menu_window");
     public static string MenuLaunchAtLogin => F("menu_launch_at_login");
+    public static string MenuReportBug => F("menu_report_bug");
     public static string MenuQuit => F("menu_quit");
     public static string ModelAuto => F("model_auto");
     public static string NoteAuto => F("note_auto");

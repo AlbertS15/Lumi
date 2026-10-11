@@ -159,6 +159,7 @@ public sealed class App : Application
         login.IsChecked = Settings.LaunchesAtLogin;
         menu.Add(login);
         menu.Add(new NativeMenuItemSeparator());
+        menu.Add(Item(S.MenuReportBug, () => Updates.Open(BugReport.Url())));
         menu.Add(Item(S.MenuQuit, Quit));
         _tray.Menu = menu;
     }

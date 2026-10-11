@@ -57,6 +57,7 @@ private let table: [String: [String]] = [
     "menu_open_search": ["Open search  ({0})", "Открыть поиск  ({0})", "Suche öffnen  ({0})", "Abrir búsqueda  ({0})", "Ouvrir la recherche  ({0})"],
     "menu_window": ["Lumi window…", "Окно Lumi…", "Lumi-Fenster…", "Ventana de Lumi…", "Fenêtre Lumi…"],
     "menu_launch_at_login": ["Open at login", "Запускать при входе", "Beim Anmelden öffnen", "Abrir al iniciar sesión", "Ouvrir à la connexion"],
+    "menu_report_bug": ["Report a problem…", "Сообщить об ошибке…", "Problem melden…", "Informar de un problema…", "Signaler un problème…"],
     "menu_quit": ["Quit", "Выйти", "Beenden", "Salir", "Quitter"],
     "model_auto": ["Claude", "Claude", "Claude", "Claude", "Claude"],
     "note_auto": ["as in Claude Code", "как в Claude Code", "wie in Claude Code", "como en Claude Code", "comme dans Claude Code"],
@@ -182,6 +183,7 @@ enum S {
     static func menuOpenSearch(_ a0: String) -> String { format("menu_open_search", [a0]) }
     static var menuWindow: String { format("menu_window", []) }
     static var menuLaunchAtLogin: String { format("menu_launch_at_login", []) }
+    static var menuReportBug: String { format("menu_report_bug", []) }
     static var menuQuit: String { format("menu_quit", []) }
     static var modelAuto: String { format("model_auto", []) }
     static var noteAuto: String { format("note_auto", []) }

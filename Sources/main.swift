@@ -2621,6 +2621,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func openReleases() { NSWorkspace.shared.open(UpdateChecker.releasesPage) }
 
+    /// Opens the GitHub bug form with the version, system and model filled in (no addresses or keys).
+    @objc private func reportBug() {
+        let settings = Settings.shared
+        var model = settings.title(of: settings.choice)
+        if let c = settings.connection { model += " / " + c.model }
+        #if arch(arm64)
+        let chip = "Apple Silicon"
+        #else
+        let chip = "Intel"
+        #endif
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"
+        var url = URLComponents(string: "https://github.com/AlbertS15/Lumi/issues/new")!
+        url.queryItems = [
+            URLQueryItem(name: "template", value: "bug_report.yml"),
+            URLQueryItem(name: "version", value: version),
+            URLQueryItem(name: "os", value: "macOS \(ProcessInfo.processInfo.operatingSystemVersionString), \(chip)"),
+            URLQueryItem(name: "model", value: model),
+        ]
+        if let link = url.url { NSWorkspace.shared.open(link) }
+    }
+
     /// Lumi used to be called ClaudeLight (same bundle id, so settings carry over). Two copies would both
     /// grab the hotkey, so the old one is quit and its app moved to the Trash, where it can be restored.
     private static func retireClaudeLight() {
@@ -2675,6 +2696,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         modelItem.submenu = models
         menu.addItem(modelItem)
         menu.addItem(.separator())
+        menu.addItem(withTitle: S.menuReportBug, action: #selector(reportBug), keyEquivalent: "")
         menu.addItem(withTitle: S.uninstall, action: #selector(uninstall), keyEquivalent: "")
         menu.addItem(withTitle: S.menuQuit, action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         for item in menu.items where item.action != #selector(NSApplication.terminate(_:)) { item.target = self }

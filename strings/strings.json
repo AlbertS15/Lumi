@@ -253,7 +253,8 @@
       "Abrir al iniciar sesión",
       "Ouvrir à la connexion"
     ],
-    "menu_quit": [
+    "menu_report_bug": ["Report a problem…", "Сообщить об ошибке…", "Problem melden…", "Informar de un problema…", "Signaler un problème…"],
+  "menu_quit": [
       "Quit",
       "Выйти",
       "Beenden",

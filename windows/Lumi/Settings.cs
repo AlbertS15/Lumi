@@ -368,3 +368,36 @@ public static class Ollama
     public static bool IsInstalled(LumiRecipe recipe, List<string> models) =>
         models.Contains(recipe.Name) || models.Contains(recipe.Name + ":latest");
 }
+
+/// The GitHub bug form with the version, system and model filled in. Only names: no addresses or keys.
+public static class BugReport
+{
+    public static string Url()
+    {
+        var version = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version?.ToString(3) ?? "?";
+        var model = Settings.Shared.ChoiceTitle;
+        if (Settings.Shared.Connection is { } c) model += " / " + c.Model;
+        return "https://github.com/AlbertS15/Lumi/issues/new?template=bug_report.yml"
+            + "&version=" + Uri.EscapeDataString(version)
+            + "&os=" + Uri.EscapeDataString(Platform())
+            + "&model=" + Uri.EscapeDataString(model);
+    }
+
+    private static string Platform()
+    {
+        var arch = System.Runtime.InteropServices.RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant();
+        if (!OperatingSystem.IsLinux())
+            return System.Runtime.InteropServices.RuntimeInformation.OSDescription + ", " + arch;
+        // The distro name and the desktop matter more on Linux than the kernel version (hotkeys, tray).
+        var distro = "Linux";
+        try
+        {
+            foreach (var line in File.ReadAllLines("/etc/os-release"))
+                if (line.StartsWith("PRETTY_NAME=")) distro = line[12..].Trim('"');
+        }
+        catch { }
+        var desktop = Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP") ?? "?";
+        var session = Environment.GetEnvironmentVariable("XDG_SESSION_TYPE") ?? "?";
+        return $"{distro}, {desktop} ({session}), {arch}";
+    }
+}
