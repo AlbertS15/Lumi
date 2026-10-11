@@ -6,6 +6,8 @@
 
 ![Lumi: Leiste, Suche, Sprachen und Modelle](docs/lumi-demo.gif)
 
+🌐 **Website: [alberts15.github.io/Lumi](https://alberts15.github.io/Lumi/)**
+
 📢 **Neuigkeiten und Updates – Telegram-Kanal (auf Russisch): [t.me/+3IU-_WIhrTU4MjAy](https://t.me/+3IU-_WIhrTU4MjAy)**
 
 | | macOS | Windows | Linux |

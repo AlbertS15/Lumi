@@ -6,6 +6,8 @@
 
 ![Lumi : la barre, la recherche, les langues et les modèles](docs/lumi-demo.gif)
 
+🌐 **Site web : [alberts15.github.io/Lumi](https://alberts15.github.io/Lumi/)**
+
 📢 **Actualités et mises à jour — chaîne Telegram (en russe) : [t.me/+3IU-_WIhrTU4MjAy](https://t.me/+3IU-_WIhrTU4MjAy)**
 
 | | macOS | Windows | Linux |

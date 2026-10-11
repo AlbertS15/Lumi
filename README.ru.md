@@ -6,6 +6,8 @@
 
 ![Lumi: строка, поиск, языки и модели](docs/lumi-demo.gif)
 
+🌐 **Сайт: [alberts15.github.io/Lumi](https://alberts15.github.io/Lumi/)**
+
 📢 **Новости и обновления — в Telegram-канале: [t.me/+3IU-_WIhrTU4MjAy](https://t.me/+3IU-_WIhrTU4MjAy)**
 
 | | macOS | Windows | Linux |
