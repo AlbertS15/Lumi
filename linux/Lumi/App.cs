@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -104,7 +105,13 @@ public sealed class App : Application
         _launcher = new LauncherWindow();
         _welcome = new WelcomeWindow(() => _launcher.ShowBar());
         SetHotkey(Shortcut.Current);
-        _ = OllamaSetup.StartIfInstalledAsync();
+        _ = Task.Run(async () =>
+        {
+            await OllamaSetup.StartIfInstalledAsync();
+            // A freshly started Ollama needs a moment before it answers.
+            for (var i = 0; i < 15 && await Ollama.ModelsAsync() == null; i++) await Task.Delay(1000);
+            await Ollama.RefreshOwnModelsAsync();
+        });
 
         Updates.CheckDaily(version => Dispatcher.UIThread.Post(() =>
         {

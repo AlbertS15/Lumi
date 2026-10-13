@@ -351,12 +351,38 @@ public static class Ollama
         using var http = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromMinutes(5) };
         using var response = await http.PostAsync("http://127.0.0.1:11434/api/create", Json(new()
         {
-            ["model"] = recipe.Name, ["from"] = recipe.Base, ["system"] = LumiModels.System, ["messages"] = messages,
+            ["model"] = recipe.Name, ["from"] = recipe.Base, ["system"] = LumiModels.SystemFor(OsName), ["messages"] = messages,
             ["parameters"] = new System.Text.Json.Nodes.JsonObject { ["temperature"] = recipe.Temperature, ["num_ctx"] = 8192 },
             ["stream"] = false,
         }), cancel);
         using var json = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancel));
         if (json.RootElement.TryGetProperty("error", out var error)) throw new Exception(error.GetString());
+    }
+
+    public static string OsName => OperatingSystem.IsWindows() ? "Windows" : "Linux";
+
+    /// Lumi's models built by an older version don't know which system they run on; rebuilding one from the base
+    /// already on disk takes seconds and downloads nothing. Models whose base is gone are left as they are.
+    public static async System.Threading.Tasks.Task RefreshOwnModelsAsync()
+    {
+        try
+        {
+            var installed = await ModelsAsync();
+            if (installed == null) return;
+            using var http = new System.Net.Http.HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            foreach (var recipe in LumiModels.All)
+            {
+                if (!IsInstalled(recipe, installed) || !installed.Contains(recipe.Base)) continue;
+                using var response = await http.PostAsync("http://127.0.0.1:11434/api/show", Json(new() { ["model"] = recipe.Name }));
+                using var json = System.Text.Json.JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+                var current = json.RootElement.TryGetProperty("system", out var s) ? s.GetString()?.Trim() : null;
+                if (current != LumiModels.SystemFor(OsName)) await CreateAsync(recipe, default);
+            }
+        }
+        catch
+        {
+            // Ollama is off or busy: try again next launch.
+        }
     }
 
     /// This computer's memory, in whole gigabytes.

@@ -64,6 +64,7 @@ public sealed class App : Application
         _welcome = new WelcomeWindow(() => _launcher.ShowBar());
 
         SetHotkey(new Shortcut(Settings.Shared.HotkeyModifiers, Settings.Shared.HotkeyKey));
+        _ = System.Threading.Tasks.Task.Run(Ollama.RefreshOwnModelsAsync);
 
         Updates.CheckDaily(version => Dispatcher.Invoke(() =>
         {

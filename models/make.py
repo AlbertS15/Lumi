@@ -42,6 +42,9 @@ for name, (title, about, base, size, memory, temp) in models.items():
 def swift(text):
     return json.dumps(text, ensure_ascii=False)
 
+# The apps add which system they run on when they build a model, so "how do I free disk space?" gets that system's way.
+os_line = "The user's computer runs {os}. For questions about the computer, files, settings or the terminal, give the {os} way."
+
 recipes = ",\n".join(
     f'        LumiRecipe(name: "{n}", title: "{t}", base: "{b}", sizeGB: {s}, memoryGB: {m}, temperature: {tp})'
     for n, (t, _, b, s, m, tp) in models.items())
@@ -61,6 +64,11 @@ enum LumiModels {{
     ]
 
     static let system = {swift(system)}
+
+    /// The prompt a model is built with on this computer: the shared one plus which system it runs on.
+    static func system(for os: String) -> String {{
+        system + "\\n\\n" + {swift(os_line)}.replacingOccurrences(of: "{{os}}", with: os)
+    }}
 
     static let examples: [(question: String, answer: String)] = [
 {pairs},
@@ -85,6 +93,9 @@ public static class LumiModels
     ];
 
     public const string System = {swift(system)};
+
+    /// The prompt a model is built with on this computer: the shared one plus which system it runs on.
+    public static string SystemFor(string os) => System + "\\n\\n" + {swift(os_line)}.Replace("{{os}}", os);
 
     public static readonly (string Question, string Answer)[] Examples =
     [

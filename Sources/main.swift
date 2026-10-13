@@ -1799,7 +1799,7 @@ enum OllamaStatus: Equatable {
         let errorDescription: String?
     }
 
-    private static func post(_ path: String, _ body: [String: Any]) -> URLRequest {
+    fileprivate static func post(_ path: String, _ body: [String: Any]) -> URLRequest {
         var request = URLRequest(url: URL(string: "http://127.0.0.1:11434" + path)!)
         request.httpMethod = "POST"
         // For a stream this is the longest pause between chunks, so a stalled download fails instead of hanging.
@@ -1833,13 +1833,27 @@ enum OllamaStatus: Equatable {
             [["role": "user", "content": $0.question], ["role": "assistant", "content": $0.answer]]
         }
         var request = post("/api/create", [
-            "model": recipe.name, "from": recipe.base, "system": LumiModels.system, "messages": messages,
+            "model": recipe.name, "from": recipe.base, "system": LumiModels.system(for: "macOS"), "messages": messages,
             "parameters": ["temperature": recipe.temperature, "num_ctx": 8192], "stream": false,
         ])
         request.timeoutInterval = 300
         let (data, _) = try await URLSession.shared.data(for: request)
         let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
         if let error = json?["error"] as? String { throw Failure(errorDescription: error) }
+    }
+}
+
+extension OllamaStatus {
+    /// Lumi's models built by an older version don't know which system they run on; rebuilding one from the base
+    /// already on disk takes seconds and downloads nothing. Models whose base is gone are left as they are.
+    static func refreshOwnModels() async {
+        guard let installed = await models() else { return }
+        for recipe in LumiModels.all where recipe.isInstalled(in: installed) && installed.contains(recipe.base) {
+            guard let (data, _) = try? await URLSession.shared.data(for: post("/api/show", ["model": recipe.name])),
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { continue }
+            let current = (json["system"] as? String ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            if current != LumiModels.system(for: "macOS") { try? await create(recipe) }
+        }
     }
 }
 
@@ -2472,6 +2486,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         Self.retireClaudeLight()
+        Task.detached { await OllamaStatus.refreshOwnModels() }
         buildMainMenu()
         buildPanel()
         buildMenu()
