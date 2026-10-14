@@ -1,0 +1,33 @@
+# Maintainer: AlbertS15 <https://github.com/AlbertS15>
+pkgname=lumi-bin
+pkgver=2.0.1
+pkgrel=1
+pkgdesc="Spotlight-style bar with AI: open apps and files, ask Claude, ChatGPT, Gemini or an offline model"
+arch=('x86_64')
+url="https://github.com/AlbertS15/Lumi"
+license=('MIT')
+depends=('glibc' 'gcc-libs' 'zlib' 'icu' 'openssl' 'fontconfig' 'libx11' 'libice' 'libsm')
+optdepends=('plocate: find files from the bar'
+            'ollama: offline models (Lumi can also set up its own copy in ~/.local/share/lumi)')
+provides=('lumi')
+conflicts=('lumi')
+# A self-contained .NET single-file build: stripping it breaks the bundle.
+options=('!strip' '!debug')
+source=("lumi-${pkgver}.AppImage::${url}/releases/download/v${pkgver}/Lumi-x86_64.AppImage"
+        "LICENSE-${pkgver}::https://raw.githubusercontent.com/AlbertS15/Lumi/v${pkgver}/LICENSE")
+sha256sums=('f4a9a805b5d7eb13d2f468019d81ebe0db169eb6cc8280a6678856d674b283c6'
+            '0ce96f6f345ba9a3b6d96318498cdb65faaa7095ff2e60fb0efef4f50deec9b8')
+noextract=("lumi-${pkgver}.AppImage")
+
+prepare() {
+  # Unpack the official AppImage instead of running it, so FUSE isn't needed.
+  chmod +x "lumi-${pkgver}.AppImage"
+  "./lumi-${pkgver}.AppImage" --appimage-extract >/dev/null
+}
+
+package() {
+  install -Dm755 squashfs-root/usr/bin/lumi "${pkgdir}/usr/bin/lumi"
+  install -Dm644 squashfs-root/lumi.desktop "${pkgdir}/usr/share/applications/lumi.desktop"
+  install -Dm644 squashfs-root/lumi.png "${pkgdir}/usr/share/pixmaps/lumi.png"
+  install -Dm644 "LICENSE-${pkgver}" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

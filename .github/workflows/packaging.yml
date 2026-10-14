@@ -1,0 +1,39 @@
+name: Packaging
+
+# Builds the AUR package in Arch Linux and checks the Homebrew cask, so a broken PKGBUILD or cask never gets published.
+on:
+  workflow_dispatch:
+  push:
+    paths: ["packaging/**", ".github/workflows/packaging.yml"]
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build lumi-bin
+        run: |
+          pacman -Syu --noconfirm --needed base-devel namcap
+          useradd -m builder
+          cp -r packaging/aur /home/builder/pkg && chown -R builder /home/builder/pkg
+          cd /home/builder/pkg
+          su builder -c "makepkg --printsrcinfo > .SRCINFO && cat .SRCINFO"
+          pacman -S --noconfirm --needed glibc gcc-libs zlib icu openssl fontconfig libx11 libice libsm
+          su builder -c "makepkg --noconfirm"
+          namcap PKGBUILD || true
+          namcap lumi-bin-*.pkg.tar.zst || true
+          pacman -U --noconfirm lumi-bin-*.pkg.tar.zst
+          ls -la /usr/bin/lumi /usr/share/applications/lumi.desktop /usr/share/pixmaps/lumi.png
+          file /usr/bin/lumi
+  cask:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit the cask
+        run: |
+          brew tap-new --no-git lumi/test
+          cp packaging/homebrew/Casks/lumi.rb "$(brew --repository)/Library/Taps/lumi/homebrew-test/Casks/lumi.rb"
+          brew style --cask lumi/test/lumi
+          brew audit --cask --online lumi/test/lumi || brew audit --cask lumi/test/lumi
+          brew fetch --cask lumi/test/lumi
