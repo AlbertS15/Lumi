@@ -1465,11 +1465,12 @@ enum Mascot {
 
     /// From October 24 to November 1 Lumi wears a witch's hat and the accent turns pumpkin orange.
     /// LUMI_HALLOWEEN=1 forces it on (and =0 off), to try it any day.
-    static let isHalloween: Bool = {
+    /// Checked on every use, not once at launch: Lumi often runs for weeks without a restart.
+    static var isHalloween: Bool {
         if let forced = ProcessInfo.processInfo.environment["LUMI_HALLOWEEN"] { return forced == "1" }
         let d = Calendar.current.dateComponents([.month, .day], from: Date())
         return (d.month == 10 && d.day! >= 24) || (d.month == 11 && d.day! == 1)
-    }()
+    }
 
     /// The hat: H crown and brim, O the orange band.
     private static let hat = [

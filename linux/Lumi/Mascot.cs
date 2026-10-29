@@ -17,7 +17,8 @@ public static class Mascot
 
     /// From October 24 to November 1 Lumi wears a witch's hat and the accent turns pumpkin orange.
     /// LUMI_HALLOWEEN=1 forces it on (and =0 off), to try it any day.
-    public static readonly bool IsHalloween = Environment.GetEnvironmentVariable("LUMI_HALLOWEEN") is { } forced
+    /// Checked on every use, not once at launch: Lumi often runs for weeks without a restart.
+    public static bool IsHalloween => Environment.GetEnvironmentVariable("LUMI_HALLOWEEN") is { } forced
         ? forced == "1"
         : (DateTime.Now.Month == 10 && DateTime.Now.Day >= 24) || (DateTime.Now.Month == 11 && DateTime.Now.Day == 1);
 
