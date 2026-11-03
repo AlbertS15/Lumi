@@ -1,0 +1,64 @@
+# .deb and .rpm from the same self-contained build as the AppImage, so Ubuntu and Fedora users install without FUSE.
+# Built by linux/package.sh with nfpm; APP_VERSION comes from the tag.
+name: lumi-launcher
+arch: amd64
+platform: linux
+version: ${APP_VERSION}
+release: 1
+section: utils
+priority: optional
+maintainer: AlbertS15 <https://github.com/AlbertS15>
+description: |
+  Spotlight-style bar with AI: open apps and files, ask Claude, ChatGPT, Gemini or an offline model.
+vendor: AlbertS15
+homepage: https://github.com/AlbertS15/Lumi
+license: MIT
+provides:
+  - lumi
+conflicts:
+  - lumi
+
+contents:
+  - src: dist/linux/lumi
+    dst: /usr/bin/lumi
+    file_info:
+      mode: 0755
+  - src: linux/appimage/lumi.desktop
+    dst: /usr/share/applications/lumi.desktop
+  - src: docs/brand/avatar.png
+    dst: /usr/share/pixmaps/lumi.png
+  - src: LICENSE
+    dst: /usr/share/doc/lumi-launcher/copyright
+    packager: deb
+  - src: LICENSE
+    dst: /usr/share/licenses/lumi-launcher/LICENSE
+    packager: rpm
+
+# A self-contained .NET build still needs ICU, OpenSSL and X11 from the system.
+overrides:
+  deb:
+    depends:
+      - libc6
+      - libstdc++6
+      - zlib1g
+      - libicu78 | libicu77 | libicu76 | libicu74 | libicu72 | libicu70 | libicu67 | libicu66
+      - libssl3t64 | libssl3 | libssl1.1
+      - libfontconfig1
+      - libx11-6
+      - libice6
+      - libsm6
+    recommends:
+      - plocate
+  rpm:
+    depends:
+      - glibc
+      - libstdc++
+      - zlib
+      - libicu
+      - openssl-libs
+      - fontconfig
+      - libX11
+      - libICE
+      - libSM
+    recommends:
+      - plocate

@@ -92,8 +92,20 @@ jobs:
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF#refs/tags/v}"; else v="0.0.${GITHUB_RUN_NUMBER}"; fi
           echo "APP_VERSION=$v" >> "$GITHUB_ENV"
 
-      - name: Build AppImage
+      - name: Install nfpm
+        run: |
+          curl -fsSL -o /tmp/nfpm.deb https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_amd64.deb
+          sudo dpkg -i /tmp/nfpm.deb
+
+      - name: Build AppImage, .deb and .rpm
         run: ./linux/package.sh
+
+      - name: Check the .deb installs and the .rpm reads
+        run: |
+          sudo apt-get install -y -qq ./dist/Lumi-*-amd64.deb rpm > /dev/null
+          ls -la /usr/bin/lumi /usr/share/applications/lumi.desktop /usr/share/pixmaps/lumi.png
+          rpm -qip dist/Lumi-*-x86_64.rpm
+          rpm -qlp dist/Lumi-*-x86_64.rpm
 
       - name: Smoke test (launch, toggle, search)
         run: |
@@ -111,7 +123,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: Lumi-Linux
-          path: dist/Lumi-x86_64.AppImage
+          path: |
+            dist/Lumi-x86_64.AppImage
+            dist/Lumi-*-amd64.deb
+            dist/Lumi-*-x86_64.rpm
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')

@@ -21,3 +21,11 @@ if [ ! -x dist/appimagetool ]; then
 fi
 ARCH=x86_64 dist/appimagetool --appimage-extract-and-run "$APPDIR" dist/Lumi-x86_64.AppImage
 echo "Built dist/Lumi-x86_64.AppImage"
+
+# .deb and .rpm of the same build, when nfpm is installed (CI installs it).
+if command -v nfpm >/dev/null; then
+  export APP_VERSION=$VERSION
+  nfpm package -f packaging/linux/nfpm.yaml -p deb -t "dist/Lumi-${VERSION}-amd64.deb"
+  nfpm package -f packaging/linux/nfpm.yaml -p rpm -t "dist/Lumi-${VERSION}-x86_64.rpm"
+  echo "Built dist/Lumi-${VERSION}-amd64.deb and dist/Lumi-${VERSION}-x86_64.rpm"
+fi

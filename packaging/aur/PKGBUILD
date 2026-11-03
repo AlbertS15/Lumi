@@ -1,6 +1,6 @@
 # Maintainer: AlbertS15 <https://github.com/AlbertS15>
-pkgname=lumi-bin
-pkgver=2.0.1
+pkgname=lumi-launcher-bin
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="Spotlight-style bar with AI: open apps and files, ask Claude, ChatGPT, Gemini or an offline model"
 arch=('x86_64')
@@ -15,7 +15,7 @@ conflicts=('lumi')
 options=('!strip' '!debug')
 source=("lumi-${pkgver}.AppImage::${url}/releases/download/v${pkgver}/Lumi-x86_64.AppImage"
         "LICENSE-${pkgver}::https://raw.githubusercontent.com/AlbertS15/Lumi/v${pkgver}/LICENSE")
-sha256sums=('f4a9a805b5d7eb13d2f468019d81ebe0db169eb6cc8280a6678856d674b283c6'
+sha256sums=('3bd5ef445e8bfd0f4668961cddc54bdce3e1095dbe312026e07d01145e190852'
             '0ce96f6f345ba9a3b6d96318498cdb65faaa7095ff2e60fb0efef4f50deec9b8')
 noextract=("lumi-${pkgver}.AppImage")
 
