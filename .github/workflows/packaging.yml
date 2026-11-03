@@ -33,6 +33,7 @@ jobs:
       - name: Audit the cask
         run: |
           brew tap-new --no-git lumi/test
+          brew trust lumi/test
           mkdir -p "$(brew --repository)/Library/Taps/lumi/homebrew-test/Casks"
           cp packaging/homebrew/Casks/lumi.rb "$(brew --repository)/Library/Taps/lumi/homebrew-test/Casks/lumi.rb"
           brew style --cask lumi/test/lumi
