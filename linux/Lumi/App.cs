@@ -105,6 +105,9 @@ public sealed class App : Application
         _launcher = new LauncherWindow();
         _welcome = new WelcomeWindow(() => _launcher.ShowBar());
         SetHotkey(Shortcut.Current);
+        // Rewrite the autostart entry so it points at this copy: after a move from the AppImage to the .deb or .rpm
+        // it would still start the old file.
+        if (Settings.LaunchesAtLogin) Settings.LaunchesAtLogin = true;
         _ = Task.Run(async () =>
         {
             await OllamaSetup.StartIfInstalledAsync();

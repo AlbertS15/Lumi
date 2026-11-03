@@ -12,7 +12,7 @@
 
 | | macOS | Windows | Linux |
 |---|---|---|---|
-| Download | [`Lumi-macOS.dmg`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-Setup.exe` or `Lumi-Portable.exe`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-x86_64.AppImage`](https://github.com/AlbertS15/Lumi/releases/latest) |
+| Download | [`Lumi-macOS.dmg`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-Setup.exe` or `Lumi-Portable.exe`](https://github.com/AlbertS15/Lumi/releases/latest) | [`.deb`, `.rpm` or `AppImage`](https://github.com/AlbertS15/Lumi/releases/latest) |
 | Hotkey | **⌥ + the key left of 1** (`` ` `` or §) | **Alt + the key left of 1** (`` ` ``, Ё, ^, ² — any layout) | **Ctrl+Space** (Alt + the key left of 1 is taken by GNOME and KDE) |
 | Code for this platform only | [`macos`](https://github.com/AlbertS15/Lumi/tree/macos) branch | [`windows`](https://github.com/AlbertS15/Lumi/tree/windows) branch | folder [`linux/`](linux) in `main` |
 
@@ -69,7 +69,14 @@ The installer is built with [Inno Setup](https://jrsoftware.org/isinfo.php) from
 
 ## Linux
 
-**Install.** Download `Lumi-x86_64.AppImage` from [Releases](https://github.com/AlbertS15/Lumi/releases/latest), then:
+**Install on Ubuntu, Debian, Mint or Fedora.** Download the `.deb` or `.rpm` from [Releases](https://github.com/AlbertS15/Lumi/releases/latest) and install it; no FUSE needed:
+
+```bash
+sudo apt install ./Lumi-*-amd64.deb
+sudo dnf install ./Lumi-*-x86_64.rpm
+```
+
+**Any other distribution.** Download `Lumi-x86_64.AppImage` from [Releases](https://github.com/AlbertS15/Lumi/releases/latest), then:
 
 ```bash
 chmod +x Lumi-x86_64.AppImage

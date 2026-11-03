@@ -12,7 +12,7 @@
 
 | | macOS | Windows | Linux |
 |---|---|---|---|
-| Скачать | [`Lumi-macOS.dmg`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-Setup.exe` или `Lumi-Portable.exe`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-x86_64.AppImage`](https://github.com/AlbertS15/Lumi/releases/latest) |
+| Скачать | [`Lumi-macOS.dmg`](https://github.com/AlbertS15/Lumi/releases/latest) | [`Lumi-Setup.exe` или `Lumi-Portable.exe`](https://github.com/AlbertS15/Lumi/releases/latest) | [`.deb`, `.rpm` или `AppImage`](https://github.com/AlbertS15/Lumi/releases/latest) |
 | Горячая клавиша | **⌥ Ё** — клавиша слева от 1 (на английской раскладке `` ` ``) | **Alt+Ё** — клавиша слева от 1, на любой раскладке | **Ctrl+Пробел** (Alt+Ё в GNOME и KDE занят системой) |
 | Код только этой системы | ветка [`macos`](https://github.com/AlbertS15/Lumi/tree/macos) | ветка [`windows`](https://github.com/AlbertS15/Lumi/tree/windows) | папка [`linux/`](linux) в `main` |
 
@@ -69,7 +69,14 @@ dotnet publish windows/Lumi/Lumi.csproj -c Release -r win-x64 --self-contained -
 
 ## Linux
 
-**Установка.** Скачайте `Lumi-x86_64.AppImage` со страницы [Releases](https://github.com/AlbertS15/Lumi/releases/latest), затем:
+**Установка в Ubuntu, Debian, Mint или Fedora.** Скачайте `.deb` или `.rpm` со страницы [Releases](https://github.com/AlbertS15/Lumi/releases/latest) и установите, FUSE не нужен:
+
+```bash
+sudo apt install ./Lumi-*-amd64.deb
+sudo dnf install ./Lumi-*-x86_64.rpm
+```
+
+**Любой другой дистрибутив.** Скачайте `Lumi-x86_64.AppImage` со страницы [Releases](https://github.com/AlbertS15/Lumi/releases/latest), затем:
 
 ```bash
 chmod +x Lumi-x86_64.AppImage

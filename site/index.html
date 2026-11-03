@@ -138,6 +138,7 @@ kbd.down { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); backgro
 .plat .hk { margin-top: 18px; display: flex; gap: 6px; align-items: center; }
 .plat .hk kbd { font-size: 14px; min-width: 0; padding: 5px 9px; box-shadow: 3px 3px 0 var(--ink); }
 .plat p { color: #3d3b37; font-size: 17px; margin: 18px 0 26px; max-width: 340px; }
+.plat p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .plat .btn { margin-top: auto; }
 .plat:not(.mine) .btn { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
 .plat:not(.mine) .btn:hover { background: var(--ink); color: var(--paper); }
@@ -247,7 +248,7 @@ footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; fon
       <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-Setup.exe</a></div>
     <div class="plat reveal" data-os="linux"><div class="top mono"><span>x86-64</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
       <h3>Linux</h3><div class="hk"><kbd>Ctrl</kbd><kbd data-i18n="space">Пробел</kbd></div>
-      <p data-i18n-html="pl">Один файл AppImage: <code>chmod +x</code> и запуск. Версия новая — расскажите, как работает.</p>
+      <p data-i18n-html="pl">Ubuntu, Debian, Mint — <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>, Fedora — <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Остальные — AppImage: <code>chmod +x</code> и запуск.</p>
       <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi.AppImage</a></div>
   </div>
 </section>
@@ -319,7 +320,7 @@ const EN = {
   d_label: "Download", d_title: 'Mac.<br>Windows.<br><span class="red">Linux.</span>', yours: "● Your system",
   pm: "Drag Lumi to Applications. First launch: right-click → Open.",
   pw: "An installer with no admin rights needed. If SmartScreen asks: “More info” → “Run anyway”.",
-  pl: "One AppImage file: <code>chmod +x</code> and run. It's new, so tell us how it works for you.", space: "Space",
+  pl: "Ubuntu, Debian, Mint: <a data-asset=\"deb\" href=\"https://github.com/AlbertS15/Lumi/releases/latest\">.deb</a>. Fedora: <a data-asset=\"rpm\" href=\"https://github.com/AlbertS15/Lumi/releases/latest\">.rpm</a>. Anything else: the AppImage, <code>chmod +x</code> and run.", space: "Space",
   q_label: "Questions",
   q1: "Is it really free?", a1: "Yes. Lumi is free and open source. You only pay for the AI itself if you choose a paid service, or nothing at all with Lumi's own model.",
   q2: "Does it need the internet?", a2: "Cloud AIs do. Lumi's own model works fully offline; you only need the internet once to download it.",
@@ -427,6 +428,8 @@ fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest")
       if (a.name.endsWith(".dmg")) assets.mac = a.browser_download_url;
       else if (a.name.startsWith("Lumi-Setup") && a.name.endsWith(".exe")) assets.win = a.browser_download_url;
       else if (a.name.endsWith(".AppImage")) assets.linux = a.browser_download_url;
+      else if (a.name.endsWith(".deb")) assets.deb = a.browser_download_url;
+      else if (a.name.endsWith(".rpm")) assets.rpm = a.browser_download_url;
     }
     setOs();
   })
