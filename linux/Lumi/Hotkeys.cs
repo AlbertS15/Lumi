@@ -159,15 +159,19 @@ public static class Hotkeys
                 Run("set", GnomeList, "custom-keybindings", "[" + (inner.Length > 0 ? inner + ", " : "") + $"'{GnomePath}']");
             }
             var schema = $"{GnomeList}.custom-keybinding:{GnomePath}";
-            Run("set", schema, "name", "Lumi");
-            Run("set", schema, "command", ToggleCommand);
-            Run("set", schema, "binding", key?.Gnome ?? "");
+            Run("set", schema, "name", Quote("Lumi"));
+            Run("set", schema, "command", Quote(ToggleCommand));
+            Run("set", schema, "binding", Quote(key?.Gnome ?? ""));
         }
         catch
         {
             // Without gsettings the welcome window still explains how to add the shortcut by hand.
         }
     }
+
+    /// A string as a GVariant literal. gsettings parses values as GVariant first, so a command that starts with a quote,
+    /// "/usr/bin/lumi" --toggle, was rejected ("expected end of input") and the shortcut ran nothing.
+    private static string Quote(string s) => "'" + s.Replace("\\", "\\\\").Replace("'", "\\'") + "'";
 
     private static string Run(params string[] args)
     {
