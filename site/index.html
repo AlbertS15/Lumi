@@ -78,6 +78,26 @@ kbd.down { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); backgro
 .bar .answer.show { display: block; }
 .bar .answer .q { margin-bottom: 6px; color: var(--gray); }
 
+/* ---------- numbers under the demo */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--line); }
+@media (max-width: 860px) { .stats { grid-template-columns: 1fr 1fr; } }
+.stats > div { padding: 22px 28px; border-right: 1px solid var(--line); }
+.stats > div:last-child { border-right: 0; }
+@media (max-width: 860px) { .stats > div:nth-child(2n) { border-right: 0; } .stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+.stats b { display: block; font-size: clamp(40px, 5vw, 68px); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+.stats span { color: var(--gray); }
+.stats .live[hidden] { display: none; }
+
+/* ---------- three steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--line); }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+.step { padding: 34px 28px 40px; border-right: 1px solid var(--line); }
+.step:last-child { border-right: 0; }
+@media (max-width: 860px) { .step { border-right: 0; border-bottom: 1px solid var(--line); } }
+.step .n { font-weight: 900; font-size: clamp(56px, 6vw, 96px); letter-spacing: -0.05em; color: var(--red); line-height: .9; }
+.step h3 { font-size: clamp(28px, 3vw, 44px); margin-top: 18px; }
+.step p { margin: 12px 0 0; font-size: 19px; color: #3d3b37; max-width: 380px; }
+
 /* ---------- statement */
 .statement { padding-top: 120px; padding-bottom: 120px; border-bottom: 2px solid var(--line); }
 .statement p { margin: 0; font-size: clamp(38px, 6vw, 88px); font-weight: 900; letter-spacing: -0.05em; line-height: .95; max-width: 1300px; }
@@ -206,10 +226,25 @@ footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; fon
       <p class="mono" style="color:var(--gray);margin:16px 0 0" data-i18n="demo_note">Настоящие ответы модели Lumi на ноутбуке без интернета</p>
     </div>
   </div>
+  <div class="stats">
+    <div><b>3</b><span class="mono" data-i18n="st_os">системы: Mac, Windows, Linux</span></div>
+    <div><b>5</b><span class="mono" data-i18n="st_lang">языков интерфейса</span></div>
+    <div class="live" id="st-dl" hidden><b></b><span class="mono"></span></div>
+    <div class="live" id="st-stars" hidden><b></b><span class="mono"></span></div>
+  </div>
 </header>
 
 <section class="statement pad">
   <p id="statement">Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* — и спросите.</p>
+</section>
+
+<section id="how">
+  <div class="sec-head pad mono"><span>→</span><span data-i18n="h_label">Как это работает</span></div>
+  <div class="steps">
+    <div class="step reveal"><div class="n">1</div><h3 data-i18n="h1_h">Нажмите клавишу</h3><p data-i18n="h1_p">Alt+Ё в любом окне. На Mac — ⌥Ё, на Linux — Ctrl+Пробел.</p></div>
+    <div class="step reveal"><div class="n">2</div><h3 data-i18n="h2_h">Спросите или найдите</h3><p data-i18n="h2_p">Вопрос уйдёт нейросети. Название программы или файла — откроется по Enter.</p></div>
+    <div class="step reveal"><div class="n">3</div><h3 data-i18n="h3_h">Ответ в строке</h3><p data-i18n="h3_p">Ответ печатается прямо под вопросом. Со своей моделью Lumi — без интернета.</p></div>
+  </div>
 </section>
 
 <section id="features">
@@ -306,6 +341,11 @@ const EN = {
   download_free: "Download for free", source: "Source code on GitHub", demo_label: "Demo",
   demo_note: "Real answers from the Lumi model on a laptop, offline",
   statement: "No browser to open. No website to find. No account to sign in to. Just press *Alt+`* and ask.",
+  st_os: "systems: Mac, Windows, Linux", st_lang: "interface languages",
+  h_label: "How it works",
+  h1_h: "Press a key", h1_p: "Alt + the key left of 1, in any window. Ctrl+Space on Linux.",
+  h2_h: "Ask or search", h2_p: "A question goes to the AI. An app or file name opens with Enter.",
+  h3_h: "Answer in the bar", h3_p: "The answer types out right under your question. With Lumi's own model, offline.",
   f_label: "What Lumi does", f_title: "One bar.<br>Everything at hand.",
   r1_h: "Answers in the bar", r1_p: "The answer streams in like a chat. Follow up and the conversation goes on.",
   r2_h: "Apps and files", r2_p: "Start typing a name, Enter opens it. Lumi tells a search from a question by itself.",
@@ -402,6 +442,7 @@ function applyLang() {
   const space = lang === "ru" ? "Пробел" : "Space";
   document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;→&nbsp;</span><kbd>Ctrl</kbd><kbd>${space}</kbd>`;
   buildStatement(); lightStatement();
+  renderStats();
   setOs();
 }
 
@@ -419,6 +460,33 @@ document.getElementById("lang").onclick = () => {
   applyLang();
   restart();
 };
+
+// ---------- live numbers from GitHub; the two tiles stay hidden if the API doesn't answer
+var counts = {}; // var: applyLang can run before this line, and then finds it undefined
+const plural = (n, one, few, many) => {
+  const t = n % 10, h = n % 100;
+  return t === 1 && h !== 11 ? one : t >= 2 && t <= 4 && (h < 12 || h > 14) ? few : many;
+};
+function renderStats() {
+  if (!counts) return;
+  const fill = (id, n, ru, en) => {
+    const el = document.getElementById(id);
+    if (n == null) return;
+    el.querySelector("b").textContent = n.toLocaleString(lang === "ru" ? "ru-RU" : "en-US");
+    el.querySelector("span").textContent = lang === "ru" ? ru(n) : en(n);
+    el.hidden = false;
+  };
+  fill("st-dl", counts.downloads, n => plural(n, "скачивание", "скачивания", "скачиваний"), n => n === 1 ? "download" : "downloads");
+  fill("st-stars", counts.stars, n => plural(n, "звезда на GitHub", "звезды на GitHub", "звёзд на GitHub"), n => n === 1 ? "star on GitHub" : "stars on GitHub");
+}
+fetch("https://api.github.com/repos/AlbertS15/Lumi").then(r => r.ok ? r.json() : null)
+  .then(repo => { if (repo) { counts.stars = repo.stargazers_count; renderStats(); } }).catch(() => {});
+fetch("https://api.github.com/repos/AlbertS15/Lumi/releases?per_page=100").then(r => r.ok ? r.json() : null)
+  .then(list => {
+    if (!list) return;
+    counts.downloads = list.reduce((sum, rel) => sum + rel.assets.reduce((s, a) => s + a.download_count, 0), 0);
+    renderStats();
+  }).catch(() => {});
 
 fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest")
   .then(r => r.ok ? r.json() : null)
