@@ -33,6 +33,7 @@ public sealed class WelcomeWindow : Window
         Icon = new WindowIcon(Mascot.Icon());
 
         Settings.Shared.Changed += () => Dispatcher.UIThread.Post(Build);
+        Library.Shared.Changed += () => Dispatcher.UIThread.Post(UpdateFilesStatus);
         // Checked again on every visit: signing in happens in a terminal while the window waits.
         async void CheckAuth()
         {
@@ -115,6 +116,7 @@ public sealed class WelcomeWindow : Window
             CornerRadius = new CornerRadius(12),
             Margin = new Thickness(0, 22, 0, 0),
         });
+        stack.Children.Add(FilesCard());
 
         var open = new Button
         {
@@ -142,7 +144,122 @@ public sealed class WelcomeWindow : Window
         quit.HorizontalAlignment = HorizontalAlignment.Center;
         quit.Margin = new Thickness(0, 12, 0, 0);
         stack.Children.Add(quit);
-        Content = stack;
+        // Scrolls on short screens, now that the files card makes the window taller.
+        if ((Screens.ScreenFromWindow(this) ?? Screens.Primary) is { } screen)
+            MaxHeight = screen.WorkingArea.Height / screen.Scaling - 40;
+        Content = new ScrollViewer { Content = stack, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
+    }
+
+    // MARK: ask my files
+
+    private TextBlock? _filesStatus;
+    private bool _filesNeedsModel;
+
+    /// Folders for "Ask my files", what the index is doing, and the promise that nothing leaves the computer.
+    private Control FilesCard()
+    {
+        var card = new StackPanel();
+        var head = new StackPanel { Margin = new Thickness(14, 10, 14, 4) };
+        var title = new StackPanel { Orientation = Orientation.Horizontal };
+        title.Children.Add(Look.Label(S.FilesTitle, 13, null, FontWeight.SemiBold));
+        title.Children.Add(new Border
+        {
+            Child = Look.Label(S.Experimental, 10, Look.Accent),
+            BorderBrush = Look.Accent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(5, 0, 5, 1),
+            Margin = new Thickness(8, 0, 0, 0),
+            VerticalAlignment = VerticalAlignment.Center,
+        });
+        head.Children.Add(title);
+        foreach (var note in new[] { "🔒 " + S.FilesPrivacy, S.FilesFormats })
+        {
+            var label = Look.Label(note, 11, Look.Secondary);
+            label.TextWrapping = TextWrapping.Wrap;
+            label.TextTrimming = TextTrimming.None;
+            label.Margin = new Thickness(0, 4, 0, 0);
+            head.Children.Add(label);
+        }
+        card.Children.Add(WithDivider(head, false));
+
+        foreach (var folder in Settings.Shared.LibraryFolders)
+        {
+            var name = Look.Label("📁 " + LibraryHost.Short(folder));
+            ToolTip.SetTip(name, folder);
+            var remove = new Button
+            {
+                Content = "✕",
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = Look.Secondary,
+                Cursor = new Cursor(StandardCursorType.Hand),
+                Padding = new Thickness(6, 2, 6, 2),
+            };
+            ToolTip.SetTip(remove, S.FilesRemoveFolder);
+            remove.Click += (_, _) => LibraryHost.RemoveFolder(folder);
+            var dock = new DockPanel { Margin = new Thickness(14, 6, 14, 6) };
+            DockPanel.SetDock(remove, Dock.Right);
+            dock.Children.Add(remove);
+            dock.Children.Add(name);
+            card.Children.Add(WithDivider(dock, false));
+        }
+        card.Children.Add(Row(null, LinkButton(S.FilesAddFolder, AddFolders)));
+
+        _filesStatus = Look.Label(LibraryHost.StatusText, 11, Look.Secondary);
+        _filesStatus.TextWrapping = TextWrapping.Wrap;
+        _filesStatus.TextTrimming = TextTrimming.None;
+        _filesNeedsModel = LibraryHost.NeedsModel;
+        var status = new DockPanel { Margin = new Thickness(14, 8, 14, 10) };
+        if (_filesNeedsModel)
+        {
+            var download = LinkButton(S.Download, () => _ = LibraryHost.PullModelAsync(() => Dispatcher.UIThread.Post(UpdateFilesStatus)));
+            download.Margin = new Thickness(10, 0, 0, 0);
+            DockPanel.SetDock(download, Dock.Right);
+            status.Children.Add(download);
+        }
+        status.Children.Add(_filesStatus);
+        card.Children.Add(status);
+
+        return new Border
+        {
+            Child = card,
+            Background = Look.Card,
+            CornerRadius = new CornerRadius(12),
+            Margin = new Thickness(0, 14, 0, 0),
+        };
+    }
+
+    /// New counts change the text only; the download link comes and goes with a full redraw.
+    private void UpdateFilesStatus()
+    {
+        if (_filesStatus == null) return;
+        if (LibraryHost.NeedsModel != _filesNeedsModel)
+        {
+            Build();
+            return;
+        }
+        _filesStatus.Text = LibraryHost.StatusText;
+    }
+
+    private async void AddFolders()
+    {
+        try
+        {
+            var picked = await StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions
+            {
+                Title = S.FilesTitle,
+                AllowMultiple = true,
+            });
+            var paths = new List<string>();
+            foreach (var folder in picked)
+                if (Avalonia.Platform.Storage.StorageProviderExtensions.TryGetLocalPath(folder) is { } path) paths.Add(path);
+            if (paths.Count > 0) LibraryHost.AddFolders(paths);
+        }
+        catch
+        {
+            // No portal or picker on this desktop: nothing to add.
+        }
     }
 
     // MARK: the shortcut
