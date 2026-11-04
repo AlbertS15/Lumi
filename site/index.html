@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="refresh.css">
 <style>
 /* ---------- hero */
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 120px 20px 80px; overflow: hidden; }
@@ -103,12 +104,14 @@
 .zoom .glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(47, 164, 131, .25), transparent 60%); pointer-events: none; }
 .models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
 @media (max-width: 860px) { .models { grid-template-columns: 1fr; } }
-.model { padding: 30px; }
-.model .tag { position: absolute; top: 22px; right: 22px; padding: 5px 10px; border-radius: 999px; background: var(--teal); color: #03140f; font-size: 11.5px; display: none; }
+/* the badge sits above the name so it never covers it; the numbers line up at the bottom of every card */
+.model { padding: 30px; display: flex; flex-direction: column; }
+.model .tag { align-self: flex-start; margin: -8px 0 14px; padding: 5px 10px; border-radius: 999px; background: var(--teal); color: #03140f; font-size: 11.5px; visibility: hidden; }
+.model dl { margin-top: auto !important; }
 .model.rec { border-color: #5fd3ad80; box-shadow: 0 0 60px -20px var(--glow); }
-.model.rec .tag { display: block; }
+.model.rec .tag { visibility: visible; }
 .model h3 { font-size: 46px; letter-spacing: -0.05em; }
-.model p { color: var(--mute); margin-top: 8px; }
+.model p { color: var(--mute); margin: 8px 0 30px; }
 .model dl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 30px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
 .model dt { color: var(--dim); }
 .model dd { margin: 4px 0 0; font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
@@ -321,6 +324,19 @@
   </div>
 </section>
 
+<section id="contact" class="pad-y" style="padding-top:0">
+  <div class="wrap center">
+    <span class="eyebrow mono reveal" data-i18n="c_label">Связь</span>
+    <h2 class="h2 reveal" data-i18n-html="c_title">Жалобы и предложения</h2>
+    <p class="sub reveal" data-i18n="c_sub">Нашли ошибку или хотите новую функцию? Напишите, мы читаем каждое сообщение.</p>
+    <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+      <a class="btn teal" href="mailto:starosta093@gmail.com?subject=Lumi"><span class="roll"><span>starosta093@gmail.com</span><span>starosta093@gmail.com</span></span></a>
+      <a class="btn ghost" href="https://t.me/lumimacos"><span class="roll"><span>Telegram @lumimacos</span><span>Telegram @lumimacos</span></span></a>
+      <a class="btn ghost" href="https://github.com/AlbertS15/Lumi/issues"><span class="roll"><span data-i18n="c_gh">Ошибка на GitHub</span><span data-i18n="c_gh">Ошибка на GitHub</span></span></a>
+    </div>
+  </div>
+</section>
+
 <footer class="foot">
   <div class="wrap">
     <div class="big"><span class="grad">Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
@@ -329,7 +345,8 @@
       <div class="r">
         <a href="os.html">Lumi OS</a>
         <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
-        <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
+        <a href="https://t.me/lumimacos">Telegram</a>
+        <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
         <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
         <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
       </div>
@@ -377,6 +394,7 @@ window.PAGE = {
     q3: "Where do my questions go?", a3: "Only to the service you picked. With Lumi's own model, nowhere: everything stays on your computer. Lumi has no servers of its own.",
     q4: "Why does my system warn me on first launch?", a4: "Lumi is an independent project without a paid Apple or Microsoft certificate, so the system doesn't know it yet. The code is fully open on GitHub.",
     q5: "Is Lumi made by Apple, Anthropic, OpenAI or Google?", a5: "No, it's an independent project. Claude, ChatGPT, Gemini, Mac and Spotlight are trademarks of their owners.",
+    c_label: "Contact", c_title: "Complaints and ideas", c_sub: "Found a bug or want a new feature? Write to us, we read every message.", c_gh: "Report a bug on GitHub",
     releases: "All versions", bug: "Report a bug",
     legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
   },

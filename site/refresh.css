@@ -1,0 +1,35 @@
+/* Lumi visual refresh — presentation only. Original copy, sections, links and behavior are preserved. */
+:root {
+  --line: rgba(255,255,255,.095);
+  --line2: rgba(255,255,255,.17);
+  --glow: rgba(95,211,173,.26);
+}
+body {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(47,164,131,.10), transparent 42%),
+    var(--bg);
+}
+.nav {
+  box-shadow: 0 12px 42px rgba(0,0,0,.18);
+  background: rgba(8,13,12,.68);
+}
+.nav.solid { background: rgba(8,13,12,.9); }
+.btn { box-shadow: 0 5px 18px rgba(0,0,0,.12); }
+.btn.teal { box-shadow: 0 8px 30px rgba(95,211,173,.13); }
+.btn.teal:hover { box-shadow: 0 12px 38px rgba(95,211,173,.24); }
+/* .shot is left out: its tilt follows the scroll every frame and must not lag behind */
+:where(.card,.feature,.tile,.download,.platform,.os-card) {
+  transition: border-color .28s ease, background .28s ease, box-shadow .28s ease;
+}
+:where(.card,.feature,.tile,.download,.platform,.os-card):hover {
+  border-color: rgba(95,211,173,.25);
+  box-shadow: 0 16px 46px rgba(0,0,0,.2), 0 0 28px rgba(95,211,173,.045);
+}
+img { height: auto; }
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
