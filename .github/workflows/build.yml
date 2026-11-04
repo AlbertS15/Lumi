@@ -79,7 +79,29 @@ jobs:
           path: dist/Lumi-macOS.dmg
 
   linux:
-    runs-on: ubuntu-latest
+    # x64 keeps the job name, artifact and file names it always had; arm64 builds natively on GitHub's ARM runner.
+    name: ${{ matrix.arch == 'x64' && 'linux' || 'linux-arm64' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-latest
+            deb: amd64
+            rpm: x86_64
+            appimage: x86_64
+            elf: x86-64
+            suffix: ""
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            deb: arm64
+            rpm: aarch64
+            appimage: aarch64
+            elf: aarch64
+            suffix: "-arm64"
+    runs-on: ${{ matrix.runner }}
+    env:
+      LUMI_ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
 
@@ -94,7 +116,7 @@ jobs:
 
       - name: Install nfpm
         run: |
-          curl -fsSL -o /tmp/nfpm.deb https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_amd64.deb
+          curl -fsSL -o /tmp/nfpm.deb "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_$(dpkg --print-architecture).deb"
           sudo dpkg -i /tmp/nfpm.deb
 
       - name: Build AppImage, .deb and .rpm
@@ -102,10 +124,17 @@ jobs:
 
       - name: Check the .deb installs and the .rpm reads
         run: |
-          sudo apt-get install -y -qq ./dist/Lumi-*-amd64.deb rpm > /dev/null
+          sudo apt-get install -y -qq ./dist/Lumi-*-${{ matrix.deb }}.deb rpm file > /dev/null
           ls -la /usr/bin/lumi /usr/share/applications/lumi.desktop /usr/share/pixmaps/lumi.png
-          rpm -qip dist/Lumi-*-x86_64.rpm
-          rpm -qlp dist/Lumi-*-x86_64.rpm
+          dpkg-deb -I dist/Lumi-*-${{ matrix.deb }}.deb
+          rpm -qip dist/Lumi-*-${{ matrix.rpm }}.rpm
+          rpm -qlp dist/Lumi-*-${{ matrix.rpm }}.rpm
+          file -L /usr/bin/lumi dist/Lumi-${{ matrix.appimage }}.AppImage
+          # Both packages and both executables must be for this CPU.
+          test "$(dpkg-deb -f dist/Lumi-*-${{ matrix.deb }}.deb Architecture)" = "${{ matrix.deb }}"
+          test "$(rpm -qp --qf '%{ARCH}' dist/Lumi-*-${{ matrix.rpm }}.rpm)" = "${{ matrix.rpm }}"
+          file -L /usr/bin/lumi | grep -q "${{ matrix.elf }}"
+          file dist/Lumi-${{ matrix.appimage }}.AppImage | grep -q "${{ matrix.elf }}"
 
       - name: Smoke test (launch, toggle, search)
         run: |
@@ -117,16 +146,16 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Linux-screenshots
+          name: Linux${{ matrix.suffix }}-screenshots
           path: dist/screenshots
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Lumi-Linux
+          name: Lumi-Linux${{ matrix.suffix }}
           path: |
-            dist/Lumi-x86_64.AppImage
-            dist/Lumi-*-amd64.deb
-            dist/Lumi-*-x86_64.rpm
+            dist/Lumi-${{ matrix.appimage }}.AppImage
+            dist/Lumi-*-${{ matrix.deb }}.deb
+            dist/Lumi-*-${{ matrix.rpm }}.rpm
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
