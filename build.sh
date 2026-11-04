@@ -33,6 +33,7 @@ cat > $APP/Contents/Info.plist <<PLIST
   <key>LSMinimumSystemVersion</key><string>14.0</string>
   <key>LSUIElement</key><true/>
   <key>NSHighResolutionCapable</key><true/>
+  <key>NSAppleEventsUsageDescription</key><string>Lumi switches between the light and dark appearance when you ask it to.</string>
 </dict>
 </plist>
 PLIST

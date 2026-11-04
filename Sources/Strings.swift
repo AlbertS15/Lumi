@@ -140,6 +140,17 @@ private let table: [String: [String]] = [
     "ollama_starting": ["Installing and starting Ollama…", "Устанавливаю и запускаю Ollama…", "Installiere und starte Ollama…", "Instalando e iniciando Ollama…", "Installation et démarrage d'Ollama…"],
     "ollama_not_started": ["Ollama didn't start", "Ollama не запустилась", "Ollama ist nicht gestartet", "Ollama no se inició", "Ollama n'a pas démarré"],
     "err_ollama_model": ["Ollama has no model “{0}”. Installed: {1}. Pick one of these in the connection, or download it: ollama pull {0}", "В Ollama нет модели «{0}». Установлены: {1}. Выберите одну из них в подключении или скачайте: ollama pull {0}", "Ollama hat kein Modell „{0}“. Installiert: {1}. Wählen Sie eines davon in der Verbindung oder laden Sie es: ollama pull {0}", "Ollama no tiene el modelo «{0}». Instalados: {1}. Elige uno de ellos en la conexión o descárgalo: ollama pull {0}", "Ollama n'a pas le modèle « {0} ». Installés : {1}. Choisissez-en un dans la connexion ou téléchargez-le : ollama pull {0}"],
+    "action_volume": ["Set volume to {0}%", "Громкость {0}%", "Lautstärke auf {0} %", "Volumen al {0} %", "Volume à {0} %"],
+    "action_mute": ["Mute sound", "Выключить звук", "Ton aus", "Silenciar el sonido", "Couper le son"],
+    "action_unmute": ["Unmute sound", "Включить звук", "Ton an", "Activar el sonido", "Rétablir le son"],
+    "action_dark": ["Switch to dark theme", "Включить тёмную тему", "Dunkles Design einschalten", "Activar el tema oscuro", "Passer au thème sombre"],
+    "action_light": ["Switch to light theme", "Включить светлую тему", "Helles Design einschalten", "Activar el tema claro", "Passer au thème clair"],
+    "action_wifi_off": ["Turn Wi-Fi off", "Выключить Wi-Fi", "WLAN ausschalten", "Desactivar el Wi-Fi", "Désactiver le Wi-Fi"],
+    "action_wifi_on": ["Turn Wi-Fi on", "Включить Wi-Fi", "WLAN einschalten", "Activar el Wi-Fi", "Activer le Wi-Fi"],
+    "action_lock": ["Lock the screen", "Заблокировать экран", "Bildschirm sperren", "Bloquear la pantalla", "Verrouiller l'écran"],
+    "action_window": ["Switch to this window", "Перейти в это окно", "Zu diesem Fenster wechseln", "Ir a esta ventana", "Aller à cette fenêtre"],
+    "action_note": ["System action", "Действие системы", "Systemaktion", "Acción del sistema", "Action système"],
+    "action_hint": ["↩ run", "↩ выполнить", "↩ ausführen", "↩ ejecutar", "↩ exécuter"],
 ]
 
 private func format(_ key: String, _ args: [String]) -> String {
@@ -266,4 +277,15 @@ enum S {
     static var ollamaStarting: String { format("ollama_starting", []) }
     static var ollamaNotStarted: String { format("ollama_not_started", []) }
     static func errOllamaModel(_ a0: String, _ a1: String) -> String { format("err_ollama_model", [a0, a1]) }
+    static func actionVolume(_ a0: String) -> String { format("action_volume", [a0]) }
+    static var actionMute: String { format("action_mute", []) }
+    static var actionUnmute: String { format("action_unmute", []) }
+    static var actionDark: String { format("action_dark", []) }
+    static var actionLight: String { format("action_light", []) }
+    static var actionWifiOff: String { format("action_wifi_off", []) }
+    static var actionWifiOn: String { format("action_wifi_on", []) }
+    static var actionLock: String { format("action_lock", []) }
+    static var actionWindow: String { format("action_window", []) }
+    static var actionNote: String { format("action_note", []) }
+    static var actionHint: String { format("action_hint", []) }
 }

@@ -151,6 +151,17 @@ public static class S
         ["ollama_starting"] = new[] { "Installing and starting Ollama…", "Устанавливаю и запускаю Ollama…", "Installiere und starte Ollama…", "Instalando e iniciando Ollama…", "Installation et démarrage d'Ollama…" },
         ["ollama_not_started"] = new[] { "Ollama didn't start", "Ollama не запустилась", "Ollama ist nicht gestartet", "Ollama no se inició", "Ollama n'a pas démarré" },
         ["err_ollama_model"] = new[] { "Ollama has no model “{0}”. Installed: {1}. Pick one of these in the connection, or download it: ollama pull {0}", "В Ollama нет модели «{0}». Установлены: {1}. Выберите одну из них в подключении или скачайте: ollama pull {0}", "Ollama hat kein Modell „{0}“. Installiert: {1}. Wählen Sie eines davon in der Verbindung oder laden Sie es: ollama pull {0}", "Ollama no tiene el modelo «{0}». Instalados: {1}. Elige uno de ellos en la conexión o descárgalo: ollama pull {0}", "Ollama n'a pas le modèle « {0} ». Installés : {1}. Choisissez-en un dans la connexion ou téléchargez-le : ollama pull {0}" },
+        ["action_volume"] = new[] { "Set volume to {0}%", "Громкость {0}%", "Lautstärke auf {0} %", "Volumen al {0} %", "Volume à {0} %" },
+        ["action_mute"] = new[] { "Mute sound", "Выключить звук", "Ton aus", "Silenciar el sonido", "Couper le son" },
+        ["action_unmute"] = new[] { "Unmute sound", "Включить звук", "Ton an", "Activar el sonido", "Rétablir le son" },
+        ["action_dark"] = new[] { "Switch to dark theme", "Включить тёмную тему", "Dunkles Design einschalten", "Activar el tema oscuro", "Passer au thème sombre" },
+        ["action_light"] = new[] { "Switch to light theme", "Включить светлую тему", "Helles Design einschalten", "Activar el tema claro", "Passer au thème clair" },
+        ["action_wifi_off"] = new[] { "Turn Wi-Fi off", "Выключить Wi-Fi", "WLAN ausschalten", "Desactivar el Wi-Fi", "Désactiver le Wi-Fi" },
+        ["action_wifi_on"] = new[] { "Turn Wi-Fi on", "Включить Wi-Fi", "WLAN einschalten", "Activar el Wi-Fi", "Activer le Wi-Fi" },
+        ["action_lock"] = new[] { "Lock the screen", "Заблокировать экран", "Bildschirm sperren", "Bloquear la pantalla", "Verrouiller l'écran" },
+        ["action_window"] = new[] { "Switch to this window", "Перейти в это окно", "Zu diesem Fenster wechseln", "Ir a esta ventana", "Aller à cette fenêtre" },
+        ["action_note"] = new[] { "System action", "Действие системы", "Systemaktion", "Acción del sistema", "Action système" },
+        ["action_hint"] = new[] { "↩ run", "↩ выполнить", "↩ ausführen", "↩ ejecutar", "↩ exécuter" },
     };
 
     private static string F(string key, params string[] args)
@@ -276,4 +287,15 @@ public static class S
     public static string OllamaStarting => F("ollama_starting");
     public static string OllamaNotStarted => F("ollama_not_started");
     public static string ErrOllamaModel(string a0, string a1) => F("err_ollama_model", a0, a1);
+    public static string ActionVolume(string a0) => F("action_volume", a0);
+    public static string ActionMute => F("action_mute");
+    public static string ActionUnmute => F("action_unmute");
+    public static string ActionDark => F("action_dark");
+    public static string ActionLight => F("action_light");
+    public static string ActionWifiOff => F("action_wifi_off");
+    public static string ActionWifiOn => F("action_wifi_on");
+    public static string ActionLock => F("action_lock");
+    public static string ActionWindow => F("action_window");
+    public static string ActionNote => F("action_note");
+    public static string ActionHint => F("action_hint");
 }
