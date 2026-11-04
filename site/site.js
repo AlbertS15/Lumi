@@ -141,14 +141,24 @@
     });
     PAGE.onCounts && PAGE.onCounts(counts, lang);
   }
+  // GitHub lets a visitor's address make 60 unsigned calls an hour, so answers are kept for an hour, and the last known
+  // ones are shown when GitHub says no.
   const gh = "https://api.github.com/repos/AlbertS15/Lumi";
-  fetch(gh).then(r => r.ok ? r.json() : null).then(repo => { if (repo) { counts.stars = repo.stargazers_count; renderStats(); } }).catch(() => {});
+  const HOUR = 3600e3;
+  function cached(key, url, pick) {
+    let old = null;
+    try { old = JSON.parse(localStorage.getItem("gh:" + key)); } catch (e) {}
+    if (old && Date.now() - old.t < HOUR) return Promise.resolve(old.v);
+    return fetch(url).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(json => {
+      const v = pick(json);
+      try { localStorage.setItem("gh:" + key, JSON.stringify({ t: Date.now(), v })); } catch (e) {}
+      return v;
+    }).catch(() => old ? old.v : null);
+  }
+  cached("stars", gh, repo => repo.stargazers_count).then(n => { if (n != null) { counts.stars = n; renderStats(); } });
   if (document.querySelector('[data-count="downloads"]'))
-    fetch(gh + "/releases?per_page=100").then(r => r.ok ? r.json() : null).then(list => {
-      if (!list) return;
-      counts.downloads = list.reduce((s, rel) => s + rel.assets.reduce((x, a) => x + a.download_count, 0), 0);
-      renderStats();
-    }).catch(() => {});
+    cached("downloads", gh + "/releases?per_page=100", list => list.reduce((s, rel) => s + rel.assets.reduce((x, a) => x + a.download_count, 0), 0))
+      .then(n => { if (n != null) { counts.downloads = n; renderStats(); } });
 
   // ---------- copy buttons
   document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", () => {
@@ -160,5 +170,5 @@
   }));
 
   // The page calls Site.applyLang() once its own script has set up what onLang needs.
-  window.Site = { reduced, os, get lang() { return lang; }, t, applyLang, progress, entering, onScroll: f => { scrollFns.push(f); f(); }, drawGhost };
+  window.Site = { reduced, os, get lang() { return lang; }, t, applyLang, progress, entering, onScroll: f => { scrollFns.push(f); f(); }, drawGhost, cached };
 })();

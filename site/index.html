@@ -123,11 +123,11 @@
 .osx .ctas { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 /* ---------- numbers */
-.nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-@media (max-width: 860px) { .nums { grid-template-columns: 1fr 1fr; } }
-.nums > div { padding: 40px 26px; border-right: 1px solid var(--line); }
-.nums > div:last-child { border-right: 0; }
-@media (max-width: 860px) { .nums > div:nth-child(2n) { border-right: 0; } .nums > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+/* hidden tiles (no answer from GitHub) leave no gap: the rest share the width */
+.nums { display: flex; flex-wrap: wrap; border-top: 1px solid var(--line); }
+.nums > div { flex: 1 1 25%; min-width: 50%; padding: 40px 26px; border-bottom: 1px solid var(--line); box-shadow: inset -1px 0 var(--line); }
+.nums > div[hidden] { display: none; }
+@media (min-width: 861px) { .nums > div { min-width: 0; } }
 .nums b { display: block; font-size: clamp(44px, 5.4vw, 76px); font-weight: 600; letter-spacing: -0.055em; line-height: 1; }
 .nums span { color: var(--mute); display: block; margin-top: 10px; }
 
@@ -527,17 +527,17 @@ function setOs() {
   document.querySelectorAll("[data-asset]").forEach(a => { if (assets[a.dataset.asset]) a.href = assets[a.dataset.asset]; });
   document.querySelectorAll(".plat").forEach(p => p.classList.toggle("mine", p.dataset.os === os));
 }
-fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest").then(r => r.ok ? r.json() : null).then(rel => {
-  if (!rel) return;
+Site.cached("assets", "https://api.github.com/repos/AlbertS15/Lumi/releases/latest", rel => {
+  const out = {};
   for (const a of rel.assets || []) {
-    if (a.name.endsWith(".dmg")) assets.mac = a.browser_download_url;
-    else if (a.name.startsWith("Lumi-Setup") && a.name.endsWith(".exe")) assets.win = a.browser_download_url;
-    else if (a.name.endsWith(".AppImage")) assets.linux = a.browser_download_url;
-    else if (a.name.endsWith(".deb")) assets.deb = a.browser_download_url;
-    else if (a.name.endsWith(".rpm")) assets.rpm = a.browser_download_url;
+    if (a.name.endsWith(".dmg")) out.mac = a.browser_download_url;
+    else if (a.name.startsWith("Lumi-Setup") && a.name.endsWith(".exe")) out.win = a.browser_download_url;
+    else if (a.name.endsWith(".AppImage")) out.linux = a.browser_download_url;
+    else if (a.name.endsWith(".deb")) out.deb = a.browser_download_url;
+    else if (a.name.endsWith(".rpm")) out.rpm = a.browser_download_url;
   }
-  setOs();
-}).catch(() => {});
+  return out;
+}).then(found => { if (found) { Object.assign(assets, found); setOs(); } });
 
 // ---------- the pill shows live stars once GitHub answers
 window.pagePill = (c, l) => {
