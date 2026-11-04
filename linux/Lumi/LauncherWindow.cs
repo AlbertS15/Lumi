@@ -206,6 +206,7 @@ public sealed class LauncherWindow : Window
         Place();
         Activate();
         _input.Focus();
+        Log.Write("bar: shown");
     }
 
     private void HideBar()
@@ -213,6 +214,7 @@ public sealed class LauncherWindow : Window
         if (!IsVisible) return;
         Hide();
         _hiddenAt = DateTime.Now;
+        Log.Write("bar: hidden");
     }
 
     /// Centred on the primary screen, its top edge a fifth of the way down.
@@ -258,7 +260,7 @@ public sealed class LauncherWindow : Window
         RenderResults();
     }
 
-    private static bool LooksLikeQuestion(string text)
+    internal static bool LooksLikeQuestion(string text)
     {
         var t = text.Trim().ToLowerInvariant();
         if (t.EndsWith("?")) return true;

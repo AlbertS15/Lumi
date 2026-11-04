@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Unit tests for the Windows app; runs on Windows only (WPF). Run: dotnet test tests/Lumi.Windows.Tests -->
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Lumi.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit.v3" Version="1.1.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../windows/Lumi/Lumi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Cases shared with the Linux test project. -->
+    <Compile Include="../Shared/**/*.cs" Link="Shared/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

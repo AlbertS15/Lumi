@@ -146,16 +146,18 @@ public sealed class Settings
     private static string Folder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lumi");
     private static string FilePath => Path.Combine(Folder, "settings.json");
 
-    private static Settings Load()
+    // Lumi used to be called ClaudeLight: bring its settings (and their encrypted keys) along once.
+    private static Settings Load() => Load(FilePath,
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ClaudeLight", "settings.json"));
+
+    internal static Settings Load(string filePath, string oldFile)
     {
-        // Lumi used to be called ClaudeLight: bring its settings (and their encrypted keys) along once.
-        var oldFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ClaudeLight", "settings.json");
         try
         {
-            if (!File.Exists(FilePath) && File.Exists(oldFile))
+            if (!File.Exists(filePath) && File.Exists(oldFile))
             {
-                Directory.CreateDirectory(Folder);
-                File.Copy(oldFile, FilePath);
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+                File.Copy(oldFile, filePath);
             }
         }
         catch
@@ -163,9 +165,9 @@ public sealed class Settings
         }
         try
         {
-            if (File.Exists(FilePath))
+            if (File.Exists(filePath))
             {
-                var s = JsonSerializer.Deserialize<Settings>(File.ReadAllText(FilePath));
+                var s = JsonSerializer.Deserialize<Settings>(File.ReadAllText(filePath));
                 if (s != null)
                 {
                     if (s.Choice.StartsWith("custom:") && s.Connection == null) s.Choice = "claude:";
@@ -180,12 +182,14 @@ public sealed class Settings
         return new Settings();
     }
 
-    public void Save()
+    public void Save() => SaveTo(FilePath);
+
+    internal void SaveTo(string filePath)
     {
-        Directory.CreateDirectory(Folder);
-        File.WriteAllText(FilePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+        File.WriteAllText(filePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
         // On Linux the file holds the API keys, so only its owner may read it.
-        if (!OperatingSystem.IsWindows()) File.SetUnixFileMode(FilePath, UnixFileMode.UserRead | UnixFileMode.UserWrite);
+        if (!OperatingSystem.IsWindows()) File.SetUnixFileMode(filePath, UnixFileMode.UserRead | UnixFileMode.UserWrite);
         Changed?.Invoke();
     }
 
