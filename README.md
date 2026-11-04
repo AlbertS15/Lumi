@@ -25,6 +25,7 @@ Interface in five languages: English, Русский, Deutsch, Español, França
 ## Features
 
 - **Search** apps and files: the Spotlight index on Mac, the Start menu and Windows Search on Windows. Lumi tells a search from a question by itself.
+- **Ask my files** (experimental, Windows and Linux): pick folders and ask questions about your own .txt, .md, .pdf and .docx files. Everything stays on your computer, answered by the local Ollama only. See [docs/ASK-MY-FILES.md](docs/ASK-MY-FILES.md).
 - **Answers right in the bar**, streamed as they are written; follow-up questions continue the conversation.
 - **Subscriptions without API keys**, through each service's official tool:
   - Claude — [Claude Code](https://claude.com/claude-code) (`claude`): Haiku, Sonnet, Opus, Fable;
