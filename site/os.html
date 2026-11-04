@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumi OS — Linux, где Lumi с первой минуты</title>
+<meta name="description" content="Lumi OS — Linux на основе Fedora Silverblue, в котором уже стоит Lumi: строка с ИИ по Ctrl+Пробел, запуск при входе, нейросеть без интернета одной кнопкой.">
+<meta property="og:title" content="Lumi OS — Linux, где Lumi с первой минуты">
+<meta property="og:description" content="Fedora Silverblue с Lumi внутри: строка с ИИ по Ctrl+Пробел с первой минуты.">
+<meta property="og:image" content="https://alberts15.github.io/Lumi/img/os-bar-empty.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#060808">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero { position: relative; padding: 170px 0 40px; text-align: center; overflow: hidden; }
+.hero::before { content: ""; position: absolute; left: 50%; top: 30%; width: 1200px; height: 900px; transform: translate(-50%, -50%); pointer-events: none;
+  background: radial-gradient(ellipse, rgba(47, 164, 131, .3), transparent 60%); }
+.hero canvas.pixels { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mask-image: linear-gradient(#000 40%, transparent); }
+.hero .wrap { position: relative; }
+.hero h1 { font-size: clamp(76px, 15vw, 220px); letter-spacing: -0.07em; line-height: .9; margin-top: 22px; }
+.hero .sub { margin: 26px auto 0; }
+.hero .ctas { display: flex; gap: 12px; justify-content: center; margin-top: 38px; flex-wrap: wrap; }
+.hero .fade-in { opacity: 0; animation: fadein 1s var(--ease) forwards; }
+@keyframes fadein { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ---------- the tour: one screen, four real screenshots, crossfading as you scroll */
+.tour { height: 420vh; }
+.tour .sticky { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; padding-top: 64px; overflow: hidden; }
+.tour .frame { position: relative; width: min(1100px, 100% - 32px); aspect-ratio: 16 / 10; max-height: 66svh; border-radius: 20px; overflow: hidden; border: 1px solid var(--line2);
+  box-shadow: 0 60px 140px -50px rgba(47, 164, 131, .55); will-change: transform; transform-origin: 50% 0; background: #000; }
+.tour .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s var(--ease), transform 1.2s var(--ease); transform: scale(1.03); }
+.tour .frame img.on { opacity: 1; transform: none; }
+.tour .caps { position: relative; height: 84px; width: min(820px, 100% - 40px); text-align: center; }
+.tour .caps > div { position: absolute; inset: 0; opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.tour .caps > div.on { opacity: 1; transform: none; }
+.tour .caps h3 { font-size: clamp(26px, 3.6vw, 46px); }
+.tour .caps p { color: var(--mute); margin-top: 8px; font-size: clamp(15px, 1.4vw, 18px); }
+.tour .dots { display: flex; gap: 8px; }
+.tour .dots i { width: 28px; height: 3px; border-radius: 3px; background: #ffffff1f; overflow: hidden; position: relative; }
+.tour .dots i b { position: absolute; inset: 0; background: var(--teal); transform-origin: left; transform: scaleX(0); }
+@media (max-width: 700px) { .tour { height: 360vh; } .tour .caps { height: 104px; } }
+
+/* ---------- what's inside */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 60px; }
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+.grid .card { padding: 30px; min-height: 250px; }
+.grid .ico { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: #5fd3ad14; border: 1px solid #5fd3ad33; color: var(--teal); margin-bottom: 40px; }
+.grid .ico svg { width: 22px; height: 22px; }
+.grid h3 { font-size: 25px; letter-spacing: -0.03em; }
+.grid p { color: var(--mute); margin-top: 10px; font-size: 16px; }
+
+/* ---------- install */
+.inst { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; margin-top: 60px; }
+@media (max-width: 900px) { .inst { grid-template-columns: 1fr; } }
+.inst .card { padding: 32px; }
+.inst h3 { font-size: 30px; letter-spacing: -0.035em; }
+.inst p { color: var(--mute); margin-top: 10px; }
+.inst p a, .notes a { color: var(--text); text-decoration: underline; text-decoration-color: #ffffff40; text-underline-offset: 3px; }
+.term { margin-top: 24px; border-radius: 14px; background: #050707; border: 1px solid var(--line); overflow: hidden; }
+.term .bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--dim); }
+.term .bar button { background: #ffffff0d; color: #c4ccca; border: 1px solid var(--line2); border-radius: 8px; padding: 5px 10px; font: 500 12px "Geist Mono", monospace; cursor: pointer; }
+.term .bar button:hover { color: #fff; }
+.term pre { margin: 0; padding: 18px 18px 20px; overflow-x: auto; font: 500 14.5px/1.75 "Geist Mono", monospace; color: #dfe6e4; }
+.term pre .pr { color: var(--teal); user-select: none; }
+.steps { list-style: none; padding: 0; margin: 22px 0 0; counter-reset: s; }
+.steps li { counter-increment: s; display: flex; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); color: #c4ccca; }
+.steps li::before { content: counter(s); flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #ffffff0d; color: var(--teal); font: 500 13px "Geist Mono", monospace; }
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+@media (max-width: 900px) { .notes { grid-template-columns: 1fr; } }
+.notes > div { padding: 22px 24px; border-radius: 16px; border: 1px solid var(--line); color: var(--mute); font-size: 15px; }
+.notes b { display: block; color: var(--text); font-weight: 500; margin-bottom: 6px; font-size: 16px; }
+
+.cta { text-align: center; }
+.cta .ghostbig { width: 110px; height: auto; aspect-ratio: 14 / 13; margin: 0 auto 30px; filter: drop-shadow(0 0 40px var(--glow)); }
+.cta .ctas { display: flex; gap: 12px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="index.html"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+  <div class="links">
+    <a href="index.html">Lumi</a>
+    <a href="#inside" data-i18n="nav_inside">Что внутри</a>
+    <a href="#install" data-i18n="nav_install">Установка</a>
+    <a href="https://github.com/AlbertS15/lumi-os">GitHub</a>
+  </div>
+  <div class="r">
+    <button class="lang" id="lang">EN</button>
+    <a class="btn sm teal" href="#install"><span class="roll"><span data-i18n="get">Установить</span><span data-i18n="get">Установить</span></span></a>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas class="pixels" data-count="60"></canvas>
+  <div class="wrap">
+    <span class="pill fade-in"><span class="dot" data-i18n="early">Ранняя версия</span><span data-i18n="pill">Fedora Silverblue · GNOME · x86-64</span></span>
+    <h1 class="lines"><span class="ln"><span class="grad" style="animation-delay:.12s">Lumi OS</span></span></h1>
+    <p class="sub fade-in" style="animation-delay:.45s" data-i18n="hero_sub">Linux, в котором Lumi живёт с первой минуты. Включили компьютер, нажали Ctrl+Пробел и спросили. Ничего не нужно ставить и настраивать.</p>
+    <div class="ctas fade-in" style="animation-delay:.6s">
+      <a class="btn teal" href="#install"><span class="roll"><span data-i18n="get">Установить</span><span data-i18n="get">Установить</span></span><span class="arr">↓</span></a>
+      <a class="btn ghost" href="https://github.com/AlbertS15/lumi-os"><span class="roll"><span data-i18n="code">Исходный код</span><span data-i18n="code">Исходный код</span></span></a>
+    </div>
+  </div>
+</header>
+
+<section class="tour" id="tour">
+  <div class="sticky">
+    <div class="caps">
+      <div><h3 data-i18n="t0">Экран блокировки с призраком</h3><p data-i18n="t0p">Свои обои, тёмная тема и бирюзовый акцент с первого включения</p></div>
+      <div><h3 data-i18n="t1">Чистый рабочий стол</h3><p data-i18n="t1p">Без логотипов и лишних значков. Lumi уже запущена и ждёт в фоне</p></div>
+      <div><h3 data-i18n="t2">Ctrl+Пробел, и Lumi здесь</h3><p data-i18n="t2p">Программы, файлы и вопросы к ИИ в одной строке. Ничего не нужно настраивать</p></div>
+      <div><h3 data-i18n="t3">Lumi первая в доке</h3><p data-i18n="t3p">Рядом Firefox, Файлы, Терминал и магазин приложений</p></div>
+    </div>
+    <div class="frame" id="frame">
+      <img src="img/os-lock.jpg" width="1280" height="800" alt="Экран блокировки Lumi OS">
+      <img src="img/os-desktop.jpg" width="1280" height="800" alt="Рабочий стол Lumi OS с призраком" loading="lazy">
+      <img src="img/os-bar-empty.jpg" width="1280" height="800" alt="Строка Lumi на рабочем столе Lumi OS" loading="lazy">
+      <img src="img/os-overview.jpg" width="1280" height="800" alt="Обзор GNOME с Lumi первой в доке" loading="lazy">
+    </div>
+    <div class="dots"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  </div>
+</section>
+
+<section id="inside" class="pad-y">
+  <div class="wrap">
+    <span class="eyebrow mono reveal" data-i18n="in_label">Что внутри</span>
+    <h2 class="h2 reveal" data-i18n-html="in_title">Обычный Linux.<br><span class="mute">Только с Lumi внутри.</span></h2>
+    <div class="grid">
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg></div>
+        <h3 data-i18n="g1">Lumi уже стоит</h3><p data-i18n="g1p">Запускается при входе. При первом входе открывается приветствие, где нейросеть без интернета ставится одной кнопкой.</p></div>
+      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M7 14h10"/></svg></div>
+        <h3 data-i18n="g2">Ctrl+Пробел сразу</h3><p data-i18n="g2p">Клавиша назначена заранее, строка открывается поверх любого окна.</p></div>
+      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div>
+        <h3 data-i18n="g3">Поиск файлов</h3><p data-i18n="g3p">Индекс файлов обновляется каждый день, поэтому Lumi находит их по имени.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
+        <h3 data-i18n="g4">Обновления с откатом</h3><p data-i18n="g4p">Система обновляется целиком, как один образ. Если что-то сломалось, прошлую версию можно выбрать при загрузке.</p></div>
+      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
+        <h3 data-i18n="g5">Пересборка каждый день</h3><p data-i18n="g5p">Свежая Fedora и новые версии Lumi приходят сами, без ручных обновлений.</p></div>
+      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+        <h3 data-i18n="g6">Первая настройка короче</h3><p data-i18n="g6p">Часовой пояс ставится сам, раскладки английская и русская уже добавлены.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="pad-y" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow mono reveal" data-i18n="i_label">Установка</span>
+    <h2 class="h2 reveal" data-i18n-html="i_title">Две команды.<br><span class="mute">Или с нуля.</span></h2>
+    <div class="inst">
+      <div class="card reveal">
+        <h3 data-i18n="i1">Уже на Fedora Atomic</h3>
+        <p data-i18n="i1p">Silverblue, Bluefin, Bazzite или Aurora переключаются на Lumi OS двумя командами. Ваши файлы остаются на месте.</p>
+        <div class="term"><div class="bar mono"><span data-i18n="terminal">Терминал</span><button data-copy="#cmd" data-i18n="copy">Копировать</button></div>
+          <pre id="cmd"><span class="pr">$ </span>sudo bootc switch ghcr.io/alberts15/lumi-os:latest
+<span class="pr">$ </span>systemctl reboot</pre></div>
+        <p data-i18n-html="i1back" style="font-size:15px;margin-top:16px">Вернуться назад: выберите прошлую запись в меню загрузки или переключитесь обратно командой <code>sudo bootc switch</code> на ваш прежний образ.</p>
+      </div>
+      <div class="card reveal d1">
+        <h3 data-i18n="i2">С нуля, с флешки</h3>
+        <p data-i18n="i2p">Установочный ISO собирает GitHub. Пока он лежит в сборках, а не в релизах, поэтому нужен вход в GitHub.</p>
+        <ol class="steps">
+          <li data-i18n-html="s1">Откройте <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> на GitHub</li>
+          <li data-i18n="s2">Выберите последнюю успешную сборку и скачайте артефакт anaconda-iso: около 4 ГБ, внутри zip-архива</li>
+          <li data-i18n="s3">Запишите ISO на флешку, например через Fedora Media Writer или balenaEtcher</li>
+          <li data-i18n="s4">Загрузитесь с флешки и следуйте установщику</li>
+        </ol>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="reveal"><b data-i18n="n1">Компьютер x86-64</b><span data-i18n="n1p">Intel или AMD. Версии для ARM пока нет.</span></div>
+      <div class="reveal d1"><b data-i18n="n2">Ранняя версия</b><span data-i18n-html="n2p">Если что-то не работает, напишите в <a href="https://github.com/AlbertS15/lumi-os/issues">issues</a>, это очень поможет.</span></div>
+      <div class="reveal d2"><b data-i18n="n3">Независимый проект</b><span data-i18n="n3p">Не связан с Fedora, Red Hat и Universal Blue. Основан на их открытом шаблоне образа.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta pad-y" style="padding-top:0">
+  <div class="wrap">
+    <canvas class="px ghost live looks ghostbig" width="14" height="13"></canvas>
+    <h2 class="h2 reveal" data-i18n-html="c_title">Уже на Mac или Windows?<br><span class="grad">Lumi работает и там.</span></h2>
+    <div class="ctas reveal">
+      <a class="btn" href="index.html#download"><span class="roll"><span data-i18n="c_btn">Скачать Lumi</span><span data-i18n="c_btn">Скачать Lumi</span></span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="big"><span class="grad">Lumi OS</span></div>
+    <div class="row">
+      <span>© 2026 Lumi · MIT · Apache-2.0</span>
+      <div class="r">
+        <a href="index.html">Lumi</a>
+        <a href="https://github.com/AlbertS15/lumi-os">GitHub</a>
+        <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
+        <a href="https://github.com/AlbertS15/lumi-os/issues" data-i18n="bug">Сообщить об ошибке</a>
+      </div>
+      <span class="legal" data-i18n="legal">Скриншоты — настоящая Lumi OS в виртуальной машине. Fedora — товарный знак Red Hat, Inc. Lumi OS не связана с Fedora, Red Hat и Universal Blue.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PAGE = {
+  en: {
+    title: "Lumi OS — Linux with Lumi from minute one",
+    nav_inside: "Inside", nav_install: "Install", get: "Install", early: "Early version", code: "Source code",
+    hero_sub: "Linux where Lumi lives from minute one. Turn the computer on, press Ctrl+Space and ask. Nothing to install or set up.",
+    t0: "A lock screen with the ghost", t0p: "Its own wallpaper, a dark theme and a teal accent from the first boot",
+    t1: "A clean desktop", t1p: "No logos, no clutter. Lumi is already running in the background",
+    t2: "Ctrl+Space, and Lumi is here", t2p: "Apps, files and AI questions in one bar. Nothing to set up",
+    t3: "Lumi first in the dock", t3p: "Next to Firefox, Files, Terminal and the app store",
+    in_label: "Inside", in_title: 'Regular Linux.<br><span class="mute">With Lumi inside.</span>',
+    g1: "Lumi is already there", g1p: "It starts at login. The first login opens a welcome window where one button installs an offline AI.",
+    g2: "Ctrl+Space from the start", g2p: "The shortcut is set up in advance; the bar opens over any window.",
+    g3: "File search", g3p: "The file index updates daily, so Lumi finds files by name.",
+    g4: "Updates you can roll back", g4p: "The system updates as one whole image. If something breaks, pick the previous version at boot.",
+    g5: "Rebuilt every day", g5p: "Fresh Fedora and new Lumi versions arrive on their own.",
+    g6: "A shorter first setup", g6p: "The time zone sets itself; English and Russian layouts are already added.",
+    i_label: "Install", i_title: 'Two commands.<br><span class="mute">Or from scratch.</span>',
+    i1: "Already on Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite or Aurora switch to Lumi OS with two commands. Your files stay where they are.",
+    terminal: "Terminal", copy: "Copy",
+    i1back: "Going back: pick the previous entry in the boot menu, or run <code>sudo bootc switch</code> to the image you had.",
+    i2: "From scratch, from a USB stick", i2p: "GitHub builds the installer ISO. For now it sits in the builds rather than in releases, so you need to sign in to GitHub.",
+    s1: 'Open <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> on GitHub',
+    s2: "Pick the latest successful run and download the anaconda-iso artifact: about 4 GB, inside a zip", s3: "Write the ISO to a USB stick, for example with Fedora Media Writer or balenaEtcher",
+    s4: "Boot from the stick and follow the installer",
+    n1: "An x86-64 computer", n1p: "Intel or AMD. There's no ARM version yet.",
+    n2: "Early version", n2p: 'If something doesn\'t work, open an <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, it helps a lot.',
+    n3: "An independent project", n3p: "Not affiliated with Fedora, Red Hat or Universal Blue. Based on their open image template.",
+    c_title: 'On a Mac or Windows?<br><span class="grad">Lumi works there too.</span>', c_btn: "Download Lumi",
+    bug: "Report a bug",
+    legal: "The screenshots are the real Lumi OS in a virtual machine. Fedora is a trademark of Red Hat, Inc. Lumi OS is not affiliated with Fedora, Red Hat or Universal Blue.",
+  },
+};
+</script>
+<script src="site.js"></script>
+<script>
+// The tour: the frame settles from a tilt, then the screenshots and captions change with scroll.
+const tour = document.getElementById("tour"), frame = document.getElementById("frame");
+const imgs = [...frame.querySelectorAll("img")], caps = [...document.querySelectorAll(".tour .caps > div")], bars = [...document.querySelectorAll(".tour .dots b")];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+let shown = -1;
+Site.onScroll(() => {
+  const p = Site.reduced ? 0 : Site.progress(tour);
+  const settle = 1 - Math.pow(1 - clamp(Site.entering(tour) * 1.3), 3);
+  frame.style.transform = Site.reduced ? "none" : `perspective(1400px) rotateX(${(1 - settle) * 22}deg) scale(${0.9 + 0.1 * settle})`;
+  const i = Math.min(3, Math.floor(p * 4));
+  if (i !== shown) { imgs.forEach((im, j) => im.classList.toggle("on", j === i)); caps.forEach((c, j) => c.classList.toggle("on", j === i)); shown = i; }
+  bars.forEach((b, j) => b.style.transform = `scaleX(${clamp(p * 4 - j)})`);
+});
+Site.applyLang();
+</script>
+</body>
+</html>

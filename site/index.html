@@ -10,409 +10,447 @@
 <meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f2f0eb">
+<meta name="theme-color" content="#060808">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-:root { --paper: #f2f0eb; --paper2: #e9e6df; --ink: #111; --gray: #6a6862; --line: #111; --soft: #c9c5bc; --red: #ff3b1f; }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.45 "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-a { color: inherit; }
-h1, h2, h3 { margin: 0; font-weight: 900; letter-spacing: -0.05em; line-height: .88; }
-.mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
-.pad { padding-left: 28px; padding-right: 28px; }
-.red { color: var(--red); }
-canvas.px { image-rendering: pixelated; }
-
-/* ---------- nav */
-nav { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 2px solid var(--line); display: flex; align-items: center; gap: 28px; height: 58px; }
-nav .logo { font-weight: 900; font-size: 22px; letter-spacing: -0.04em; display: flex; gap: 10px; align-items: center; text-decoration: none; }
-nav .logo canvas { width: 24px; height: 22px; }
-nav .r { margin-left: auto; display: flex; gap: 26px; align-items: center; }
-nav .r a { text-decoration: none; }
-nav .r a:hover { color: var(--red); }
-nav .lang { background: none; border: 1px solid var(--line); border-radius: 0; font: inherit; padding: 3px 7px; cursor: pointer; color: var(--ink); }
-nav .get { background: var(--ink); color: var(--paper) !important; padding: 8px 14px; }
-nav .get:hover { background: var(--red); }
-@media (max-width: 760px) { nav .hide-sm { display: none; } }
-
 /* ---------- hero */
-.meta { display: flex; justify-content: space-between; gap: 16px; padding-top: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-.hero h1 { font-size: clamp(68px, 15vw, 236px); margin: 34px 0 30px; }
-.hero h1 .w { display: inline-block; opacity: 0; transform: translateY(40%); animation: rise .9s cubic-bezier(.2,.8,.2,1) forwards; }
-@keyframes rise { to { opacity: 1; transform: none; } }
-.hero-low { display: grid; grid-template-columns: 6fr 2fr 4fr; gap: 0; border-top: 1px solid var(--line); }
-@media (max-width: 860px) { .hero-low { grid-template-columns: 1fr; } }
-.hero-low .lead { font-size: clamp(22px, 2.4vw, 31px); line-height: 1.14; font-weight: 500; letter-spacing: -0.025em; padding: 26px 28px 34px 0; }
-.hero-low .ctas { grid-column: 3; display: flex; flex-direction: column; gap: 10px; padding: 26px 0 34px; justify-content: flex-end; }
-@media (max-width: 860px) { .hero-low .ctas { grid-column: 1; padding-top: 0; } }
-.btn { display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--ink); color: var(--paper); text-decoration: none; padding: 19px 20px; font-weight: 700; font-size: 18px; transition: background .15s; }
-.btn::after { content: "→"; transition: transform .2s; }
-.btn:hover::after { transform: translateX(5px); }
-.btn.accent { background: var(--red); color: #fff; }
-.btn.accent:hover { background: var(--ink); }
-.btn .os { font-weight: 500; opacity: .8; margin-left: 6px; }
+.hero { position: relative; min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 120px 20px 80px; overflow: hidden; }
+.hero::before { content: ""; position: absolute; left: 50%; top: 42%; width: 1100px; height: 1100px; transform: translate(-50%, -50%); pointer-events: none;
+  background: radial-gradient(circle, rgba(47, 164, 131, .32), rgba(47, 164, 131, .08) 35%, transparent 62%); }
+.hero canvas.pixels { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mask-image: radial-gradient(circle at 50% 45%, #000 20%, transparent 75%); }
+.hero .inner { position: relative; display: flex; flex-direction: column; align-items: center; }
+.hero .big-ghost { width: clamp(84px, 8vw, 120px); height: auto; aspect-ratio: 14 / 13; filter: drop-shadow(0 0 40px rgba(95, 211, 173, .55)); animation: float 5s ease-in-out infinite; margin-bottom: 26px; }
+@keyframes float { 50% { transform: translateY(-12px); } }
+.hero h1 { font-size: clamp(52px, 8.6vw, 128px); margin-top: 28px; letter-spacing: -0.06em; line-height: .95; }
+.hero .sub { margin-top: 28px; }
+.hero .ctas { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; justify-content: center; }
+.hero .plats { margin-top: 26px; color: var(--dim); }
+.hero .fade-in { opacity: 0; animation: fadein 1s var(--ease) forwards; }
+@keyframes fadein { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.cue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); width: 24px; height: 38px; border: 1.5px solid #ffffff38; border-radius: 12px; }
+.cue::after { content: ""; position: absolute; left: 50%; top: 8px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: var(--teal); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
 
-/* the demo: a plain bordered bar on the grid */
-.demo { border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); display: grid; grid-template-columns: 2fr 10fr; }
-@media (max-width: 860px) { .demo { grid-template-columns: 1fr; } }
-.demo .side { border-right: 1px solid var(--line); padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
-@media (max-width: 860px) { .demo .side { border-right: 0; border-bottom: 1px solid var(--line); flex-direction: row; align-items: center; } }
-.keys { display: flex; gap: 6px; }
-kbd { display: inline-block; min-width: 46px; padding: 9px 11px; text-align: center; border: 2px solid var(--ink); background: var(--paper); font: 700 17px "Inter Tight", sans-serif; box-shadow: 4px 4px 0 var(--ink); transition: transform .08s, box-shadow .08s, background .08s, color .08s; }
-kbd.down { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); background: var(--red); color: #fff; border-color: var(--red); }
-.demo .main { padding: 26px 28px 30px; min-height: 290px; }
-.bar { border: 2px solid var(--ink); background: #fbfaf7; opacity: .25; transition: opacity .25s; }
-.bar.open { opacity: 1; }
-.bar .input { display: flex; align-items: center; gap: 14px; padding: 16px 18px; font-size: clamp(18px, 2.4vw, 28px); font-weight: 500; letter-spacing: -0.02em; }
-.bar .input canvas { width: 30px; height: 28px; flex: none; }
-.bar .typed { flex: 1; min-height: 1.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ph { color: #a8a49b; }
-.caret { display: inline-block; width: 3px; height: 1em; background: var(--red); vertical-align: -0.1em; margin-left: 2px; animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-.bar .model { padding: 4px 8px; border: 1px solid var(--ink); }
-.bar .answer { display: none; border-top: 1px solid var(--ink); padding: 16px 18px 20px; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.4; }
-.bar .answer.show { display: block; }
-.bar .answer .q { margin-bottom: 6px; color: var(--gray); }
-
-/* ---------- numbers under the demo */
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--line); }
-@media (max-width: 860px) { .stats { grid-template-columns: 1fr 1fr; } }
-.stats > div { padding: 22px 28px; border-right: 1px solid var(--line); }
-.stats > div:last-child { border-right: 0; }
-@media (max-width: 860px) { .stats > div:nth-child(2n) { border-right: 0; } .stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
-.stats b { display: block; font-size: clamp(40px, 5vw, 68px); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
-.stats span { color: var(--gray); }
-.stats .live[hidden] { display: none; }
-
-/* ---------- three steps */
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--line); }
-@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
-.step { padding: 34px 28px 40px; border-right: 1px solid var(--line); }
-.step:last-child { border-right: 0; }
-@media (max-width: 860px) { .step { border-right: 0; border-bottom: 1px solid var(--line); } }
-.step .n { font-weight: 900; font-size: clamp(56px, 6vw, 96px); letter-spacing: -0.05em; color: var(--red); line-height: .9; }
-.step h3 { font-size: clamp(28px, 3vw, 44px); margin-top: 18px; }
-.step p { margin: 12px 0 0; font-size: 19px; color: #3d3b37; max-width: 380px; }
+/* ---------- the scroll scene: the screen grows, keys press, the question types, the answer streams */
+.scene { height: 520vh; }
+.scene .sticky { position: sticky; top: 0; height: 100svh; padding-top: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; overflow: hidden; }
+.captions { position: relative; height: 92px; width: min(900px, 100% - 40px); text-align: center; }
+.captions > div { position: absolute; inset: 0; opacity: 0; transform: translateY(16px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.captions > div.on { opacity: 1; transform: none; }
+.captions h3 { font-size: clamp(28px, 4.2vw, 54px); }
+.captions p { color: var(--mute); margin-top: 10px; font-size: clamp(15px, 1.4vw, 18px); }
+.screen { position: relative; width: min(1120px, 100% - 32px); aspect-ratio: 16 / 10; max-height: 64svh; border-radius: 28px; overflow: hidden; transform-origin: 50% 30%;
+  background: radial-gradient(ellipse at 50% 55%, #1f5546 0%, #0f2a23 30%, #081210 62%, #050808 100%); border: 1px solid var(--line2);
+  box-shadow: 0 50px 120px -40px rgba(47, 164, 131, .45); will-change: transform; }
+.screen canvas.pixels { position: absolute; inset: 0; width: 100%; height: 100%; }
+.screen .wall { position: absolute; left: 50%; top: 56%; width: 20%; aspect-ratio: 14 / 13; transform: translate(-50%, -50%); opacity: .9; }
+.screen .menubar { position: absolute; top: 0; left: 0; right: 0; height: 28px; background: #0009; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-size: 12px; color: #cfd6d4; }
+.screen .keys { position: absolute; z-index: 2; left: 50%; top: 30%; transform: translate(-50%, -50%); display: flex; gap: 10px; transition: opacity .3s; }
+.screen .bar-wrap { position: absolute; z-index: 2; left: 50%; top: 22%; width: min(640px, 80%); transform: translateX(-50%); }
+.screen .lbar { opacity: 0; transform: translateY(18px) scale(.96); }
+.screen .lbar .ans { display: none; }
+.screen .lbar.answered .ans { display: block; }
+.screen .note { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; color: #cfd6d4; opacity: 0; transition: opacity .4s; }
+.screen .note.on { opacity: .8; }
+.wifi { display: inline-flex; align-items: center; gap: 7px; }
+.wifi svg { width: 14px; height: 14px; }
+@media (max-width: 700px) { .scene { height: 420vh; } .screen { aspect-ratio: 3 / 4; max-height: 62svh; } .screen .bar-wrap { top: 16%; width: 90%; } .screen .wall { width: 36%; top: 64%; } .captions { height: 110px; } }
 
 /* ---------- statement */
-.statement { padding-top: 120px; padding-bottom: 120px; border-bottom: 2px solid var(--line); }
-.statement p { margin: 0; font-size: clamp(38px, 6vw, 88px); font-weight: 900; letter-spacing: -0.05em; line-height: .95; max-width: 1300px; }
-.statement .w { color: var(--soft); transition: color .2s; }
-.statement .w.on { color: var(--ink); }
-.statement .w.key.on { color: var(--red); }
+.statement p { font-size: clamp(34px, 5.6vw, 80px); font-weight: 600; letter-spacing: -0.05em; line-height: 1.04; max-width: 1150px; }
+.statement .w { color: #2a3331; transition: color .25s; }
+.statement .w.on { color: var(--text); }
+.statement .w.key.on { color: var(--teal); text-shadow: 0 0 40px var(--glow); }
 
-/* ---------- numbered features */
-.sec-head { display: grid; grid-template-columns: 2fr 10fr; border-bottom: 1px solid var(--line); padding-top: 18px; padding-bottom: 18px; }
-@media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
-.sec-title { padding-top: 60px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
-.sec-title h2 { font-size: clamp(54px, 9vw, 140px); }
-.row { display: grid; grid-template-columns: 2fr 5fr 5fr; border-bottom: 1px solid var(--line); padding-top: 30px; padding-bottom: 30px; align-items: start; gap: 0; }
-@media (max-width: 860px) { .row { grid-template-columns: 60px 1fr; gap: 14px 0; } .row .ex { grid-column: 1 / -1; } }
-.row .n { font-weight: 900; font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.05em; color: var(--red); line-height: .9; }
-.row h3 { font-size: clamp(34px, 4.4vw, 64px); }
-.row p { margin: 14px 0 0; font-size: 19px; color: #3d3b37; max-width: 440px; }
-.row .ex { border: 2px solid var(--ink); background: #fbfaf7; padding: 18px 20px; min-height: 150px; font-size: 18px; }
-.ex .q { color: var(--gray); margin-bottom: 8px; }
-.ex .app { display: flex; align-items: center; gap: 12px; padding: 7px 10px; font-weight: 600; transition: background .2s, color .2s; }
-.ex .app.sel { background: var(--ink); color: var(--paper); }
-.ex .app i { width: 12px; height: 12px; display: inline-block; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { border: 1px solid var(--ink); padding: 6px 11px; font-weight: 600; font-size: 16px; transition: background .2s, color .2s; }
-.chip.on { background: var(--ink); color: var(--paper); }
-.hello { font-weight: 900; font-size: clamp(52px, 6vw, 84px); letter-spacing: -0.05em; line-height: 1; height: 1.05em; overflow: hidden; position: relative; }
-.hello span { position: absolute; left: 0; top: 0; transition: transform .55s cubic-bezier(.7,0,.2,1); }
-.ex .keys { flex-wrap: wrap; align-items: center; font-weight: 700; }
+/* ---------- bento */
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 64px; }
+.bento .card { padding: 30px; min-height: 300px; display: flex; flex-direction: column; }
+.bento .s4 { grid-column: span 4; } .bento .s3 { grid-column: span 3; } .bento .s2 { grid-column: span 2; }
+@media (max-width: 960px) { .bento { grid-template-columns: 1fr 1fr; } .bento .s4, .bento .s3 { grid-column: span 2; } .bento .s2 { grid-column: span 1; } }
+@media (max-width: 620px) { .bento { grid-template-columns: 1fr; } .bento .s2 { grid-column: span 1; } }
+.bento h3 { font-size: clamp(24px, 2.3vw, 32px); letter-spacing: -0.035em; }
+.bento .card > p { color: var(--mute); margin-top: 10px; font-size: 16px; max-width: 440px; }
+.bento .demo { margin-top: auto; padding-top: 28px; }
+.stream { border-radius: 14px; background: #0a0e0e; border: 1px solid var(--line); padding: 18px 20px; min-height: 150px; font-size: 16px; line-height: 1.55; color: #dfe6e4; }
+.stream .q { color: var(--mute); margin-bottom: 8px; font-size: 14px; }
+.apps .app { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 10px; font-weight: 500; transition: background .25s, color .25s; color: #c4ccca; }
+.apps .app.sel { background: #2a6fdb; color: #fff; }
+.apps .app i { width: 26px; height: 26px; border-radius: 7px; display: inline-grid; place-items: center; font-style: normal; font-size: 13px; color: #fff; font-weight: 600; }
+.apps .app small { margin-left: auto; opacity: .6; font-size: 12px; }
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); display: grid; gap: 10px; }
+.marquee .track { display: flex; gap: 10px; width: max-content; animation: slide 26s linear infinite; }
+.marquee .track.rev { animation-direction: reverse; animation-duration: 32s; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.chip { padding: 9px 15px; border-radius: 999px; border: 1px solid var(--line2); background: #ffffff06; font-size: 15px; white-space: nowrap; }
+.chip.t { border-color: #5fd3ad66; color: var(--teal); }
+.hello { font-size: clamp(46px, 5vw, 70px); font-weight: 600; letter-spacing: -0.05em; height: 1.1em; overflow: hidden; position: relative; line-height: 1.1; }
+.hello span { position: absolute; left: 0; top: 0; transition: transform .6s cubic-bezier(.7, 0, .2, 1); }
+.keyshow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--mute); }
+.offmini { display: flex; align-items: center; gap: 14px; }
+.offmini .sw { width: 54px; height: 32px; border-radius: 99px; background: #2a3331; position: relative; flex: none; }
+.offmini .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: #8a9693; }
 
-/* ---------- offline */
-.offline { background: var(--ink); color: var(--paper); }
-.offline .sec-head, .offline .sec-title, .offline .trow { border-color: #3a3936; }
-.offline .lead { font-size: clamp(22px, 2.4vw, 31px); font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; max-width: 820px; padding-top: 30px; padding-bottom: 40px; border-bottom: 1px solid #3a3936; }
-.trow { display: grid; grid-template-columns: 2fr 4fr 2fr 4fr; border-bottom: 1px solid #3a3936; padding-top: 22px; padding-bottom: 22px; align-items: baseline; transition: background .2s; }
-@media (max-width: 860px) { .trow { grid-template-columns: 1fr 1fr; gap: 6px; } }
-.trow.headrow { color: #8d8a83; padding-top: 14px; padding-bottom: 14px; }
-.trow .nm { font-size: clamp(30px, 3.4vw, 46px); font-weight: 900; letter-spacing: -0.05em; }
-.trow .gb { font-size: clamp(30px, 3.4vw, 46px); font-weight: 900; letter-spacing: -0.05em; }
-.trow .d { color: #b9b5ac; font-size: 18px; }
-.trow.rec { background: var(--red); color: #fff; }
-.trow.rec .d { color: #fff; }
-.trow .tag { display: none; }
-.trow.rec .tag { display: inline-block; margin-left: 10px; vertical-align: middle; }
-.howto { padding-top: 30px; padding-bottom: 50px; color: #b9b5ac; font-size: 19px; }
-.howto b { color: var(--paper); font-weight: 600; }
-.ghostbig { display: block; width: 120px; height: 112px; margin-top: 40px; }
+/* ---------- offline: the headline zooms in from huge */
+.zoom { height: 200vh; }
+.zoom .sticky { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.zoom h2 { font-size: clamp(52px, 9vw, 140px); letter-spacing: -0.06em; will-change: transform; line-height: .98; }
+.zoom .lead { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.zoom .lead.on { opacity: 1; transform: none; }
+.zoom .glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(47, 164, 131, .25), transparent 60%); pointer-events: none; }
+.models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
+@media (max-width: 860px) { .models { grid-template-columns: 1fr; } }
+.model { padding: 30px; }
+.model .tag { position: absolute; top: 22px; right: 22px; padding: 5px 10px; border-radius: 999px; background: var(--teal); color: #03140f; font-size: 11.5px; display: none; }
+.model.rec { border-color: #5fd3ad80; box-shadow: 0 0 60px -20px var(--glow); }
+.model.rec .tag { display: block; }
+.model h3 { font-size: 46px; letter-spacing: -0.05em; }
+.model p { color: var(--mute); margin-top: 8px; }
+.model dl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 30px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.model dt { color: var(--dim); }
+.model dd { margin: 4px 0 0; font-size: 26px; font-weight: 600; letter-spacing: -0.03em; }
+.howto { margin-top: 26px; color: var(--mute); text-align: center; }
+.howto b { color: var(--text); font-weight: 500; }
+
+/* ---------- Lumi OS teaser: the screenshot tilts flat as it scrolls in */
+.osx { overflow: hidden; }
+.osx .persp { perspective: 1400px; margin-top: 60px; }
+.osx .shot { border-radius: 18px; overflow: hidden; border: 1px solid var(--line2); transform-origin: 50% 100%; will-change: transform; box-shadow: 0 60px 140px -50px rgba(47, 164, 131, .6); }
+.osx .new { display: inline-flex; gap: 8px; align-items: center; }
+.osx .ctas { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- numbers */
+.nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+@media (max-width: 860px) { .nums { grid-template-columns: 1fr 1fr; } }
+.nums > div { padding: 40px 26px; border-right: 1px solid var(--line); }
+.nums > div:last-child { border-right: 0; }
+@media (max-width: 860px) { .nums > div:nth-child(2n) { border-right: 0; } .nums > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+.nums b { display: block; font-size: clamp(44px, 5.4vw, 76px); font-weight: 600; letter-spacing: -0.055em; line-height: 1; }
+.nums span { color: var(--mute); display: block; margin-top: 10px; }
 
 /* ---------- download */
-.plats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--line); }
-@media (max-width: 860px) { .plats { grid-template-columns: 1fr; } }
-.plat { padding: 30px 28px 28px; border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 380px; }
-.plat:last-child { border-right: 0; }
-@media (max-width: 860px) { .plat { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; } }
-.plat .top { display: flex; justify-content: space-between; }
-.plat .yours { color: var(--red); visibility: hidden; }
+.dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 60px; }
+@media (max-width: 900px) { .dl { grid-template-columns: 1fr; } }
+.plat { padding: 30px; display: flex; flex-direction: column; min-height: 360px; }
+.plat .top { display: flex; justify-content: space-between; color: var(--dim); }
+.plat .yours { color: var(--teal); visibility: hidden; }
+.plat.mine { border-color: #5fd3ad80; box-shadow: 0 0 80px -30px var(--glow); }
 .plat.mine .yours { visibility: visible; }
-.plat h3 { font-size: clamp(48px, 5vw, 72px); margin-top: 26px; }
-.plat .hk { margin-top: 18px; display: flex; gap: 6px; align-items: center; }
-.plat .hk kbd { font-size: 14px; min-width: 0; padding: 5px 9px; box-shadow: 3px 3px 0 var(--ink); }
-.plat p { color: #3d3b37; font-size: 17px; margin: 18px 0 26px; max-width: 340px; }
-.plat p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.plat .btn { margin-top: auto; }
-.plat:not(.mine) .btn { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
-.plat:not(.mine) .btn:hover { background: var(--ink); color: var(--paper); }
-.plat.mine .btn { background: var(--red); color: #fff; }
-code { font: 500 14px "JetBrains Mono", monospace; background: var(--paper2); padding: 1px 5px; }
+.plat h3 { font-size: clamp(40px, 4vw, 56px); margin-top: 30px; letter-spacing: -0.05em; }
+.plat .hk { display: flex; gap: 6px; margin-top: 16px; }
+.plat p { color: var(--mute); margin: 18px 0 26px; font-size: 15.5px; }
+.plat p a { color: var(--text); text-decoration: underline; text-decoration-color: #ffffff40; text-underline-offset: 3px; }
+.plat p code { background: #ffffff10; padding: 1px 6px; border-radius: 5px; font-size: 13px; }
+.plat .btn { margin-top: auto; justify-content: center; }
+.plat:not(.mine) .btn { background: transparent; color: var(--text); border: 1px solid var(--line2); }
+.plat:not(.mine) .btn:hover { box-shadow: none; border-color: #ffffff50; }
 
 /* ---------- faq */
-details { border-bottom: 1px solid var(--line); }
-details summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 2fr 9fr 1fr; align-items: baseline; padding: 24px 28px; font-size: clamp(22px, 2.4vw, 32px); font-weight: 700; letter-spacing: -0.03em; }
-@media (max-width: 860px) { details summary { grid-template-columns: 40px 1fr 30px; } }
-details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "+"; justify-self: end; font-weight: 400; transition: transform .25s; }
-details[open] summary::after { transform: rotate(45deg); color: var(--red); }
-details summary .n { color: var(--red); font-family: "JetBrains Mono", monospace; font-size: 14px; font-weight: 500; }
-details p { margin: 0; padding: 0 28px 28px; font-size: 19px; color: #3d3b37; max-width: 900px; margin-left: calc(2 / 12 * 100%); }
-@media (max-width: 860px) { details p { margin-left: 40px; } }
-
-/* ---------- footer */
-footer { border-top: 2px solid var(--line); }
-footer .big { font-size: clamp(80px, 22vw, 340px); font-weight: 900; letter-spacing: -0.07em; line-height: .8; padding-top: 40px; display: flex; align-items: flex-end; gap: 3vw; }
-footer .big canvas { width: clamp(70px, 14vw, 210px); height: auto; aspect-ratio: 14 / 13; margin-bottom: 1.5vw; }
-footer .bottom { display: flex; flex-wrap: wrap; gap: 10px 26px; padding-top: 20px; padding-bottom: 30px; border-top: 1px solid var(--line); margin-top: 30px; }
-footer .bottom .r { margin-left: auto; display: flex; gap: 22px; flex-wrap: wrap; }
-footer a { text-decoration: none; } footer a:hover { color: var(--red); }
-footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; font-family: "Inter Tight", sans-serif; font-size: 14px; width: 100%; }
-
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } .hero h1 .w { animation: none; opacity: 1; transform: none; } }
+.faq { max-width: 900px; margin: 60px auto 0; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 26px 4px; font-size: clamp(19px, 2vw, 24px); font-weight: 500; letter-spacing: -0.02em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--mute); font-weight: 400; transition: transform .3s var(--ease), color .3s; flex: none; }
+.faq details[open] summary::after { transform: rotate(45deg); color: var(--teal); }
+.faq details p { padding: 0 4px 28px; color: var(--mute); font-size: 17px; max-width: 760px; animation: fadein .5s var(--ease); }
 </style>
 </head>
 <body>
 
-<nav class="pad">
+<nav class="nav">
   <a class="logo" href="#"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
-  <div class="r mono">
-    <a class="hide-sm" href="#features" data-i18n="nav_features">Обзор</a>
-    <a class="hide-sm" href="#offline" data-i18n="nav_offline">Офлайн</a>
-    <a class="hide-sm" href="#faq" data-i18n="nav_faq">Вопросы</a>
-    <button class="lang mono" id="lang">EN</button>
-    <a class="get" href="#download" data-i18n="download">Скачать</a>
+  <div class="links">
+    <a href="#features" data-i18n="nav_features">Возможности</a>
+    <a href="#offline" data-i18n="nav_offline">Без интернета</a>
+    <a href="os.html">Lumi OS</a>
+    <a href="#faq" data-i18n="nav_faq">Вопросы</a>
+  </div>
+  <div class="r">
+    <button class="lang" id="lang">EN</button>
+    <a class="btn sm" href="#download"><span class="roll"><span data-i18n="download">Скачать</span><span data-i18n="download">Скачать</span></span></a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="meta mono pad"><span>Lumi 2.0</span><span>Mac / Windows / Linux</span><span data-i18n="meta_free">MIT · Бесплатно</span></div>
-  <h1 class="pad" id="title" data-i18n-html="hero_title"><span class="w">Нейросеть</span><br><span class="w red" style="animation-delay:.12s">одной</span> <span class="w" style="animation-delay:.24s">клавишей.</span></h1>
-  <div class="hero-low pad">
-    <p class="lead" data-i18n="hero_lead">Нажмите клавишу в любом окне. Спросите. Ответ появится прямо в строке — без браузера, вкладок и аккаунтов.</p>
-    <div class="ctas">
-      <a class="btn accent" id="dl-main" href="#download"><span><span data-i18n="download_free">Скачать бесплатно</span><span class="os" id="dl-os"></span></span></a>
-      <a class="btn" href="https://github.com/AlbertS15/Lumi" data-i18n="source">Исходный код на GitHub</a>
+  <canvas class="pixels" data-count="80"></canvas>
+  <div class="inner">
+    <canvas class="px ghost live looks big-ghost" width="14" height="13"></canvas>
+    <a class="pill fade-in" href="https://github.com/AlbertS15/Lumi" style="animation-delay:.1s"><span class="dot" data-i18n="free">Бесплатно</span><span id="pill-text" data-i18n="pill">Открытый код на GitHub</span></a>
+    <h1 class="lines" data-i18n-html="hero_title"><span class="ln"><span style="animation-delay:.15s">Нейросеть</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">одной клавишей.</span></span></h1>
+    <p class="sub fade-in" style="animation-delay:.5s" data-i18n="hero_sub">Нажмите клавишу в любом окне и спросите. Ответ появится прямо в строке: без браузера, вкладок и аккаунтов. Может работать без интернета.</p>
+    <div class="ctas fade-in" style="animation-delay:.65s">
+      <a class="btn teal" id="dl-main" href="#download"><span class="roll"><span id="dl-label">Скачать бесплатно</span><span id="dl-label2">Скачать бесплатно</span></span><span class="arr">↓</span></a>
+      <a class="btn ghost" href="#demo"><span class="roll"><span data-i18n="see">Посмотреть, как работает</span><span data-i18n="see">Посмотреть, как работает</span></span></a>
     </div>
+    <p class="plats mono fade-in" style="animation-delay:.8s">macOS · Windows · Linux · MIT</p>
   </div>
-  <div class="demo">
-    <div class="side">
-      <span class="mono" data-i18n="demo_label">Демонстрация</span>
-      <div class="keys"><kbd id="k1">⌥</kbd><kbd id="k2">Ё</kbd></div>
-    </div>
-    <div class="main">
-      <div class="bar" id="bar">
-        <div class="input"><canvas class="px ghost live" width="14" height="13"></canvas><div class="typed" id="typed"></div><span class="model mono">Lumi</span></div>
-        <div class="answer" id="answer"><div class="q mono" id="asked"></div><div id="answer-text"></div></div>
-      </div>
-      <p class="mono" style="color:var(--gray);margin:16px 0 0" data-i18n="demo_note">Настоящие ответы модели Lumi на ноутбуке без интернета</p>
-    </div>
-  </div>
-  <div class="stats">
-    <div><b>3</b><span class="mono" data-i18n="st_os">системы: Mac, Windows, Linux</span></div>
-    <div><b>5</b><span class="mono" data-i18n="st_lang">языков интерфейса</span></div>
-    <div class="live" id="st-dl" hidden><b></b><span class="mono"></span></div>
-    <div class="live" id="st-stars" hidden><b></b><span class="mono"></span></div>
-  </div>
+  <div class="cue"></div>
 </header>
 
-<section class="statement pad">
-  <p id="statement">Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* — и спросите.</p>
-</section>
-
-<section id="how">
-  <div class="sec-head pad mono"><span>→</span><span data-i18n="h_label">Как это работает</span></div>
-  <div class="steps">
-    <div class="step reveal"><div class="n">1</div><h3 data-i18n="h1_h">Нажмите клавишу</h3><p data-i18n="h1_p">Alt+Ё в любом окне. На Mac — ⌥Ё, на Linux — Ctrl+Пробел.</p></div>
-    <div class="step reveal"><div class="n">2</div><h3 data-i18n="h2_h">Спросите или найдите</h3><p data-i18n="h2_p">Вопрос уйдёт нейросети. Название программы или файла — откроется по Enter.</p></div>
-    <div class="step reveal"><div class="n">3</div><h3 data-i18n="h3_h">Ответ в строке</h3><p data-i18n="h3_p">Ответ печатается прямо под вопросом. Со своей моделью Lumi — без интернета.</p></div>
-  </div>
-</section>
-
-<section id="features">
-  <div class="sec-head pad mono"><span>01—05</span><span data-i18n="f_label">Что умеет Lumi</span></div>
-  <div class="sec-title pad reveal"><h2 data-i18n="f_title">Одна строка.<br>Всё под рукой.</h2></div>
-  <div class="row pad reveal"><div class="n">01</div><div><h3 data-i18n="r1_h">Ответы в строке</h3><p data-i18n="r1_p">Ответ печатается сразу, как в чате. Уточняйте — разговор продолжится.</p></div><div class="ex" id="stream"></div></div>
-  <div class="row pad reveal"><div class="n">02</div><div><h3 data-i18n="r2_h">Программы и файлы</h3><p data-i18n="r2_p">Начните вводить название — Enter откроет нужное. Lumi сама отличает поиск от вопроса.</p></div><div class="ex" id="apps"></div></div>
-  <div class="row pad reveal"><div class="n">03</div><div><h3 data-i18n="r3_h">Любая нейросеть</h3><p data-i18n="r3_p">Claude, ChatGPT и Gemini по вашей подписке — без API-ключей. Или любой сервис по ключу.</p></div><div class="ex chips" id="chips"><span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">Lumi</span><span class="chip">DeepSeek</span><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip">YandexGPT</span><span class="chip">Mistral</span></div></div>
-  <div class="row pad reveal"><div class="n">04</div><div><h3 data-i18n="r4_h">Пять языков</h3><p data-i18n="r4_p">Интерфейс на пяти языках. Отвечает Lumi на языке вопроса.</p></div><div class="ex"><div class="hello" id="hello"></div></div></div>
-  <div class="row pad reveal"><div class="n">05</div><div><h3 data-i18n="r5_h">Своя клавиша</h3><p data-i18n="r5_p">Alt+Ё по умолчанию. Или любое другое сочетание, какое удобно вам.</p></div><div class="ex"><div class="keys" id="keyshow"></div></div></div>
-</section>
-
-<section class="offline" id="offline">
-  <div class="sec-head pad mono"><span>06</span><span data-i18n="o_label">Без интернета</span></div>
-  <div class="sec-title pad reveal"><h2 data-i18n-html="o_title">Свой ИИ.<br><span class="red">Ноль серверов.</span></h2></div>
-  <p class="lead pad reveal" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы его не покидают — у Lumi нет своих серверов. Ставится одной кнопкой, размер подбирается сам.</p>
-  <div class="trow headrow pad mono"><span data-i18n="th_model">Модель</span><span data-i18n="th_for">Для кого</span><span data-i18n="th_ram">Память</span><span data-i18n="th_dl">Загрузка</span></div>
-  <div class="trow pad reveal" data-tier="0"><span class="nm">Mini</span><span class="d" data-i18n="d0">Старые ноутбуки. Самая быстрая.</span><span class="gb">8 GB</span><span class="d">4.6 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
-  <div class="trow pad reveal" data-tier="1"><span class="nm">Lumi</span><span class="d" data-i18n="d1">Большинство компьютеров. Лучший баланс.</span><span class="gb">12 GB</span><span class="d">6.6 GB<span class="tag mono" data-i18n="rec_most">● Подходит большинству</span></span></div>
-  <div class="trow pad reveal" data-tier="2"><span class="nm">Pro</span><span class="d" data-i18n="d2">Мощные компьютеры. Самая умная.</span><span class="gb">32 GB</span><span class="d">24 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
-  <div class="howto pad reveal"><span data-i18n-html="howto"><b>Подключить модель</b> → <b>Ollama</b> → <b>Установить Lumi</b>. Ollama Lumi тоже поставит сама.</span>
-    <canvas class="px ghost live ghostbig" width="14" height="13"></canvas></div>
-</section>
-
-<section id="download">
-  <div class="sec-head pad mono"><span>07</span><span data-i18n="d_label">Скачать</span></div>
-  <div class="sec-title pad reveal"><h2 data-i18n-html="d_title">Mac.<br>Windows.<br><span class="red">Linux.</span></h2></div>
-  <div class="plats">
-    <div class="plat reveal" data-os="mac"><div class="top mono"><span>macOS 14+</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
-      <h3>Mac</h3><div class="hk"><kbd>⌥</kbd><kbd class="lk">Ё</kbd></div>
-      <p data-i18n="pm">Перетащите Lumi в «Программы». Первый запуск: правый клик → «Открыть».</p>
-      <a class="btn" data-asset="mac" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-macOS.dmg</a></div>
-    <div class="plat reveal" data-os="win"><div class="top mono"><span>Windows 10/11</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
-      <h3>Windows</h3><div class="hk"><kbd>Alt</kbd><kbd class="lk">Ё</kbd></div>
-      <p data-i18n="pw">Установщик без прав администратора. Если SmartScreen спросит — «Подробнее» → «Выполнить».</p>
-      <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-Setup.exe</a></div>
-    <div class="plat reveal" data-os="linux"><div class="top mono"><span>x86-64</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
-      <h3>Linux</h3><div class="hk"><kbd>Ctrl</kbd><kbd data-i18n="space">Пробел</kbd></div>
-      <p data-i18n-html="pl">Ubuntu, Debian, Mint — <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>, Fedora — <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Остальные — AppImage: <code>chmod +x</code> и запуск.</p>
-      <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi.AppImage</a></div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="sec-head pad mono"><span>08</span><span data-i18n="q_label">Вопросы</span></div>
-  <details><summary><span class="n">Q1</span><span data-i18n="q1">Это правда бесплатно?</span></summary><p data-i18n="a1">Да. Lumi бесплатная и с открытым кодом. Платить нужно только за саму нейросеть, если вы выбираете платный сервис, — или не платить вовсе со своей моделью Lumi.</p></details>
-  <details><summary><span class="n">Q2</span><span data-i18n="q2">Нужен ли интернет?</span></summary><p data-i18n="a2">Для облачных нейросетей — да. Своя модель Lumi работает полностью без интернета: интернет нужен только один раз, чтобы её скачать.</p></details>
-  <details><summary><span class="n">Q3</span><span data-i18n="q3">Куда уходят мои вопросы?</span></summary><p data-i18n="a3">Только в тот сервис, который вы выбрали. Со своей моделью Lumi — никуда, всё остаётся на компьютере. У Lumi нет своих серверов.</p></details>
-  <details><summary><span class="n">Q4</span><span data-i18n="q4">Почему система предупреждает при первом запуске?</span></summary><p data-i18n="a4">Lumi — независимый проект без платного сертификата Apple и Microsoft, поэтому система её «не знает». Код полностью открыт на GitHub.</p></details>
-  <details><summary><span class="n">Q5</span><span data-i18n="q5">Lumi связана с Apple, Anthropic, OpenAI или Google?</span></summary><p data-i18n="a5">Нет, это независимый проект. Claude, ChatGPT, Gemini, Mac и Spotlight — товарные знаки их владельцев.</p></details>
-</section>
-
-<footer class="pad">
-  <div class="big"><span>Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
-  <div class="bottom mono">
-    <span>© 2026 Lumi · MIT</span>
-    <div class="r">
-      <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
-      <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
-      <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
-      <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
+<section class="scene" id="demo">
+  <div class="sticky">
+    <div class="captions">
+      <div data-c="0"><h3 id="cap0"></h3><p data-i18n="cap0_p">Lumi ждёт в фоне и появляется поверх любой программы</p></div>
+      <div data-c="1"><h3 data-i18n="cap1">Спросите что угодно</h3><p data-i18n="cap1_p">Или начните вводить название программы или файла</p></div>
+      <div data-c="2"><h3 data-i18n="cap2">Ответ прямо в строке</h3><p data-i18n="cap2_p">Печатается сразу, как в чате. Можно уточнить, и разговор продолжится</p></div>
+      <div data-c="3"><h3 data-i18n="cap3">И даже без интернета</h3><p data-i18n="cap3_p">Своя модель Lumi работает на вашем компьютере</p></div>
     </div>
-    <span class="legal" data-i18n="legal">Независимый проект с открытым кодом. Не связан с Apple, Anthropic, OpenAI и Google. Ответы в демонстрации — настоящие ответы модели Lumi, сокращённые для экрана.</span>
+    <div class="screen" id="screen">
+      <canvas class="pixels" data-count="45"></canvas>
+      <div class="menubar"><span>●  ●  ●</span><span id="clock">9:41</span></div>
+      <canvas class="px ghost wall" data-color="#4fb896" width="14" height="13"></canvas>
+      <div class="keys" id="keys"><kbd id="k1">⌥</kbd><kbd id="k2">Ё</kbd></div>
+      <div class="bar-wrap">
+        <div class="lbar" id="sbar">
+          <div class="in"><canvas class="px ghost live" width="14" height="13"></canvas><div class="typed" id="typed"></div><span class="model">Lumi</span></div>
+          <div class="ans"><div class="q" id="asked"></div><div id="answer"></div></div>
+        </div>
+      </div>
+      <div class="note mono" id="note"><span class="wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.6a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg><span data-i18n="note">Wi-Fi выключен · настоящий ответ модели Lumi</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="statement pad-y">
+  <div class="wrap"><p id="statement"></p></div>
+</section>
+
+<section id="features" class="pad-y" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow mono reveal" data-i18n="f_label">Возможности</span>
+    <h2 class="h2 reveal" data-i18n-html="f_title">Одна строка.<br><span class="mute">Всё под рукой.</span></h2>
+    <div class="bento">
+      <div class="card s4 reveal"><h3 data-i18n="b1_h">Ответы в строке</h3><p data-i18n="b1_p">Ответ печатается сразу, как в чате. Уточняйте, и разговор продолжится.</p>
+        <div class="demo"><div class="stream" id="stream"></div></div></div>
+      <div class="card s2 reveal d1"><h3 data-i18n="b2_h">Программы и файлы</h3><p data-i18n="b2_p">Начните вводить название, Enter откроет нужное.</p>
+        <div class="demo apps" id="apps"></div></div>
+      <div class="card s2 reveal"><h3 data-i18n="b3_h">Любая нейросеть</h3><p data-i18n="b3_p">Claude, ChatGPT и Gemini по вашей подписке, без API-ключей. Или любой сервис по ключу.</p>
+        <div class="demo marquee">
+          <div class="track"><span class="chip t">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip t">Lumi</span><span class="chip">DeepSeek</span><span class="chip">Mistral</span><span class="chip t">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip t">Lumi</span><span class="chip">DeepSeek</span><span class="chip">Mistral</span></div>
+          <div class="track rev"><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip t">YandexGPT</span><span class="chip">Ollama</span><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip t">YandexGPT</span><span class="chip">Ollama</span></div>
+        </div></div>
+      <div class="card s2 reveal d1"><h3 data-i18n="b4_h">Пять языков</h3><p data-i18n="b4_p">Интерфейс на пяти языках. Lumi отвечает на языке вопроса.</p>
+        <div class="demo"><div class="hello" id="hello"></div></div></div>
+      <div class="card s2 reveal d2"><h3 data-i18n="b5_h">Своя клавиша</h3><p data-i18n="b5_p">Сочетание по умолчанию или любое другое, какое удобно вам.</p>
+        <div class="demo keyshow" id="keyshow"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="zoom" id="offline">
+  <div class="sticky">
+    <div class="glow"></div>
+    <div class="wrap center">
+      <h2 id="zoomh" data-i18n-html="o_title">Свой ИИ.<br><span class="grad">Ноль серверов.</span></h2>
+      <p class="sub lead" id="zoomlead" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы его не покидают: у Lumi нет своих серверов. Ставится одной кнопкой, а размер подбирается сам.</p>
+    </div>
+  </div>
+</section>
+<section style="padding-bottom:clamp(100px,14vw,180px)">
+  <div class="wrap">
+    <div class="models">
+      <div class="card model reveal" data-tier="0"><span class="tag mono" data-i18n="rec">Ваш компьютер</span><h3>Mini</h3><p data-i18n="m0">Старые ноутбуки. Самая быстрая.</p>
+        <dl><div><dt class="mono" data-i18n="ram">Память</dt><dd>8 GB</dd></div><div><dt class="mono" data-i18n="size">Загрузка</dt><dd>4.6 GB</dd></div></dl></div>
+      <div class="card model reveal d1" data-tier="1"><span class="tag mono" data-i18n="rec_most">Подходит большинству</span><h3>Lumi</h3><p data-i18n="m1">Большинство компьютеров. Лучший баланс.</p>
+        <dl><div><dt class="mono" data-i18n="ram">Память</dt><dd>12 GB</dd></div><div><dt class="mono" data-i18n="size">Загрузка</dt><dd>6.6 GB</dd></div></dl></div>
+      <div class="card model reveal d2" data-tier="2"><span class="tag mono" data-i18n="rec">Ваш компьютер</span><h3>Pro</h3><p data-i18n="m2">Мощные компьютеры. Самая умная.</p>
+        <dl><div><dt class="mono" data-i18n="ram">Память</dt><dd>32 GB</dd></div><div><dt class="mono" data-i18n="size">Загрузка</dt><dd>24 GB</dd></div></dl></div>
+    </div>
+    <p class="howto reveal" data-i18n-html="howto"><b>Подключить модель</b> → <b>Ollama</b> → <b>Установить Lumi</b>. Ollama Lumi тоже поставит сама.</p>
+  </div>
+</section>
+
+<section class="osx pad-y" style="padding-top:0">
+  <div class="wrap center">
+    <span class="eyebrow mono reveal" data-i18n="os_label">Новое · Lumi OS</span>
+    <h2 class="h2 reveal" data-i18n-html="os_title">Целая система,<br><span class="grad">где Lumi с первой минуты.</span></h2>
+    <p class="sub reveal" data-i18n="os_sub">Linux на основе Fedora, в котором Lumi уже стоит: открывается по Ctrl+Пробел, запускается при входе и помогает поставить нейросеть без интернета.</p>
+    <div class="ctas reveal">
+      <a class="btn" href="os.html"><span class="roll"><span data-i18n="os_more">Подробнее о Lumi OS</span><span data-i18n="os_more">Подробнее о Lumi OS</span></span><span class="arr">→</span></a>
+    </div>
+    <div class="persp"><div class="shot" id="osshot"><img src="img/os-bar-empty.jpg" width="1280" height="800" alt="Lumi OS: рабочий стол с призраком и строкой Lumi" loading="lazy"></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="nums">
+    <div class="reveal"><b>3</b><span data-i18n="n_os">системы: Mac, Windows, Linux</span></div>
+    <div class="reveal d1"><b>5</b><span data-i18n="n_lang">языков интерфейса</span></div>
+    <div class="reveal d2" data-stat hidden><b data-count="downloads"></b><span data-unit></span></div>
+    <div class="reveal d3" data-stat hidden><b data-count="stars"></b><span data-unit></span></div>
+  </div>
+</section>
+
+<section id="download" class="pad-y">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow mono reveal" data-i18n="d_label">Скачать</span>
+      <h2 class="h2 reveal" data-i18n-html="d_title">Бесплатно.<br><span class="mute">На любом компьютере.</span></h2>
+    </div>
+    <div class="dl">
+      <div class="card plat reveal" data-os="mac"><div class="top mono"><span>macOS 14+</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+        <h3>Mac</h3><div class="hk"><kbd class="sm">⌥</kbd><kbd class="sm lk">Ё</kbd></div>
+        <p data-i18n="pm">Перетащите Lumi в «Программы». Первый запуск: правый клик → «Открыть».</p>
+        <a class="btn" data-asset="mac" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-macOS.dmg</a></div>
+      <div class="card plat reveal d1" data-os="win"><div class="top mono"><span>Windows 10/11</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+        <h3>Windows</h3><div class="hk"><kbd class="sm">Alt</kbd><kbd class="sm lk">Ё</kbd></div>
+        <p data-i18n="pw">Установщик без прав администратора. Если SmartScreen спросит: «Подробнее» → «Выполнить в любом случае».</p>
+        <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-Setup.exe</a></div>
+      <div class="card plat reveal d2" data-os="linux"><div class="top mono"><span>x86-64</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
+        <h3>Linux</h3><div class="hk"><kbd class="sm">Ctrl</kbd><kbd class="sm" data-i18n="space">Пробел</kbd></div>
+        <p data-i18n-html="pl">Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Остальные: AppImage, <code>chmod +x</code> и запуск.</p>
+        <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi.AppImage</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="pad-y" style="padding-top:0">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow mono reveal" data-i18n="q_label">Вопросы</span>
+      <h2 class="h2 reveal" data-i18n="q_title">Частые вопросы</h2></div>
+    <div class="faq">
+      <details><summary data-i18n="q1">Это правда бесплатно?</summary><p data-i18n="a1">Да. Lumi бесплатная и с открытым кодом. Платить нужно только за саму нейросеть, если вы выбираете платный сервис. Со своей моделью Lumi не нужно платить вовсе.</p></details>
+      <details><summary data-i18n="q2">Нужен ли интернет?</summary><p data-i18n="a2">Для облачных нейросетей нужен. Своя модель Lumi работает полностью без интернета: он нужен только один раз, чтобы её скачать.</p></details>
+      <details><summary data-i18n="q3">Куда уходят мои вопросы?</summary><p data-i18n="a3">Только в тот сервис, который вы выбрали. Со своей моделью Lumi никуда: всё остаётся на компьютере. У Lumi нет своих серверов.</p></details>
+      <details><summary data-i18n="q4">Почему система предупреждает при первом запуске?</summary><p data-i18n="a4">Lumi — независимый проект без платного сертификата Apple и Microsoft, поэтому система её «не знает». Код полностью открыт на GitHub.</p></details>
+      <details><summary data-i18n="q5">Lumi связана с Apple, Anthropic, OpenAI или Google?</summary><p data-i18n="a5">Нет, это независимый проект. Claude, ChatGPT, Gemini, Mac и Spotlight — товарные знаки их владельцев.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="big"><span class="grad">Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
+    <div class="row">
+      <span>© 2026 Lumi · MIT</span>
+      <div class="r">
+        <a href="os.html">Lumi OS</a>
+        <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
+        <a href="https://t.me/+3IU-_WIhrTU4MjAy">Telegram</a>
+        <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
+        <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
+      </div>
+      <span class="legal" data-i18n="legal">Независимый проект с открытым кодом. Не связан с Apple, Anthropic, OpenAI и Google. Ответы в демонстрации — настоящие ответы модели Lumi, сокращённые для экрана.</span>
+    </div>
   </div>
 </footer>
 
 <script>
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// ---------- the pixel ghost in ink, from the same grid as the apps
-const GHOST = ["....BBBBBB....","..BBBBBBBBBB..",".BBBBBBBBBBBB.",".BBBBBBBBBBBB.","BBBEEBBBBEEBBB","BBBEEBBBBEEBBB",
-               "BBBBBBBBBBBBBB","BBBBBBEEBBBBBB","BBBBBBBBBBBBBB","BBBBBBBBBBBBBB"];
-const HEMS = ["BB..BBBBBB..BB", "..BBBB..BBBB.."];
-function drawGhost(canvas, step) {
-  const dark = canvas.closest(".offline");
-  const c = canvas.getContext("2d");
-  c.clearRect(0, 0, 14, 13);
-  const lift = step ? 0 : 1;
-  [...GHOST, HEMS[step]].forEach((row, y) => [...row].forEach((ch, x) => {
-    if (ch === ".") return;
-    c.fillStyle = ch === "E" ? (dark ? "#111" : "#f2f0eb") : (dark ? "#f2f0eb" : "#111");
-    c.fillRect(x, y + lift, 1, 1);
-  }));
-}
-document.querySelectorAll("canvas.ghost").forEach(g => drawGhost(g, 0));
-let gstep = 0;
-if (!reduced) setInterval(() => { gstep = 1 - gstep; document.querySelectorAll("canvas.live").forEach(g => drawGhost(g, gstep)); }, 480);
-
-// ---------- texts
-const EN = {
-  nav_features: "Overview", nav_offline: "Offline", nav_faq: "FAQ", download: "Download", meta_free: "MIT · Free",
-  hero_title: '<span class="w">AI on</span><br><span class="w red" style="animation-delay:.12s">one</span> <span class="w" style="animation-delay:.24s">key.</span>',
-  hero_lead: "Press a key in any window. Ask. The answer appears right in the bar: no browser, no tabs, no accounts.",
-  download_free: "Download for free", source: "Source code on GitHub", demo_label: "Demo",
-  demo_note: "Real answers from the Lumi model on a laptop, offline",
-  statement: "No browser to open. No website to find. No account to sign in to. Just press *Alt+`* and ask.",
-  st_os: "systems: Mac, Windows, Linux", st_lang: "interface languages",
-  h_label: "How it works",
-  h1_h: "Press a key", h1_p: "Alt + the key left of 1, in any window. Ctrl+Space on Linux.",
-  h2_h: "Ask or search", h2_p: "A question goes to the AI. An app or file name opens with Enter.",
-  h3_h: "Answer in the bar", h3_p: "The answer types out right under your question. With Lumi's own model, offline.",
-  f_label: "What Lumi does", f_title: "One bar.<br>Everything at hand.",
-  r1_h: "Answers in the bar", r1_p: "The answer streams in like a chat. Follow up and the conversation goes on.",
-  r2_h: "Apps and files", r2_p: "Start typing a name, Enter opens it. Lumi tells a search from a question by itself.",
-  r3_h: "Any AI", r3_p: "Claude, ChatGPT and Gemini with your subscription, no API keys. Or any service with a key.",
-  r4_h: "Five languages", r4_p: "The interface speaks five languages. Lumi answers in the language you ask in.",
-  r5_h: "Your own key", r5_p: "Alt + the key left of 1 by default. Or any shortcut you like.",
-  o_label: "Offline", o_title: 'Your own AI.<br><span class="red">Zero servers.</span>',
-  o_lead: "The Lumi model runs right on your computer. Your questions never leave it: Lumi has no servers of its own. One button installs it and the size is picked for you.",
-  th_model: "Model", th_for: "For", th_ram: "Memory", th_dl: "Download",
-  d0: "Older laptops. The fastest.", d1: "Most computers. The best balance.", d2: "Powerful computers. The smartest.", rec: "● Your computer", rec_most: "● Fits most computers",
-  howto: "<b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi installs Ollama for you too.",
-  d_label: "Download", d_title: 'Mac.<br>Windows.<br><span class="red">Linux.</span>', yours: "● Your system",
-  pm: "Drag Lumi to Applications. First launch: right-click → Open.",
-  pw: "An installer with no admin rights needed. If SmartScreen asks: “More info” → “Run anyway”.",
-  pl: "Ubuntu, Debian, Mint: <a data-asset=\"deb\" href=\"https://github.com/AlbertS15/Lumi/releases/latest\">.deb</a>. Fedora: <a data-asset=\"rpm\" href=\"https://github.com/AlbertS15/Lumi/releases/latest\">.rpm</a>. Anything else: the AppImage, <code>chmod +x</code> and run.", space: "Space",
-  q_label: "Questions",
-  q1: "Is it really free?", a1: "Yes. Lumi is free and open source. You only pay for the AI itself if you choose a paid service, or nothing at all with Lumi's own model.",
-  q2: "Does it need the internet?", a2: "Cloud AIs do. Lumi's own model works fully offline; you only need the internet once to download it.",
-  q3: "Where do my questions go?", a3: "Only to the service you picked. With Lumi's own model, nowhere: everything stays on your computer. Lumi has no servers of its own.",
-  q4: "Why does my system warn me on first launch?", a4: "Lumi is an independent project without a paid Apple or Microsoft certificate, so the system doesn't know it yet. The code is fully open on GitHub.",
-  q5: "Is Lumi made by Apple, Anthropic, OpenAI or Google?", a5: "No, it's an independent project. Claude, ChatGPT, Gemini, Mac and Spotlight are trademarks of their owners.",
-  releases: "All versions", bug: "Report a bug",
-  legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
+window.PAGE = {
+  en: {
+    title: "Lumi — AI on one key",
+    nav_features: "Features", nav_offline: "Offline", nav_faq: "FAQ", download: "Download", free: "Free", pill: "Open source on GitHub",
+    hero_title: '<span class="ln"><span style="animation-delay:.15s">AI on</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">one key.</span></span>',
+    hero_sub: "Press a key in any window and ask. The answer appears right in the bar: no browser, no tabs, no accounts. It can work offline.",
+    see: "See how it works",
+    cap0_p: "Lumi waits in the background and opens over any app",
+    cap1: "Ask anything", cap1_p: "Or start typing the name of an app or a file",
+    cap2: "The answer, right in the bar", cap2_p: "It streams in like a chat. Follow up and the conversation goes on",
+    cap3: "Even offline", cap3_p: "Lumi's own model runs on your computer",
+    note: "Wi-Fi off · a real answer from the Lumi model",
+    statement: "No browser to open. No website to find. No account to sign in to. Just press *Alt+`* and ask.",
+    f_label: "Features", f_title: 'One bar.<br><span class="mute">Everything at hand.</span>',
+    b1_h: "Answers in the bar", b1_p: "The answer streams in like a chat. Follow up and the conversation goes on.",
+    b2_h: "Apps and files", b2_p: "Start typing a name, Enter opens it.",
+    b3_h: "Any AI", b3_p: "Claude, ChatGPT and Gemini with your subscription, no API keys. Or any service with a key.",
+    b4_h: "Five languages", b4_p: "The interface speaks five languages. Lumi answers in the language you ask in.",
+    b5_h: "Your own key", b5_p: "The default shortcut, or any other you like.",
+    o_title: 'Your own AI.<br><span class="grad">Zero servers.</span>',
+    o_lead: "The Lumi model runs right on your computer. Your questions never leave it: Lumi has no servers of its own. One button installs it and the size is picked for you.",
+    rec: "Your computer", rec_most: "Fits most computers", ram: "Memory", size: "Download",
+    m0: "Older laptops. The fastest.", m1: "Most computers. The best balance.", m2: "Powerful computers. The smartest.",
+    howto: "<b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi installs Ollama for you too.",
+    os_label: "New · Lumi OS", os_title: 'A whole system<br><span class="grad">with Lumi from minute one.</span>',
+    os_sub: "Linux based on Fedora with Lumi already in it: it opens on Ctrl+Space, starts at login and helps you install an offline AI.",
+    os_more: "More about Lumi OS",
+    n_os: "systems: Mac, Windows, Linux", n_lang: "interface languages",
+    d_label: "Download", d_title: 'Free.<br><span class="mute">On any computer.</span>', yours: "● Your system",
+    pm: "Drag Lumi to Applications. First launch: right-click → Open.",
+    pw: "An installer with no admin rights needed. If SmartScreen asks: “More info” → “Run anyway”.",
+    pl: 'Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Anything else: the AppImage, <code>chmod +x</code> and run.',
+    space: "Space", q_label: "Questions", q_title: "FAQ",
+    q1: "Is it really free?", a1: "Yes. Lumi is free and open source. You only pay for the AI itself if you choose a paid service, and nothing at all with Lumi's own model.",
+    q2: "Does it need the internet?", a2: "Cloud AIs do. Lumi's own model works fully offline; you only need the internet once to download it.",
+    q3: "Where do my questions go?", a3: "Only to the service you picked. With Lumi's own model, nowhere: everything stays on your computer. Lumi has no servers of its own.",
+    q4: "Why does my system warn me on first launch?", a4: "Lumi is an independent project without a paid Apple or Microsoft certificate, so the system doesn't know it yet. The code is fully open on GitHub.",
+    q5: "Is Lumi made by Apple, Anthropic, OpenAI or Google?", a5: "No, it's an independent project. Claude, ChatGPT, Gemini, Mac and Spotlight are trademarks of their owners.",
+    releases: "All versions", bug: "Report a bug",
+    legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
+  },
+  onLang: l => window.pageLang && window.pageLang(l),
+  onCounts: (c, l) => window.pagePill && window.pagePill(c, l),
 };
-const RU = {};
-document.querySelectorAll("[data-i18n]").forEach(e => RU[e.dataset.i18n] = e.textContent);
-document.querySelectorAll("[data-i18n-html]").forEach(e => RU[e.dataset.i18nHtml] = e.innerHTML);
-RU.statement = document.getElementById("statement").textContent;
+</script>
+<script src="site.js"></script>
+<script>
+const { reduced, os } = Site;
+const RU_STATEMENT = "Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* и спросите.";
 
 // Real answers from the lumi model (Gemma 4 E4B), 10 Oct 2026, lightly shortened.
-const DEMO = {
-  ru: [
-    ["переведи на английский: где получить багаж?", "Where can I pick up my luggage?"],
-    ["ответь вежливо начальнику: пришлю отчёт к 12, надо проверить цифры", "Добрый день! Отчёт пришлю к 12:00, нужно ещё сверить некоторые цифры."],
-    ["как выйти из vim?", "Сначала нажмите Esc, затем введите :q и Enter. Чтобы сохранить изменения перед выходом — :wq. Чтобы выйти, не сохраняя, — :q!"],
-  ],
-  en: [
-    ["translate to Spanish: where do I pick up my luggage?", "¿Dónde recojo mi equipaje?"],
-    ["write my manager that I'm sick today", "Hi, I won't be in today because I am sick. I will keep you updated on my return."],
-    ["how do I exit vim?", "Press Esc to make sure you're in normal mode. Type :q and Enter to quit, :q! to quit without saving, or :wq to save and quit."],
-  ],
+const SCENE = {
+  ru: ["как выйти из vim?", "Сначала нажмите Esc, затем введите :q и Enter. Чтобы сохранить изменения перед выходом — :wq. Чтобы выйти, не сохраняя, — :q!"],
+  en: ["how do I exit vim?", "Press Esc to make sure you're in normal mode. Type :q and Enter to quit, :q! to quit without saving, or :wq to save and quit."],
 };
 const STREAM = {
-  ru: ["объясни как пятилетнему: что такое инфляция", "Представь, что у тебя есть 10 монет, и на них можно купить 5 конфет. Если завтра эти же 10 монет купят только 4 конфеты, это и есть инфляция."],
-  en: ["what's the difference between weather and climate?", "Weather describes the atmosphere over a short period in one place. Climate is the long-term average of weather patterns for a region."],
+  ru: [["объясни как пятилетнему: что такое инфляция", "Представь, что у тебя есть 10 монет, и на них можно купить 5 конфет. Если завтра эти же 10 монет купят только 4 конфеты, это и есть инфляция."],
+       ["ответь вежливо начальнику: пришлю отчёт к 12, надо проверить цифры", "Добрый день! Отчёт пришлю к 12:00, нужно ещё сверить некоторые цифры."],
+       ["переведи на английский: где получить багаж?", "Where can I pick up my luggage?"]],
+  en: [["what's the difference between weather and climate?", "Weather describes the atmosphere over a short period in one place. Climate is the long-term average of weather patterns for a region."],
+       ["write my manager that I'm sick today", "Hi, I won't be in today because I am sick. I will keep you updated on my return."],
+       ["translate to Spanish: where do I pick up my luggage?", "¿Dónde recojo mi equipaje?"]],
 };
-const APPS = [["#2aabee", "Telegram"], ["#a259ff", "Figma"], ["#f5c400", "Notes"], ["#1db954", "Spotify"]];
+const APPS = [["#2aabee", "T", "Telegram"], ["#a259ff", "F", "Figma"], ["#e0a800", "N", "Notes"], ["#1db954", "S", "Spotify"]];
 const HELLO = ["Привет.", "Hello.", "Hallo.", "Hola.", "Bonjour."];
 
-let lang = "ru";
-try { lang = localStorage.getItem("lang") || ((navigator.language || "ru").startsWith("ru") ? "ru" : "en"); } catch (e) {}
-if (lang !== "ru") lang = "en";
+let lang = Site.lang;
+const hotkey = () => os === "linux" ? ["Ctrl", lang === "ru" ? "Пробел" : "Space"] : [os === "win" ? "Alt" : "⌥", lang === "ru" ? "Ё" : "`"];
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
-const ua = navigator.userAgent;
-const os = /Mac/.test(ua) && !/iPhone|iPad/.test(ua) ? "mac" : /Win/.test(ua) ? "win" : /Linux|X11/.test(ua) && !/Android/.test(ua) ? "linux" : null;
-const assets = {};
-
-function hotkey() {
-  if (os === "linux") return ["Ctrl", lang === "ru" ? "Пробел" : "Space"];
-  return [os === "win" ? "Alt" : "⌥", lang === "ru" ? "Ё" : "`"];
+// ---------- the scroll scene
+const scene = document.getElementById("demo"), screen = document.getElementById("screen"), sbar = document.getElementById("sbar");
+const typed = document.getElementById("typed"), asked = document.getElementById("asked"), answer = document.getElementById("answer");
+const keys = document.getElementById("keys"), k1 = document.getElementById("k1"), k2 = document.getElementById("k2"), note = document.getElementById("note");
+const caps = [...document.querySelectorAll(".captions > div")];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => 1 - Math.pow(1 - x, 3);
+let lastCap = -1;
+function drawScene() {
+  const p = reduced ? 0.8 : Site.progress(scene);
+  const [q, a] = SCENE[lang];
+  const grow = ease(clamp(p / 0.12));
+  screen.style.transform = `scale(${0.84 + 0.16 * grow})`;
+  screen.style.borderRadius = 34 - 16 * grow + "px";
+  const press = p > 0.11 && p < 0.16;
+  k1.classList.toggle("down", press); k2.classList.toggle("down", press && p > 0.12);
+  keys.style.opacity = p < 0.16 ? clamp((p - 0.02) / 0.04) : 0;
+  const o = ease(clamp((p - 0.15) / 0.05));
+  sbar.style.opacity = o;
+  sbar.style.transform = `translateY(${(1 - o) * 18}px) scale(${0.96 + 0.04 * o})`;
+  const n = Math.round(clamp((p - 0.22) / 0.2) * q.length);
+  const answered = p > 0.45;
+  sbar.classList.toggle("answered", answered);
+  if (answered) {
+    asked.textContent = q;
+    typed.innerHTML = '<span class="ph">' + (lang === "ru" ? "Уточните вопрос…" : "Ask a follow-up…") + "</span>";
+    const m = Math.round(clamp((p - 0.47) / 0.3) * a.length);
+    answer.innerHTML = esc(a.slice(0, m)) + (m < a.length ? '<span class="caret"></span>' : "");
+  } else {
+    typed.innerHTML = n ? esc(q.slice(0, n)) + '<span class="caret"></span>' : '<span class="ph">' + (lang === "ru" ? "Поиск или вопрос" : "Search or ask") + "</span>";
+  }
+  note.classList.toggle("on", p > 0.8);
+  const c = p < 0.2 ? 0 : p < 0.45 ? 1 : p < 0.8 ? 2 : 3;
+  if (c !== lastCap) { caps.forEach((d, i) => d.classList.toggle("on", i === c)); lastCap = c; }
 }
+Site.onScroll(drawScene);
 
-// The statement lights up word by word as it scrolls past; the *key* turns red.
+// ---------- the statement lights up word by word; the key turns teal
 function buildStatement() {
   const el = document.getElementById("statement");
   const [a, b] = hotkey();
-  const text = (lang === "ru" ? RU.statement : EN.statement).replace(/\*[^*]+\*/, "*" + a + "+" + b + "*");
+  const text = (lang === "ru" ? RU_STATEMENT : PAGE.en.statement).replace(/\*[^*]+\*/, "*" + a + "+" + b + "*");
   el.innerHTML = "";
   for (const part of text.split(/(\*[^*]+\*)/)) {
     if (!part) continue;
@@ -423,164 +461,107 @@ function buildStatement() {
 function lightStatement() {
   const el = document.getElementById("statement");
   const r = el.getBoundingClientRect();
-  const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
+  const p = clamp((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35));
   const words = el.querySelectorAll(".w");
   words.forEach((w, i) => w.classList.toggle("on", reduced || i < Math.round(p * words.length)));
 }
-addEventListener("scroll", () => requestAnimationFrame(lightStatement), { passive: true });
 
-function applyLang() {
-  const dict = lang === "ru" ? RU : EN;
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-i18n]").forEach(e => { if (dict[e.dataset.i18n] != null) e.textContent = dict[e.dataset.i18n]; });
-  document.querySelectorAll("[data-i18n-html]").forEach(e => { if (dict[e.dataset.i18nHtml] != null) e.innerHTML = dict[e.dataset.i18nHtml]; });
-  document.getElementById("lang").textContent = lang === "ru" ? "EN" : "RU";
-  document.title = lang === "ru" ? "Lumi — нейросеть одной клавишей" : "Lumi — AI on one key";
-  document.querySelectorAll(".lk").forEach(k => k.textContent = lang === "ru" ? "Ё" : "`");
-  const [a, b] = hotkey();
-  document.getElementById("k1").textContent = a; document.getElementById("k2").textContent = b;
-  const space = lang === "ru" ? "Пробел" : "Space";
-  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;→&nbsp;</span><kbd>Ctrl</kbd><kbd>${space}</kbd>`;
-  buildStatement(); lightStatement();
-  renderStats();
-  setOs();
-}
+// ---------- offline: the headline comes in from huge, then the lead fades in
+const zoom = document.getElementById("offline"), zh = document.getElementById("zoomh"), zl = document.getElementById("zoomlead");
+Site.onScroll(() => {
+  const p = reduced ? 1 : Site.progress(zoom);
+  const z = ease(clamp(p / 0.6));
+  zh.style.transform = `scale(${3.2 - 2.2 * z})`;
+  zh.style.opacity = clamp(z * 1.6);
+  zh.style.filter = `blur(${(1 - z) * 8}px)`;
+  zl.classList.toggle("on", p > 0.45);
+});
 
-function setOs() {
-  const label = { mac: "Mac", win: "Windows", linux: "Linux" }[os];
-  document.getElementById("dl-os").textContent = label ? (lang === "ru" ? "для " : "for ") + label : "";
-  document.getElementById("dl-main").href = (os && assets[os]) || "#download";
-  document.querySelectorAll("[data-asset]").forEach(a => { if (assets[a.dataset.asset]) a.href = assets[a.dataset.asset]; });
-  document.querySelectorAll(".plat").forEach(p => p.classList.toggle("mine", p.dataset.os === os));
-}
+// ---------- Lumi OS screenshot tilts flat as it comes in
+const shot = document.getElementById("osshot");
+Site.onScroll(() => {
+  const p = reduced ? 1 : ease(Site.entering(shot));
+  shot.style.transform = `rotateX(${(1 - p) * 28}deg) scale(${0.88 + 0.12 * p})`;
+  shot.style.opacity = 0.3 + 0.7 * p;
+});
+Site.onScroll(lightStatement);
 
-document.getElementById("lang").onclick = () => {
-  lang = lang === "ru" ? "en" : "ru";
-  try { localStorage.setItem("lang", lang); } catch (e) {}
-  applyLang();
-  restart();
-};
-
-// ---------- live numbers from GitHub; the two tiles stay hidden if the API doesn't answer
-var counts = {}; // var: applyLang can run before this line, and then finds it undefined
-const plural = (n, one, few, many) => {
-  const t = n % 10, h = n % 100;
-  return t === 1 && h !== 11 ? one : t >= 2 && t <= 4 && (h < 12 || h > 14) ? few : many;
-};
-function renderStats() {
-  if (!counts) return;
-  const fill = (id, n, ru, en) => {
-    const el = document.getElementById(id);
-    if (n == null) return;
-    el.querySelector("b").textContent = n.toLocaleString(lang === "ru" ? "ru-RU" : "en-US");
-    el.querySelector("span").textContent = lang === "ru" ? ru(n) : en(n);
-    el.hidden = false;
-  };
-  fill("st-dl", counts.downloads, n => plural(n, "скачивание", "скачивания", "скачиваний"), n => n === 1 ? "download" : "downloads");
-  fill("st-stars", counts.stars, n => plural(n, "звезда на GitHub", "звезды на GitHub", "звёзд на GitHub"), n => n === 1 ? "star on GitHub" : "stars on GitHub");
-}
-fetch("https://api.github.com/repos/AlbertS15/Lumi").then(r => r.ok ? r.json() : null)
-  .then(repo => { if (repo) { counts.stars = repo.stargazers_count; renderStats(); } }).catch(() => {});
-fetch("https://api.github.com/repos/AlbertS15/Lumi/releases?per_page=100").then(r => r.ok ? r.json() : null)
-  .then(list => {
-    if (!list) return;
-    counts.downloads = list.reduce((sum, rel) => sum + rel.assets.reduce((s, a) => s + a.download_count, 0), 0);
-    renderStats();
-  }).catch(() => {});
-
-fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest")
-  .then(r => r.ok ? r.json() : null)
-  .then(release => {
-    if (!release) return;
-    for (const a of release.assets || []) {
-      if (a.name.endsWith(".dmg")) assets.mac = a.browser_download_url;
-      else if (a.name.startsWith("Lumi-Setup") && a.name.endsWith(".exe")) assets.win = a.browser_download_url;
-      else if (a.name.endsWith(".AppImage")) assets.linux = a.browser_download_url;
-      else if (a.name.endsWith(".deb")) assets.deb = a.browser_download_url;
-      else if (a.name.endsWith(".rpm")) assets.rpm = a.browser_download_url;
-    }
-    setOs();
-  })
-  .catch(() => {});
-
-// ---------- animations; a language switch stops the old runs where they are
+// ---------- little demos inside the cards; a language switch restarts them
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let run = 0;
 const loop = fn => { const id = run; const wait = async ms => { await sleep(ms); if (id !== run) throw 0; }; fn(wait).catch(() => {}); };
-
-async function heroDemo(wait) {
-  const bar = document.getElementById("bar"), typed = document.getElementById("typed");
-  const answer = document.getElementById("answer"), asked = document.getElementById("asked"), out = document.getElementById("answer-text");
-  const k1 = document.getElementById("k1"), k2 = document.getElementById("k2");
-  for (let i = 0; ; i = (i + 1) % DEMO[lang].length) {
-    const [q, a] = DEMO[lang][i];
-    bar.classList.remove("open"); answer.classList.remove("show"); k1.classList.remove("down"); k2.classList.remove("down");
-    typed.innerHTML = '<span class="ph">' + (lang === "ru" ? "Поиск или вопрос" : "Search or ask") + "</span>";
-    await wait(1000);
-    k1.classList.add("down"); await wait(110); k2.classList.add("down"); await wait(260);
-    k1.classList.remove("down"); k2.classList.remove("down");
-    bar.classList.add("open"); await wait(350);
-    for (let n = 1; n <= q.length; n++) { typed.innerHTML = q.slice(0, n).replace(/</g, "&lt;") + '<span class="caret"></span>'; await wait(36); }
-    await wait(380);
-    asked.textContent = q; out.textContent = "";
-    typed.innerHTML = '<span class="ph">' + (lang === "ru" ? "Уточните вопрос…" : "Ask a follow-up…") + "</span>";
-    answer.classList.add("show");
-    for (let n = 2; n <= a.length + 1; n += 2) { out.textContent = a.slice(0, n); await wait(16); }
-    await wait(3600);
-  }
-}
-
 async function streamDemo(wait) {
   const box = document.getElementById("stream");
-  while (true) {
-    const [q, a] = STREAM[lang];
-    box.innerHTML = '<div class="q mono"></div><div class="txt"></div>';
+  for (let i = 0; ; i = (i + 1) % STREAM[lang].length) {
+    const [q, a] = STREAM[lang][i];
+    box.innerHTML = '<div class="q"></div><div class="txt"></div>';
     box.querySelector(".q").textContent = q;
     const txt = box.querySelector(".txt");
-    await wait(700);
-    for (let n = 2; n <= a.length + 1; n += 2) { txt.textContent = a.slice(0, n); await wait(22); }
-    await wait(4200);
+    await wait(600);
+    for (let n = 2; n <= a.length + 1; n += 2) { txt.innerHTML = esc(a.slice(0, n)) + '<span class="caret"></span>'; await wait(20); }
+    txt.textContent = a;
+    await wait(3800);
   }
 }
-
 async function appsDemo(wait) {
   const box = document.getElementById("apps");
-  box.innerHTML = APPS.map(([col, name]) => `<div class="app"><i style="background:${col}"></i>${name}</div>`).join("");
+  box.innerHTML = APPS.map(([col, l, name]) => `<div class="app"><i style="background:${col}">${l}</i>${name}<small>↵</small></div>`).join("");
   const rows = [...box.children];
   for (let i = 0; ; i = (i + 1) % rows.length) { rows.forEach((r, j) => r.classList.toggle("sel", i === j)); await wait(1300); }
 }
-
-async function chipsDemo(wait) {
-  const chips = [...document.querySelectorAll("#chips .chip")];
-  for (let i = 0; ; i = (i + 1) % chips.length) { chips.forEach((c, j) => c.classList.toggle("on", i === j)); await wait(1000); }
-}
-
 async function helloDemo(wait) {
   const box = document.getElementById("hello");
   box.innerHTML = HELLO.map(h => `<span>${h}</span>`).join("");
   const spans = [...box.children];
-  for (let i = 0; ; i = (i + 1) % spans.length) { spans.forEach((s, j) => s.style.transform = `translateY(${(j - i) * 105}%)`); await wait(1600); }
+  for (let i = 0; ; i = (i + 1) % spans.length) { spans.forEach((s, j) => s.style.transform = `translateY(${(j - i) * 110}%)`); await wait(1600); }
 }
+function restart() { run++; if (!reduced) [streamDemo, appsDemo, helloDemo].forEach(loop); else { document.getElementById("hello").textContent = HELLO.join(" "); } }
 
-function restart() {
-  run++;
-  if (reduced) return;
-  [heroDemo, streamDemo, appsDemo, chipsDemo, helloDemo].forEach(loop);
+// ---------- download links from the latest release, the visitor's own system first
+const assets = {};
+function setOs() {
+  const label = { mac: "Mac", win: "Windows", linux: "Linux" }[os];
+  const text = label ? (lang === "ru" ? "Скачать для " : "Download for ") + label : (lang === "ru" ? "Скачать бесплатно" : "Download for free");
+  document.getElementById("dl-label").textContent = text; document.getElementById("dl-label2").textContent = text;
+  document.getElementById("dl-main").href = (os && assets[os]) || "#download";
+  document.querySelectorAll("[data-asset]").forEach(a => { if (assets[a.dataset.asset]) a.href = assets[a.dataset.asset]; });
+  document.querySelectorAll(".plat").forEach(p => p.classList.toggle("mine", p.dataset.os === os));
 }
+fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest").then(r => r.ok ? r.json() : null).then(rel => {
+  if (!rel) return;
+  for (const a of rel.assets || []) {
+    if (a.name.endsWith(".dmg")) assets.mac = a.browser_download_url;
+    else if (a.name.startsWith("Lumi-Setup") && a.name.endsWith(".exe")) assets.win = a.browser_download_url;
+    else if (a.name.endsWith(".AppImage")) assets.linux = a.browser_download_url;
+    else if (a.name.endsWith(".deb")) assets.deb = a.browser_download_url;
+    else if (a.name.endsWith(".rpm")) assets.rpm = a.browser_download_url;
+  }
+  setOs();
+}).catch(() => {});
 
-// ---------- the recommended model. Browsers don't tell real memory: Chrome caps it at 8 GB, Safari and Firefox say
-// nothing. So only a low reading picks Mini ("your computer"); otherwise Lumi is marked as the one that fits most.
-// The app itself sees the real memory and picks the size.
+// ---------- the pill shows live stars once GitHub answers
+window.pagePill = (c, l) => {
+  if (c.stars == null) return;
+  document.getElementById("pill-text").textContent = l === "ru" ? `${c.stars} ★ на GitHub · открытый код` : `${c.stars} ★ on GitHub · open source`;
+};
+
+// ---------- the recommended model. Browsers don't tell real memory (Chrome caps it at 8 GB, Safari and Firefox say
+// nothing), so only a low reading picks Mini; otherwise Lumi is marked as the one that fits most. The app sees the real memory.
 const mem = navigator.deviceMemory;
 const tier = mem && mem < 8 ? 0 : 1;
-document.querySelectorAll(".trow[data-tier]").forEach(d => d.classList.toggle("rec", +d.dataset.tier === tier));
+document.querySelectorAll(".model[data-tier]").forEach(d => d.classList.toggle("rec", +d.dataset.tier === tier));
 
-// ---------- reveal sections as they scroll in
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
-document.querySelectorAll(".reveal").forEach(e => io.observe(e));
-
-applyLang();
-restart();
+window.pageLang = l => {
+  lang = l;
+  const [a, b] = hotkey();
+  k1.textContent = a; k2.textContent = b;
+  document.getElementById("cap0").textContent = (l === "ru" ? "Нажмите " : "Press ") + a + " " + b;
+  document.querySelectorAll(".lk").forEach(k => k.textContent = l === "ru" ? "Ё" : "`");
+  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;${l === "ru" ? "или" : "or"}&nbsp;</span><kbd>Ctrl</kbd><kbd>${l === "ru" ? "Пробел" : "Space"}</kbd>`;
+  buildStatement(); lightStatement(); drawScene(); setOs(); restart();
+};
+document.getElementById("clock").textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+Site.applyLang();
 </script>
 </body>
 </html>
