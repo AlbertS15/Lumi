@@ -79,11 +79,11 @@ kbd.down { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); backgro
 .bar .answer .q { margin-bottom: 6px; color: var(--gray); }
 
 /* ---------- numbers under the demo */
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--line); }
-@media (max-width: 860px) { .stats { grid-template-columns: 1fr 1fr; } }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--line); }
+@media (max-width: 860px) { .stats { grid-template-columns: 1fr; } }
 .stats > div { padding: 22px 28px; border-right: 1px solid var(--line); }
 .stats > div:last-child { border-right: 0; }
-@media (max-width: 860px) { .stats > div:nth-child(2n) { border-right: 0; } .stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+@media (max-width: 860px) { .stats > div { border-right: 0; border-bottom: 1px solid var(--line); } .stats > div:last-child { border-bottom: 0; } }
 .stats b { display: block; font-size: clamp(40px, 5vw, 68px); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
 .stats span { color: var(--gray); }
 .stats .live[hidden] { display: none; }
@@ -229,7 +229,6 @@ footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; fon
   <div class="stats">
     <div><b>3</b><span class="mono" data-i18n="st_os">системы: Mac, Windows, Linux</span></div>
     <div><b>5</b><span class="mono" data-i18n="st_lang">языков интерфейса</span></div>
-    <div class="live" id="st-dl" hidden><b></b><span class="mono"></span></div>
     <div class="live" id="st-stars" hidden><b></b><span class="mono"></span></div>
   </div>
 </header>
@@ -461,7 +460,7 @@ document.getElementById("lang").onclick = () => {
   restart();
 };
 
-// ---------- live numbers from GitHub; the two tiles stay hidden if the API doesn't answer
+// ---------- live stars from GitHub; the tile stays hidden if the API doesn't answer
 var counts = {}; // var: applyLang can run before this line, and then finds it undefined
 const plural = (n, one, few, many) => {
   const t = n % 10, h = n % 100;
@@ -476,17 +475,10 @@ function renderStats() {
     el.querySelector("span").textContent = lang === "ru" ? ru(n) : en(n);
     el.hidden = false;
   };
-  fill("st-dl", counts.downloads, n => plural(n, "скачивание", "скачивания", "скачиваний"), n => n === 1 ? "download" : "downloads");
   fill("st-stars", counts.stars, n => plural(n, "звезда на GitHub", "звезды на GitHub", "звёзд на GitHub"), n => n === 1 ? "star on GitHub" : "stars on GitHub");
 }
 fetch("https://api.github.com/repos/AlbertS15/Lumi").then(r => r.ok ? r.json() : null)
   .then(repo => { if (repo) { counts.stars = repo.stargazers_count; renderStats(); } }).catch(() => {});
-fetch("https://api.github.com/repos/AlbertS15/Lumi/releases?per_page=100").then(r => r.ok ? r.json() : null)
-  .then(list => {
-    if (!list) return;
-    counts.downloads = list.reduce((sum, rel) => sum + rel.assets.reduce((s, a) => s + a.download_count, 0), 0);
-    renderStats();
-  }).catch(() => {});
 
 fetch("https://api.github.com/repos/AlbertS15/Lumi/releases/latest")
   .then(r => r.ok ? r.json() : null)
