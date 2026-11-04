@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>О проекте Lumi — что это и как устроено</title>
+<meta name="description" content="Lumi — бесплатная строка с ИИ для Mac, Windows и Linux. Как она устроена: Swift на macOS, C# и .NET на Windows и Linux, локальные модели через Ollama, Lumi OS на Fedora Silverblue.">
+<link rel="canonical" href="https://alberts15.github.io/Lumi/about.html">
+<link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/about.html?lang=ru">
+<link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/about.html?lang=en">
+<link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/about.html?lang=de">
+<link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/about.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/about.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/about.html">
+<meta property="og:title" content="О проекте Lumi — что это и как устроено">
+<meta property="og:description" content="Бесплатная строка с ИИ для Mac, Windows и Linux. Как она устроена и как связаться.">
+<meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Пиксельный призрак Lumi и надпись «Spotlight + AI in one bar»">
+<meta property="og:url" content="https://alberts15.github.io/Lumi/about.html">
+<meta property="og:site_name" content="Lumi">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="О проекте Lumi — что это и как устроено">
+<meta name="twitter:description" content="Бесплатная строка с ИИ для Mac, Windows и Linux. Как она устроена и как связаться.">
+<meta name="twitter:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta name="theme-color" content="#060808">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Lumi",
+  "url": "https://alberts15.github.io/Lumi/about.html",
+  "mainEntity": {
+    "@type": "SoftwareApplication",
+    "name": "Lumi",
+    "url": "https://alberts15.github.io/Lumi/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "macOS 14+, Windows 10, Windows 11, Linux (x86-64)",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "AlbertS15", "url": "https://github.com/AlbertS15", "email": "starosta093@gmail.com" },
+    "sameAs": ["https://github.com/AlbertS15/Lumi", "https://t.me/lumimacos"]
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="refresh.css">
+<style>
+.head { padding: 150px 0 30px; }
+.head h1 { font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.055em; margin-top: 18px; }
+.sec { padding: 56px 0 0; }
+.sec h2 { font-size: clamp(28px, 3.6vw, 46px); letter-spacing: -0.04em; margin-bottom: 8px; }
+.sec > .wrap > p { color: var(--mute); max-width: 720px; margin: 14px 0 0; font-size: 17px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 28px; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+.grid .card { padding: 26px 28px; }
+.grid h3 { font-size: 22px; letter-spacing: -0.03em; }
+.grid .tag { display: block; color: var(--teal); margin-bottom: 10px; }
+.grid p { color: var(--mute); margin: 10px 0 0; font-size: 16px; }
+.grid code { background: #ffffff0d; border-radius: 6px; padding: 1px 6px; font-size: 13.5px; }
+.grid a, .sec p a { color: var(--text); text-decoration: underline; text-decoration-color: #ffffff40; text-underline-offset: 3px; }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.last { padding-bottom: 120px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="ui_skip">Перейти к содержанию</a>
+
+<nav class="nav" aria-label="Lumi">
+  <a class="logo" href="./"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+  <div class="links">
+    <a href="./">Lumi</a>
+    <a href="os.html">Lumi OS</a>
+    <a href="about.html" class="on" aria-current="page" data-i18n="ui_about">О проекте</a>
+    <a href="changelog.html" data-i18n="ui_changelog">Что нового</a>
+  </div>
+  <div class="r">
+    <button class="lang" id="lang" type="button" aria-label="Язык: Русский">RU</button>
+    <a class="btn sm" href="index.html#download"><span class="roll"><span data-i18n="download">Скачать</span><span data-i18n="download">Скачать</span></span></a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+<header class="head">
+  <div class="wrap">
+    <span class="eyebrow mono" data-i18n="label">О проекте</span>
+    <h1 class="grad" data-i18n="h1">Что такое Lumi</h1>
+    <p class="sub" data-i18n="sub">Бесплатная строка в стиле Spotlight для Mac, Windows и Linux: одним сочетанием клавиш открывает программу или файл и отвечает на вопросы с помощью ИИ. Раньше называлась ClaudeLight. Проект независимый, с открытым кодом (MIT).</p>
+  </div>
+</header>
+
+<section class="sec" aria-labelledby="h-apps">
+  <div class="wrap">
+    <h2 id="h-apps" class="reveal" data-i18n="apps_h">Приложения</h2>
+    <p class="reveal" data-i18n="apps_p">Под каждую систему своё приложение. ИИ-запуски, настройки и тексты общие у Windows и Linux.</p>
+    <div class="grid">
+      <div class="card reveal"><span class="tag mono">macOS</span><h3 data-i18n="mac_h">Swift, AppKit и SwiftUI</h3><p data-i18n="mac_p">Нужен macOS 14 или новее. Программы и файлы ищет через индекс Spotlight, ключи хранит в связке ключей macOS.</p></div>
+      <div class="card reveal d1"><span class="tag mono">Windows</span><h3 data-i18n="win_h">C# и .NET 8, WPF</h3><p data-i18n="win_p">Ищет через меню «Пуск» и Windows Search, ключи шифрует средствами Windows. Есть установщик и портативная версия.</p></div>
+      <div class="card reveal"><span class="tag mono">Linux</span><h3 data-i18n="lin_h">C# и .NET 8, Avalonia</h3><p data-i18n="lin_p">Пакеты .deb и .rpm и AppImage. Запуск ИИ, настройки и тексты общие с версией для Windows.</p></div>
+      <div class="card reveal d1"><span class="tag mono" data-i18n="svc_tag">Сервисы ИИ</span><h3 data-i18n="svc_h">Подписки и ключи на выбор</h3><p data-i18n="svc_p">Claude, ChatGPT и Gemini через их официальные программы, любой сервис, совместимый с OpenAI, и локальные модели.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-models">
+  <div class="wrap">
+    <h2 id="h-models" class="reveal" data-i18n="mod_h">Модели без интернета</h2>
+    <p class="reveal" data-i18n-html="mod_p">Локальные модели работают через Ollama. В репозитории лежат три готовые сборки: Lumi Mini и Lumi на основе Gemma 4, Lumi Pro на основе Qwen 3.6. Они рассчитаны на 8, 12 и 32 ГБ памяти. На Linux кнопка «Установить Lumi» сама распаковывает Ollama, сверив контрольную сумму SHA-256.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-os">
+  <div class="wrap">
+    <h2 id="h-os" class="reveal" data-i18n="os_h">Lumi OS</h2>
+    <p class="reveal" data-i18n-html="os_p">Отдельный проект: Linux на основе Fedora Silverblue и открытого шаблона образа Universal Blue, в котором Lumi уже установлена. Система обновляется целым образом, который пересобирается на GitHub, и откатывается назад из меню загрузки. Это ранняя версия. Lumi OS не связана с Fedora, Red Hat и Universal Blue.</p>
+    <div class="ctas reveal">
+      <a class="btn ghost" href="os.html"><span class="roll"><span data-i18n="os_btn">Страница Lumi OS</span><span data-i18n="os_btn">Страница Lumi OS</span></span><span class="arr">→</span></a>
+      <a class="btn ghost" href="https://github.com/AlbertS15/lumi-os"><span class="roll"><span>lumi-os на GitHub</span><span>lumi-os на GitHub</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec last" id="contact" aria-labelledby="h-contact">
+  <div class="wrap">
+    <h2 id="h-contact" class="reveal" data-i18n="c_h">Связь</h2>
+    <p class="reveal" data-i18n="c_p">Нашли ошибку или хотите новую функцию? Напишите автору.</p>
+    <div class="ctas reveal">
+      <a class="btn teal" href="mailto:starosta093@gmail.com?subject=Lumi"><span class="roll"><span>starosta093@gmail.com</span><span>starosta093@gmail.com</span></span></a>
+      <a class="btn ghost" href="https://t.me/lumimacos"><span class="roll"><span>Telegram @lumimacos</span><span>Telegram @lumimacos</span></span></a>
+      <a class="btn ghost" href="https://github.com/AlbertS15/Lumi/issues"><span class="roll"><span data-i18n="c_gh">Ошибка на GitHub</span><span data-i18n="c_gh">Ошибка на GitHub</span></span></a>
+      <a class="btn ghost" href="https://github.com/AlbertS15/Lumi"><span class="roll"><span data-i18n="c_code">Исходный код</span><span data-i18n="c_code">Исходный код</span></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="big"><span class="grad">Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
+    <div class="row">
+      <span>© 2026 Lumi · MIT</span>
+      <div class="r">
+        <a href="os.html">Lumi OS</a>
+        <a href="changelog.html" data-i18n="ui_changelog">Что нового</a>
+        <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
+        <a href="https://t.me/lumimacos">Telegram</a>
+        <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
+        <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
+      </div>
+      <span class="legal" data-i18n="legal">Независимый проект с открытым кодом. Не связан с Apple, Anthropic, OpenAI, Google, Fedora и Red Hat.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PAGE = {
+  en: { title: "About Lumi — what it is and how it's built", description: "Lumi is a free AI bar for Mac, Windows and Linux. How it's built: Swift on macOS, C# and .NET on Windows and Linux, local models through Ollama, Lumi OS on Fedora Silverblue.",
+    label: "About", h1: "What Lumi is", sub: "A free Spotlight-style bar for Mac, Windows and Linux: one shortcut opens an app or a file and answers questions with AI. It used to be called ClaudeLight. An independent open-source project (MIT).",
+    apps_h: "The apps", apps_p: "Each system has its own app. Windows and Linux share the AI runners, settings and strings.",
+    mac_h: "Swift, AppKit and SwiftUI", mac_p: "Needs macOS 14 or later. Finds apps and files through the Spotlight index and keeps keys in the macOS keychain.",
+    win_h: "C# and .NET 8, WPF", win_p: "Searches the Start menu and Windows Search and encrypts keys with Windows. There is an installer and a portable build.",
+    lin_h: "C# and .NET 8, Avalonia", lin_p: "Packages as .deb and .rpm, and an AppImage. The AI runners, settings and strings are shared with the Windows app.",
+    svc_tag: "AI services", svc_h: "Subscriptions and keys, your choice", svc_p: "Claude, ChatGPT and Gemini through their official tools, any OpenAI-compatible service, and local models.",
+    mod_h: "Models without the internet", mod_p: "Local models run through Ollama. The repository holds three ready-made builds: Lumi Mini and Lumi based on Gemma 4, Lumi Pro based on Qwen 3.6. They are sized for 8, 12 and 32 GB of memory. On Linux the “Install Lumi” button unpacks Ollama itself after checking its SHA-256.",
+    os_h: "Lumi OS", os_p: "A separate project: Linux based on Fedora Silverblue and the open Universal Blue image template, with Lumi already installed. The system updates as one whole image that is rebuilt on GitHub, and rolls back from the boot menu. It is an early version. Lumi OS is not affiliated with Fedora, Red Hat or Universal Blue.",
+    os_btn: "The Lumi OS page", c_h: "Contact", c_p: "Found a bug or want a feature? Write to the author.", c_gh: "Report on GitHub", c_code: "Source code",
+    download: "Download", bug: "Report a bug", legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI, Google, Fedora or Red Hat." },
+  de: { title: "Über Lumi — was es ist und wie es gebaut ist", description: "Lumi ist eine kostenlose KI-Leiste für Mac, Windows und Linux. So ist sie gebaut: Swift auf macOS, C# und .NET auf Windows und Linux, lokale Modelle über Ollama, Lumi OS auf Fedora Silverblue.",
+    label: "Über Lumi", h1: "Was Lumi ist", sub: "Eine kostenlose Leiste im Stil von Spotlight für Mac, Windows und Linux: Ein Tastenkürzel öffnet ein Programm oder eine Datei und beantwortet Fragen mit KI. Hieß früher ClaudeLight. Ein unabhängiges Open-Source-Projekt (MIT).",
+    apps_h: "Die Apps", apps_p: "Jedes System hat seine eigene App. Windows und Linux teilen sich KI-Anbindung, Einstellungen und Texte.",
+    mac_h: "Swift, AppKit und SwiftUI", mac_p: "Benötigt macOS 14 oder neuer. Sucht Programme und Dateien über den Spotlight-Index und legt Schlüssel im macOS-Schlüsselbund ab.",
+    win_h: "C# und .NET 8, WPF", win_p: "Sucht über das Startmenü und Windows Search und lässt Schlüssel von Windows verschlüsseln. Es gibt ein Installationsprogramm und eine portable Version.",
+    lin_h: "C# und .NET 8, Avalonia", lin_p: "Als .deb, .rpm und AppImage. KI-Anbindung, Einstellungen und Texte teilt sie sich mit der Windows-App.",
+    svc_tag: "KI-Dienste", svc_h: "Abos und Schlüssel nach Wahl", svc_p: "Claude, ChatGPT und Gemini über ihre offiziellen Programme, jeder OpenAI-kompatible Dienst und lokale Modelle.",
+    mod_h: "Modelle ohne Internet", mod_p: "Lokale Modelle laufen über Ollama. Im Repository liegen drei fertige Varianten: Lumi Mini und Lumi auf Basis von Gemma 4, Lumi Pro auf Basis von Qwen 3.6. Sie sind für 8, 12 und 32 GB Speicher ausgelegt. Unter Linux entpackt „Lumi installieren“ Ollama selbst, nachdem es die SHA-256-Prüfsumme geprüft hat.",
+    os_h: "Lumi OS", os_p: "Ein eigenes Projekt: Linux auf Basis von Fedora Silverblue und der offenen Image-Vorlage von Universal Blue, mit bereits installiertem Lumi. Das System wird als ganzes Image aktualisiert, das auf GitHub neu gebaut wird, und lässt sich im Startmenü zurücksetzen. Es ist eine frühe Version. Lumi OS ist nicht mit Fedora, Red Hat oder Universal Blue verbunden.",
+    os_btn: "Die Lumi-OS-Seite", c_h: "Kontakt", c_p: "Fehler gefunden oder eine Funktion gewünscht? Schreiben Sie dem Autor.", c_gh: "Auf GitHub melden", c_code: "Quellcode",
+    download: "Herunterladen", bug: "Fehler melden", legal: "Ein unabhängiges Open-Source-Projekt, nicht mit Apple, Anthropic, OpenAI, Google, Fedora oder Red Hat verbunden." },
+  es: { title: "Acerca de Lumi — qué es y cómo está hecha", description: "Lumi es una barra con IA gratuita para Mac, Windows y Linux. Cómo está hecha: Swift en macOS, C# y .NET en Windows y Linux, modelos locales con Ollama, Lumi OS sobre Fedora Silverblue.",
+    label: "Acerca de", h1: "Qué es Lumi", sub: "Una barra gratuita al estilo de Spotlight para Mac, Windows y Linux: un atajo abre una app o un archivo y responde preguntas con IA. Antes se llamaba ClaudeLight. Un proyecto independiente de código abierto (MIT).",
+    apps_h: "Las apps", apps_p: "Cada sistema tiene su propia app. Windows y Linux comparten la conexión con la IA, los ajustes y los textos.",
+    mac_h: "Swift, AppKit y SwiftUI", mac_p: "Requiere macOS 14 o posterior. Busca apps y archivos con el índice de Spotlight y guarda las claves en el llavero de macOS.",
+    win_h: "C# y .NET 8, WPF", win_p: "Busca en el menú Inicio y en Windows Search y cifra las claves con Windows. Hay instalador y versión portátil.",
+    lin_h: "C# y .NET 8, Avalonia", lin_p: "En paquetes .deb y .rpm y como AppImage. La conexión con la IA, los ajustes y los textos son los mismos que en la app de Windows.",
+    svc_tag: "Servicios de IA", svc_h: "Suscripciones y claves, a tu elección", svc_p: "Claude, ChatGPT y Gemini mediante sus programas oficiales, cualquier servicio compatible con OpenAI y modelos locales.",
+    mod_h: "Modelos sin internet", mod_p: "Los modelos locales funcionan con Ollama. El repositorio incluye tres versiones listas: Lumi Mini y Lumi basadas en Gemma 4, y Lumi Pro basada en Qwen 3.6. Están pensadas para 8, 12 y 32 GB de memoria. En Linux, el botón «Instalar Lumi» descomprime Ollama por sí mismo tras comprobar su SHA-256.",
+    os_h: "Lumi OS", os_p: "Un proyecto aparte: Linux basado en Fedora Silverblue y en la plantilla de imagen abierta de Universal Blue, con Lumi ya instalada. El sistema se actualiza como una imagen completa que se reconstruye en GitHub y se puede revertir desde el menú de arranque. Es una versión temprana. Lumi OS no tiene relación con Fedora, Red Hat ni Universal Blue.",
+    os_btn: "La página de Lumi OS", c_h: "Contacto", c_p: "¿Has encontrado un error o quieres una función? Escribe al autor.", c_gh: "Avisar en GitHub", c_code: "Código fuente",
+    download: "Descargar", bug: "Avisar de un error", legal: "Un proyecto independiente de código abierto, sin relación con Apple, Anthropic, OpenAI, Google, Fedora ni Red Hat." },
+  fr: { title: "À propos de Lumi — ce que c'est et comment c'est fait", description: "Lumi est une barre IA gratuite pour Mac, Windows et Linux. Comment elle est faite : Swift sur macOS, C# et .NET sur Windows et Linux, modèles locaux via Ollama, Lumi OS sur Fedora Silverblue.",
+    label: "À propos", h1: "Ce qu'est Lumi", sub: "Une barre gratuite dans le style de Spotlight pour Mac, Windows et Linux : un raccourci ouvre une app ou un fichier et répond aux questions avec l'IA. Elle s'appelait ClaudeLight. Un projet indépendant et open source (MIT).",
+    apps_h: "Les apps", apps_p: "Chaque système a sa propre app. Windows et Linux partagent la connexion à l'IA, les réglages et les textes.",
+    mac_h: "Swift, AppKit et SwiftUI", mac_p: "Nécessite macOS 14 ou plus récent. Cherche les apps et les fichiers via l'index Spotlight et garde les clés dans le trousseau macOS.",
+    win_h: "C# et .NET 8, WPF", win_p: "Cherche dans le menu Démarrer et Windows Search, et chiffre les clés avec Windows. Un installateur et une version portable sont fournis.",
+    lin_h: "C# et .NET 8, Avalonia", lin_p: "En paquets .deb et .rpm et en AppImage. La connexion à l'IA, les réglages et les textes sont communs avec l'app Windows.",
+    svc_tag: "Services d'IA", svc_h: "Abonnements et clés, au choix", svc_p: "Claude, ChatGPT et Gemini via leurs programmes officiels, tout service compatible OpenAI et des modèles locaux.",
+    mod_h: "Des modèles sans internet", mod_p: "Les modèles locaux tournent avec Ollama. Le dépôt contient trois versions prêtes : Lumi Mini et Lumi basées sur Gemma 4, Lumi Pro basée sur Qwen 3.6. Elles sont prévues pour 8, 12 et 32 Go de mémoire. Sous Linux, le bouton « Installer Lumi » décompresse Ollama lui-même après avoir vérifié son SHA-256.",
+    os_h: "Lumi OS", os_p: "Un projet à part : un Linux basé sur Fedora Silverblue et sur le modèle d'image ouvert d'Universal Blue, avec Lumi déjà installée. Le système se met à jour comme une image entière reconstruite sur GitHub, et on peut revenir en arrière depuis le menu de démarrage. C'est une version précoce. Lumi OS n'a aucun lien avec Fedora, Red Hat ou Universal Blue.",
+    os_btn: "La page Lumi OS", c_h: "Contact", c_p: "Un bug ou une idée de fonction ? Écrivez à l'auteur.", c_gh: "Signaler sur GitHub", c_code: "Code source",
+    download: "Télécharger", bug: "Signaler un bug", legal: "Un projet indépendant et open source, sans lien avec Apple, Anthropic, OpenAI, Google, Fedora ou Red Hat." },
+};
+</script>
+<script src="site.js"></script>
+<script>Site.applyLang();</script>
+</body>
+</html>

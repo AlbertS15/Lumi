@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Что нового в Lumi — список версий</title>
+<meta name="description" content="Все версии Lumi с описанием изменений, от новых к старым: что добавлено и что исправлено в приложении для Mac, Windows и Linux.">
+<link rel="canonical" href="https://alberts15.github.io/Lumi/changelog.html">
+<link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/changelog.html?lang=ru">
+<link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/changelog.html?lang=en">
+<link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/changelog.html?lang=de">
+<link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/changelog.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/changelog.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/changelog.html">
+<meta property="og:title" content="Что нового в Lumi — список версий">
+<meta property="og:description" content="Все версии Lumi с описанием изменений, от новых к старым.">
+<meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Пиксельный призрак Lumi и надпись «Spotlight + AI in one bar»">
+<meta property="og:url" content="https://alberts15.github.io/Lumi/changelog.html">
+<meta property="og:site_name" content="Lumi">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Что нового в Lumi — список версий">
+<meta name="twitter:description" content="Все версии Lumi с описанием изменений, от новых к старым.">
+<meta name="twitter:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta name="theme-color" content="#060808">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Lumi changelog",
+  "url": "https://alberts15.github.io/Lumi/changelog.html",
+  "about": { "@type": "SoftwareApplication", "name": "Lumi", "url": "https://alberts15.github.io/Lumi/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 14+, Windows 10, Windows 11, Linux (x86-64)", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="refresh.css">
+<style>
+.head { padding: 150px 0 40px; }
+.head h1 { font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.055em; margin-top: 18px; }
+.rels { display: grid; gap: 14px; padding-bottom: 120px; max-width: 820px; }
+.rel { padding: 30px 32px; }
+.rel header { display: flex; gap: 14px; align-items: center; color: var(--dim); }
+.rel .ver { color: var(--teal); }
+.rel h2 { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.035em; line-height: 1.15; margin-top: 12px; }
+.rel h3 { font-size: 17px; letter-spacing: -0.01em; margin: 22px 0 6px; }
+.rel p { color: var(--mute); margin: 12px 0 0; font-size: 16px; }
+.rel ul { margin: 10px 0 0; padding-left: 20px; color: #c4ccca; font-size: 16px; }
+.rel li { margin: 5px 0; }
+.rel code { background: #ffffff0d; border-radius: 6px; padding: 1px 6px; font-size: 13.5px; }
+.rel .more { display: inline-block; margin-top: 18px; color: var(--teal); font-size: 15px; }
+.rel .more:hover { text-decoration: underline; }
+.note { color: var(--dim); font-size: 14.5px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="ui_skip">Перейти к содержанию</a>
+
+<nav class="nav" aria-label="Lumi">
+  <a class="logo" href="./"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+  <div class="links">
+    <a href="./">Lumi</a>
+    <a href="os.html">Lumi OS</a>
+    <a href="about.html" data-i18n="ui_about">О проекте</a>
+    <a href="changelog.html" class="on" aria-current="page" data-i18n="ui_changelog">Что нового</a>
+  </div>
+  <div class="r">
+    <button class="lang" id="lang" type="button" aria-label="Язык: Русский">RU</button>
+    <a class="btn sm" href="index.html#download"><span class="roll"><span data-i18n="download">Скачать</span><span data-i18n="download">Скачать</span></span></a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+<header class="head">
+  <div class="wrap">
+    <span class="eyebrow mono" data-i18n="label">Версии</span>
+    <h1 class="grad" data-i18n="h1">Что нового</h1>
+    <p class="sub" data-i18n="sub">Все версии Lumi, от новых к старым. Здесь 14 версий.</p>
+    <p class="note" data-i18n="note">Описания версий написаны по-русски: так они выходят в Telegram-канале.</p>
+  </div>
+</header>
+
+<div class="wrap rels">
+    <article class="card rel reveal" id="v2.0.4" lang="ru">
+      <header><span class="mono ver">v2.0.4</span><time class="mono" datetime="2026-11-04">2026-11-04</time></header>
+      <h2>Lumi 2.0.4: Ctrl+Пробел на Linux снова работает</h2>
+      <p>🐧👻</p>
+<p>Если у вас Ubuntu, Fedora или другой Linux с рабочим столом GNOME, Lumi могла не открываться по Ctrl+Пробел.</p>
+<h3>Что было</h3>
+<ul><li>Lumi записывала сочетание клавиш в настройки GNOME, но сама команда запуска не сохранялась. Клавиша нажималась — и ничего не происходило.</li><li>Нашли ошибку, когда проверяли Lumi на чистой системе.</li></ul>
+<h3>Что исправлено</h3>
+<ul><li>Команда теперь сохраняется правильно, Ctrl+Пробел открывает строку.</li><li>Lumi заново записывает сочетание при каждом запуске, поэтому после обновления всё заработает само.</li></ul>
+<p>На Mac и Windows всё по-прежнему.</p>
+<p><b>Как обновиться:</b> скачайте <code>.deb</code>, <code>.rpm</code> или AppImage со страницы выпуска и установите поверх. Откройте Lumi один раз — и пробуйте Ctrl+Пробел.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v2.0.4" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v2.0.3" lang="ru">
+      <header><span class="mono ver">v2.0.3</span><time class="mono" datetime="2026-11-03">2026-11-03</time></header>
+      <h2>Lumi 2.0.3: на Linux — без AppImage</h2>
+      <p>🐧👻</p>
+<p>Теперь Lumi на Linux ставится как обычная программа: через пакет для вашей системы.</p>
+<h3>Что нового</h3>
+<ul><li><b>Ubuntu, Debian, Mint</b> — файл <code>.deb</code>: <code>sudo apt install ./Lumi-2.0.3-amd64.deb</code></li><li><b>Fedora</b> — файл <code>.rpm</code>: <code>sudo dnf install ./Lumi-2.0.3-x86_64.rpm</code></li><li>Lumi появляется в меню приложений, FUSE больше не нужен. Ошибка «AppImage ругается на FUSE» остаётся в прошлом.</li><li>Для остальных дистрибутивов AppImage никуда не делся.</li></ul>
+<ul><li>Если Lumi запускается при входе в систему, она сама переключит автозапуск на новую копию, когда вы её откроете.</li></ul>
+<p>На Mac и Windows всё по-прежнему.</p>
+<p><b>Как обновиться:</b> на Linux скачайте <code>.deb</code> или <code>.rpm</code> со страницы выпуска и установите. Откройте Lumi один раз, после этого старый AppImage можно удалить. Настройки, горячая клавиша и модели сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v2.0.3" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v2.0.2" lang="ru">
+      <header><span class="mono ver">v2.0.2</span><time class="mono" datetime="2026-10-29">2026-10-29</time></header>
+      <h2>Lumi 2.0.2: призрак надел шляпу</h2>
+      <p>🎃👻</p>
+<p>С 24 октября по 1 ноября у Lumi хэллоуин: призрак носит шляпу ведьмы, а кнопки и ссылки становятся тыквенно-оранжевыми.</p>
+<h3>Почему вы могли этого не заметить</h3>
+<ul><li>Lumi проверял дату только при запуске. Если программа была открыта с начала октября и компьютер не перезагружался, праздник так и не наступал.</li><li>Теперь дата проверяется каждый раз, когда вы открываете строку. Это касается Mac, Windows и Linux.</li></ul>
+<p><b>Как обновиться:</b> на Mac и Windows Lumi сама покажет «Доступна Lumi 2.0.2 — скачать». На Linux скачайте новый <code>Lumi-x86_64.AppImage</code> со страницы выпуска. После обновления шляпа появится сразу.</p>
+<p>Шляпа будет до 1 ноября включительно, а потом снимется сама 👋</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v2.0.2" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v2.0.1" lang="ru">
+      <header><span class="mono ver">v2.0.1</span><time class="mono" datetime="2026-10-13">2026-10-13</time></header>
+      <h2>Lumi 2.0.1: свои модели знают вашу систему</h2>
+      <p>👻🐧</p>
+<p>Небольшое, но полезное обновление.</p>
+<h3>Модели Lumi отвечают про вашу систему</h3>
+<ul><li>Раньше на вопрос «как посмотреть, сколько места на диске?» lumi могла рассказать про Windows, хотя вы сидите на Linux. Теперь lumi-mini, lumi и lumi-pro знают, на какой системе работают, и отвечают для неё: на Linux — <code>df -h</code>, на Mac — «Об этом Mac», на Windows — Проводник.</li><li>Уже установленные модели обновятся сами при запуске Lumi: за пару секунд, ничего заново не скачивается.</li></ul>
+<h3>Сообщить об ошибке — в один клик</h3>
+<ul><li>В меню Lumi появился пункт «Сообщить об ошибке…». Он открывает форму на GitHub, где уже заполнены версия Lumi, система и выбранная модель. Ключи и адреса серверов туда не попадают.</li><li>Пользователям Linux это особенно поможет: в форму подставляются дистрибутив и рабочий стол, так мы быстрее найдём причину.</li></ul>
+<p><b>Как обновиться:</b> на Mac и Windows Lumi сама покажет «Доступна Lumi 2.0.1 — скачать». На Linux скачайте новый <code>Lumi-x86_64.AppImage</code> со страницы выпуска.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v2.0.1" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v2.0.0" lang="ru">
+      <header><span class="mono ver">v2.0.0</span><time class="mono" datetime="2026-10-10">2026-10-10</time></header>
+      <h2>Lumi 2.0: теперь и на Linux</h2>
+      <p>🐧👻</p>
+<p>Вы просили, и вот: Lumi работает на трёх системах — Mac, Windows и Linux.</p>
+<h3>Lumi для Linux</h3>
+<ul><li>Один файл <b>AppImage</b>: скачали, разрешили запуск, открыли. Рассчитана на Ubuntu, Fedora, Debian и другие дистрибутивы для обычных компьютеров (x86-64).</li><li>Всё, что умеет Lumi: ответы Claude, ChatGPT и Gemini по вашей подписке, OpenRouter и другие сервисы, запуск приложений и поиск файлов, пять языков интерфейса.</li><li><b>ИИ без интернета одной кнопкой</b>: Lumi сама поставит Ollama в вашу домашнюю папку (без пароля администратора, с проверкой контрольной суммы) и настроит свою модель.</li><li>Горячая клавиша по умолчанию <b>Ctrl+Пробел</b>: привычный Alt+Ё в GNOME и KDE уже занят системой. В GNOME Lumi назначает клавишу сама.</li></ul>
+<p>Это первая версия для Linux. Если что-то работает не так, напишите нам: поправим быстро.</p>
+<h3>Своя горячая клавиша — на всех системах</h3>
+<ul><li>В окне Lumi нажмите «Изменить» под клавишами и задайте любое сочетание, например Ctrl+Пробел или F5.</li><li>Если сочетание занято другой программой, Lumi скажет об этом и оставит прежнее.</li><li>«Сбросить» возвращает клавишу по умолчанию.</li></ul>
+<p><b>Как обновиться:</b> на Mac и Windows Lumi сама покажет «Доступна Lumi 2.0.0 — скачать». На Linux скачайте <code>Lumi-x86_64.AppImage</code> со страницы выпуска.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v2.0.0" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.5.0" lang="ru">
+      <header><span class="mono ver">v1.5.0</span><time class="mono" datetime="2026-10-10">2026-10-10</time></header>
+      <h2>Lumi 1.5.0: ИИ без интернета, теперь в одну кнопку</h2>
+      <p>👻⚡</p>
+<p>Раньше для своих моделей Lumi нужно было сначала отдельно скачать и установить Ollama. Теперь не нужно.</p>
+<ul><li><b>Всё одной кнопкой.</b> «Подключить модель…» → Ollama → «Установить Lumi». Если Ollama на компьютере нет, Lumi сама скачает её, установит, запустит, а потом поставит модель.</li><li><b>Безопасно.</b> Lumi ставит Ollama только с официального сайта и только если файл подписан разработчиком Ollama. Подменённый файл Lumi не установит.</li><li>Права администратора не нужны.</li></ul>
+<p>Размер загрузки: Ollama занимает 0.2 ГБ на Mac и 1.6 ГБ на Windows (в ней библиотеки для видеокарт), плюс сама модель от 4.6 ГБ. Всё скачивается один раз, дальше Lumi работает без интернета.</p>
+<p><b>Как обновиться:</b> Lumi сама покажет «Доступна Lumi 1.5.0 — скачать» в меню. Или скачайте новую версию и установите поверх старой, настройки сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.5.0" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.4.0" lang="ru">
+      <header><span class="mono ver">v1.4.0</span><time class="mono" datetime="2026-10-10">2026-10-10</time></header>
+      <h2>Lumi 1.4.0: у призрака теперь свой мозг</h2>
+      <p>👻🧠</p>
+<p>Свои модели Lumi работают прямо на компьютере, без интернета, и ваши вопросы никуда не уходят.</p>
+<ul><li><b>Установка одной кнопкой.</b> «Подключить модель…» → Ollama → «Установить Lumi». Lumi сама подберёт размер под ваш компьютер, скачает модель с полоской прогресса и всё настроит. Терминал не нужен.</li><li><b>Три размера:</b></li></ul>
+<p>— <b>Lumi Mini</b> (4.6 ГБ): для ноутбуков с 8 ГБ памяти;</p>
+<p>— <b>Lumi</b> (6.6 ГБ): для большинства компьютеров с 12–16 ГБ;</p>
+<p>— <b>Lumi Pro</b> (24 ГБ): самая умная, для мощных компьютеров от 32 ГБ.</p>
+<ul><li>Модели настроены под Lumi: отвечают коротко, на языке вопроса и пишут готовые сообщения, которые можно сразу отправить. Мы сравнили несколько открытых моделей на одних и тех же вопросах и выбрали лучшие по качеству ответов на русском.</li><li><b>Быстрые ответы:</b> «думающие» модели в Ollama, например Qwen 3.5 и 3.6, раньше могли размышлять полминуты. Теперь они отвечают за секунду-две.</li><li>Если загрузка прервётся, нажмите кнопку ещё раз: Lumi продолжит с того же места.</li></ul>
+<p>Для своих моделей нужна бесплатная программа Ollama. Если её нет, Lumi даст ссылку на скачивание.</p>
+<p><b>Как обновиться:</b> Lumi сама покажет «Доступна Lumi 1.4.0 — скачать» в меню. Или скачайте новую версию и установите поверх старой, настройки сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.4.0" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.3.4" lang="ru">
+      <header><span class="mono ver">v1.3.4</span><time class="mono" datetime="2026-10-09">2026-10-09</time></header>
+      <h2>Lumi 1.3.4</h2>
+      <p>🛠</p>
+<ul><li><b>Windows:</b> Lumi иногда не находила запущенную Ollama и скачанные модели. Исправлено.</li><li>При подключении Ollama Lumi показывает все скачанные модели — выберите нужную одним нажатием.</li><li>Если в подключении указана модель, которой нет, Lumi подскажет, какие модели установлены.</li></ul>
+<p>Спасибо за сообщение об ошибке! 🙌</p>
+<p><b>Как обновиться:</b> Lumi сама покажет «Доступна Lumi 1.3.4 — скачать» в меню. Или скачайте новую версию и установите поверх старой — настройки сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.3.4" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.3.3" lang="ru">
+      <header><span class="mono ver">v1.3.3</span><time class="mono" datetime="2026-10-09">2026-10-09</time></header>
+      <h2>Lumi 1.3.3</h2>
+      <p>🎃</p>
+<p>В этой версии спрятан сюрприз к Хэллоуину. Что именно — узнаете 24 октября 👻</p>
+<p><b>Как обновиться:</b> Lumi сама покажет «Доступна Lumi 1.3.3 — скачать» в меню. Или скачайте новую версию и установите поверх старой — настройки сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.3.3" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.3.2" lang="ru">
+      <header><span class="mono ver">v1.3.2</span><time class="mono" datetime="2026-10-08">2026-10-08</time></header>
+      <h2>Lumi 1.3.2</h2>
+      <p>👻</p>
+<ul><li><b>ИИ без интернета в пару кликов.</b> В окне Lumi появилась кнопка «Бесплатно и без интернета — Ollama». Lumi сама проверит, установлена ли Ollama, предложит её скачать и подскажет, как добавить первую модель. Если Ollama уже стоит — подставит модель сама.</li><li>Работает на Mac и Windows, бесплатно и без подписки: вопросы не уходят с вашего компьютера.</li></ul>
+<p><b>Как обновиться:</b> Lumi сама покажет «Доступна Lumi 1.3.2 — скачать» в меню. Или скачайте новую версию и установите поверх старой — настройки сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.3.2" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.3.1" lang="ru">
+      <header><span class="mono ver">v1.3.1</span><time class="mono" datetime="2026-10-08">2026-10-08</time></header>
+      <h2>Lumi 1.3.1</h2>
+      <p>👻</p>
+<ul><li><b>Windows:</b> Alt + клавиша слева от 1 теперь работает на любой раскладке — не только на английской и русской, но и на немецкой, французской и других.</li><li><b>Сам скажет об обновлении:</b> раз в день Lumi проверяет, не вышла ли новая версия, и показывает «Доступна Lumi … — скачать» в меню и в стартовом окне. Больше не нужно следить за каналом, чтобы не пропустить обновление.</li></ul>
+<p><b>Как обновиться:</b> скачайте новую версию и установите поверх старой — настройки и ключи сохранятся.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.3.1" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.3.0" lang="ru">
+      <header><span class="mono ver">v1.3.0</span><time class="mono" datetime=""></time></header>
+      <h2>ClaudeLight теперь называется Lumi</h2>
+      <p>👻</p>
+<p>Новое имя и новый маскот — светящийся пиксельный призрак. Всё остальное на месте: строка по ⌥Ё / Alt+Ё, поиск программ и файлов и ответы Claude, ChatGPT, Gemini, локальных моделей и любого подключённого ИИ.</p>
+<h3>Как обновиться</h3>
+<ul><li><b>Mac:</b> скачайте Lumi, перетащите в «Программы» и запустите. Lumi сама закроет старый ClaudeLight и уберёт его в Корзину, а настройки, подключения и ключи перенесёт.</li><li><b>Windows:</b> запустите новый установщик — он заменит ClaudeLight, перенесёт настройки и автозапуск.</li></ul>
+<p>Новый адрес проекта: github.com/AlbertS15/Lumi — старые ссылки продолжают работать.</p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.3.0" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.2.2" lang="ru">
+      <header><span class="mono ver">v1.2.2</span><time class="mono" datetime=""></time></header>
+      <h2>ClaudeLight 1.2.2</h2>
+      <h3>Исправлено: приложение не удалялось на Mac</h3>
+<p>ClaudeLight работает в фоне без значка в Dock, поэтому macOS не давала переместить его в Корзину, пока не перезагрузишь Mac.</p>
+<p>Теперь:</p>
+<ul><li><b>«Удалить ClaudeLight…»</b> — в стартовом окне и в меню Clawd в строке меню. Закрывает приложение, отключает автозапуск, удаляет настройки и ключи и перемещает его в Корзину</li><li><b>«Выйти из ClaudeLight»</b> — в стартовом окне (на Mac и Windows)</li><li><b>⌘Q</b> теперь работает в окне ClaudeLight, как в обычных приложениях</li></ul>
+<p><i>Чтобы обновиться: нажмите Clawd в строке меню → «Выйти», скачайте новую версию и замените старую.</i></p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.2.2" lang="en">GitHub release →</a>
+    </article>
+    <article class="card rel reveal" id="v1.2.1" lang="ru">
+      <header><span class="mono ver">v1.2.1</span><time class="mono" datetime=""></time></header>
+      <h2>ClaudeLight 1.2.1</h2>
+      <p>— строка в стиле Spotlight для Mac и Windows: ищет программы и файлы и отвечает на вопросы.</p>
+<h3>Новое в 1.2</h3>
+<ul><li><b>ChatGPT по подписке Plus</b> — через Codex, без API-ключа: один раз <code>codex login</code></li><li><b>Gemini по подписке Google</b> — 3.1 Pro, 3.8 Flash и Flash-Lite через Gemini CLI</li><li><b>YandexGPT и GigaChat</b> в списке сервисов</li><li><b>«Спросить в ChatGPT»</b> (⇧⌘↩ / Ctrl+Shift+Enter) — открывает chatgpt.com с вашим вопросом</li><li>Понятные ошибки: если сервис недоступен в вашей стране, ClaudeLight так и скажет, а не станет винить ключ</li></ul>
+<h3>Исправлено в 1.2.1</h3>
+<ul><li>При поиске выделяется найденная программа, а не строка ChatGPT</li><li>«Спросить Claude» вместо «Спросить Авто»</li></ul>
+<p><i>Обновление: выйдите из ClaudeLight, скачайте новую версию и замените старую. Настройки и подключения сохранятся.</i></p>
+      <a class="more" href="https://github.com/AlbertS15/Lumi/releases/tag/v1.2.1" lang="en">GitHub release →</a>
+    </article>
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="big"><span class="grad">Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
+    <div class="row">
+      <span>© 2026 Lumi · MIT</span>
+      <div class="r">
+        <a href="os.html">Lumi OS</a>
+        <a href="about.html" data-i18n="ui_about">О проекте</a>
+        <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
+        <a href="https://t.me/lumimacos">Telegram</a>
+        <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
+        <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
+        <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PAGE = {
+  en: { title: "What's new in Lumi — every release", description: "Every Lumi release with its notes, newest first: what was added and fixed in the app for Mac, Windows and Linux.",
+    label: "Releases", h1: "What's new", sub: "Every Lumi release, newest first. There are 14 of them.",
+    note: "The release notes are written in Russian, as they appear in the Telegram channel.", download: "Download", releases: "All releases", bug: "Report a bug" },
+  de: { title: "Neu in Lumi — alle Versionen", description: "Alle Lumi-Versionen mit ihren Notizen, die neuesten zuerst: was in der App für Mac, Windows und Linux dazukam und behoben wurde.",
+    label: "Versionen", h1: "Neuigkeiten", sub: "Alle Lumi-Versionen, die neuesten zuerst. Es sind 14.",
+    note: "Die Versionshinweise sind auf Russisch geschrieben, so wie im Telegram-Kanal.", download: "Herunterladen", releases: "Alle Versionen", bug: "Fehler melden" },
+  es: { title: "Novedades de Lumi — todas las versiones", description: "Todas las versiones de Lumi con sus notas, de la más nueva a la más antigua: qué se añadió y se corrigió en la app para Mac, Windows y Linux.",
+    label: "Versiones", h1: "Novedades", sub: "Todas las versiones de Lumi, de la más nueva a la más antigua. Hay 14.",
+    note: "Las notas de cada versión están escritas en ruso, tal como salen en el canal de Telegram.", download: "Descargar", releases: "Todas las versiones", bug: "Avisar de un error" },
+  fr: { title: "Nouveautés de Lumi — toutes les versions", description: "Toutes les versions de Lumi avec leurs notes, de la plus récente à la plus ancienne : ce qui a été ajouté et corrigé dans l'app pour Mac, Windows et Linux.",
+    label: "Versions", h1: "Nouveautés", sub: "Toutes les versions de Lumi, de la plus récente à la plus ancienne. Il y en a 14.",
+    note: "Les notes de version sont rédigées en russe, comme sur le canal Telegram.", download: "Télécharger", releases: "Toutes les versions", bug: "Signaler un bug" },
+};
+</script>
+<script src="site.js"></script>
+<script>Site.applyLang();</script>
+</body>
+</html>
