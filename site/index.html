@@ -263,7 +263,7 @@ footer .legal { color: var(--gray); text-transform: none; letter-spacing: 0; fon
   <p class="lead pad reveal" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы его не покидают — у Lumi нет своих серверов. Ставится одной кнопкой, размер подбирается сам.</p>
   <div class="trow headrow pad mono"><span data-i18n="th_model">Модель</span><span data-i18n="th_for">Для кого</span><span data-i18n="th_ram">Память</span><span data-i18n="th_dl">Загрузка</span></div>
   <div class="trow pad reveal" data-tier="0"><span class="nm">Mini</span><span class="d" data-i18n="d0">Старые ноутбуки. Самая быстрая.</span><span class="gb">8 GB</span><span class="d">4.6 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
-  <div class="trow pad reveal" data-tier="1"><span class="nm">Lumi</span><span class="d" data-i18n="d1">Большинство компьютеров. Лучший баланс.</span><span class="gb">12 GB</span><span class="d">6.6 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
+  <div class="trow pad reveal" data-tier="1"><span class="nm">Lumi</span><span class="d" data-i18n="d1">Большинство компьютеров. Лучший баланс.</span><span class="gb">12 GB</span><span class="d">6.6 GB<span class="tag mono" data-i18n="rec_most">● Подходит большинству</span></span></div>
   <div class="trow pad reveal" data-tier="2"><span class="nm">Pro</span><span class="d" data-i18n="d2">Мощные компьютеры. Самая умная.</span><span class="gb">32 GB</span><span class="d">24 GB<span class="tag mono" data-i18n="rec">● Ваш компьютер</span></span></div>
   <div class="howto pad reveal"><span data-i18n-html="howto"><b>Подключить модель</b> → <b>Ollama</b> → <b>Установить Lumi</b>. Ollama Lumi тоже поставит сама.</span>
     <canvas class="px ghost live ghostbig" width="14" height="13"></canvas></div>
@@ -355,7 +355,7 @@ const EN = {
   o_label: "Offline", o_title: 'Your own AI.<br><span class="red">Zero servers.</span>',
   o_lead: "The Lumi model runs right on your computer. Your questions never leave it: Lumi has no servers of its own. One button installs it and the size is picked for you.",
   th_model: "Model", th_for: "For", th_ram: "Memory", th_dl: "Download",
-  d0: "Older laptops. The fastest.", d1: "Most computers. The best balance.", d2: "Powerful computers. The smartest.", rec: "● Your computer",
+  d0: "Older laptops. The fastest.", d1: "Most computers. The best balance.", d2: "Powerful computers. The smartest.", rec: "● Your computer", rec_most: "● Fits most computers",
   howto: "<b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi installs Ollama for you too.",
   d_label: "Download", d_title: 'Mac.<br>Windows.<br><span class="red">Linux.</span>', yours: "● Your system",
   pm: "Drag Lumi to Applications. First launch: right-click → Open.",
@@ -568,7 +568,9 @@ function restart() {
   [heroDemo, streamDemo, appsDemo, chipsDemo, helloDemo].forEach(loop);
 }
 
-// ---------- the recommended model: Chrome tells memory (rounded, capped at 8); elsewhere assume 12+
+// ---------- the recommended model. Browsers don't tell real memory: Chrome caps it at 8 GB, Safari and Firefox say
+// nothing. So only a low reading picks Mini ("your computer"); otherwise Lumi is marked as the one that fits most.
+// The app itself sees the real memory and picks the size.
 const mem = navigator.deviceMemory;
 const tier = mem && mem < 8 ? 0 : 1;
 document.querySelectorAll(".trow[data-tier]").forEach(d => d.classList.toggle("rec", +d.dataset.tier === tier));
