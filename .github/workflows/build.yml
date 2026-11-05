@@ -280,6 +280,9 @@ jobs:
           files: dist/*
           body_path: ${{ steps.notes.outputs.file }}
           generate_release_notes: ${{ steps.notes.outputs.file == '' }}
+          # A tag like v2.1.0-beta.1 is a pre-release: GitHub's "latest" (and so the in-app
+          # update check) skips it, and it has no release-notes file, so nothing goes to Telegram.
+          prerelease: ${{ contains(github.ref_name, '-') }}
 
       - name: Post to Telegram
         if: env.TELEGRAM_BOT_TOKEN != '' && steps.notes.outputs.file != ''
