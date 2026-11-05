@@ -1,24 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- Unit tests for the parts of the Windows and Linux apps that need no UI: dotnet test tests/Lumi.Tests -->
+  <!-- Unit tests for the Linux app and the code it shares with Windows (settings, strings, models).
+       Run: dotnet test tests/Lumi.Tests -->
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <RootNamespace>Lumi.Tests</RootNamespace>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="../../windows/Lumi/SystemCommands.cs" Link="Shared/SystemCommands.cs" />
-    <None Include="../system-commands.json" Link="system-commands.json" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit.v3" Version="1.1.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <ProjectReference Include="../../linux/Lumi/Lumi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Cases shared with the Windows test project. -->
+    <Compile Include="../Shared/**/*.cs" Link="Shared/%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- Phrase table for the system actions; SystemCommands.cs itself comes in through the Linux project. -->
+    <None Include="../system-commands.json" Link="system-commands.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

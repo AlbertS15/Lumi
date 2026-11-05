@@ -207,6 +207,7 @@ public sealed class LauncherWindow : Window
         Place();
         Activate();
         _input.Focus();
+        Log.Write("bar: shown");
     }
 
     private void HideBar()
@@ -214,6 +215,7 @@ public sealed class LauncherWindow : Window
         if (!IsVisible) return;
         Hide();
         _hiddenAt = DateTime.Now;
+        Log.Write("bar: hidden");
     }
 
     /// Centred on the primary screen, its top edge a fifth of the way down.
@@ -262,7 +264,7 @@ public sealed class LauncherWindow : Window
         RenderResults();
     }
 
-    private static bool LooksLikeQuestion(string text)
+    internal static bool LooksLikeQuestion(string text)
     {
         var t = text.Trim().ToLowerInvariant();
         if (t.EndsWith("?")) return true;
@@ -376,9 +378,11 @@ public sealed class LauncherWindow : Window
         }
     }
 
-    /// A tile with the hit's first letter: icon themes differ too much between desktops to look them up reliably.
+    /// The app's icon from the icon themes (hicolor, the current theme, png or svg); a tile with its first letter when none is found.
     private static Control Initial(Hit hit)
     {
+        if (hit.IsApp && Icons.Load(hit.Icon) is { } bmp)
+            return new Avalonia.Controls.Image { Source = bmp, Width = 28, Height = 28 };
         var letter = hit.Name.Length > 0 ? char.ToUpperInvariant(hit.Name[0]).ToString() : "?";
         return new Border
         {

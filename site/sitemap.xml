@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://alberts15.github.io/Lumi/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/"/>
+  </url>
+  <url>
+    <loc>https://alberts15.github.io/Lumi/os.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/os.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/os.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/os.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/os.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/os.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/os.html"/>
+  </url>
+  <url>
+    <loc>https://alberts15.github.io/Lumi/about.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/about.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/about.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/about.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/about.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/about.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/about.html"/>
+  </url>
+  <url>
+    <loc>https://alberts15.github.io/Lumi/changelog.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/changelog.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/changelog.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/changelog.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/changelog.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/changelog.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/changelog.html"/>
+  </url>
+</urlset>

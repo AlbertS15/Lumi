@@ -14,7 +14,7 @@ namespace Lumi;
 /// Installs Ollama into the home folder, so the offline route needs neither a website nor sudo.
 public static class OllamaSetup
 {
-    /// The download for x86-64; GPU libraries included, hence the size.
+    /// The x86-64 download, GPU libraries included, hence the size; the arm64 one (picked by Arch below) is smaller.
     public const string SizeGB = "1.4";
 
     private static string Arch => RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64";

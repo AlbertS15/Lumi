@@ -247,7 +247,7 @@ public sealed class LauncherWindow : Window
         RenderResults();
     }
 
-    private static bool LooksLikeQuestion(string text)
+    internal static bool LooksLikeQuestion(string text)
     {
         var t = text.Trim().ToLowerInvariant();
         if (t.EndsWith("?")) return true;
