@@ -253,8 +253,14 @@
       "Abrir al iniciar sesión",
       "Ouvrir à la connexion"
     ],
-    "menu_report_bug": ["Report a problem…", "Сообщить об ошибке…", "Problem melden…", "Informar de un problema…", "Signaler un problème…"],
-  "menu_quit": [
+    "menu_report_bug": [
+      "Report a problem…",
+      "Сообщить об ошибке…",
+      "Problem melden…",
+      "Informar de un problema…",
+      "Signaler un problème…"
+    ],
+    "menu_quit": [
       "Quit",
       "Выйти",
       "Beenden",
@@ -988,6 +994,83 @@
       "Antwort aus Ihren Dateien nicht möglich: {0}",
       "No se pudo responder con tus archivos: {0}",
       "Impossible de répondre à partir de vos fichiers : {0}"
+    ],
+    "action_volume": [
+      "Set volume to {0}%",
+      "Громкость {0}%",
+      "Lautstärke auf {0} %",
+      "Volumen al {0} %",
+      "Volume à {0} %"
+    ],
+    "action_mute": [
+      "Mute sound",
+      "Выключить звук",
+      "Ton aus",
+      "Silenciar el sonido",
+      "Couper le son"
+    ],
+    "action_unmute": [
+      "Unmute sound",
+      "Включить звук",
+      "Ton an",
+      "Activar el sonido",
+      "Rétablir le son"
+    ],
+    "action_dark": [
+      "Switch to dark theme",
+      "Включить тёмную тему",
+      "Dunkles Design einschalten",
+      "Activar el tema oscuro",
+      "Passer au thème sombre"
+    ],
+    "action_light": [
+      "Switch to light theme",
+      "Включить светлую тему",
+      "Helles Design einschalten",
+      "Activar el tema claro",
+      "Passer au thème clair"
+    ],
+    "action_wifi_off": [
+      "Turn Wi-Fi off",
+      "Выключить Wi-Fi",
+      "WLAN ausschalten",
+      "Desactivar el Wi-Fi",
+      "Désactiver le Wi-Fi"
+    ],
+    "action_wifi_on": [
+      "Turn Wi-Fi on",
+      "Включить Wi-Fi",
+      "WLAN einschalten",
+      "Activar el Wi-Fi",
+      "Activer le Wi-Fi"
+    ],
+    "action_lock": [
+      "Lock the screen",
+      "Заблокировать экран",
+      "Bildschirm sperren",
+      "Bloquear la pantalla",
+      "Verrouiller l'écran"
+    ],
+    "action_window": [
+      "Switch to this window",
+      "Перейти в это окно",
+      "Zu diesem Fenster wechseln",
+      "Ir a esta ventana",
+      "Aller à cette fenêtre"
+    ],
+    "action_note": [
+      "System action",
+      "Действие системы",
+      "Systemaktion",
+      "Acción del sistema",
+      "Action système"
+    ],
+    "action_hint": [
+      "↩ run",
+      "↩ выполнить",
+      "↩ ausführen",
+      "↩ ejecutar",
+      "↩ exécuter"
     ]
   },
   "question_words": {

@@ -1080,6 +1080,7 @@ final class CodexRunner {
 enum Row: Equatable {
     case ask
     case chatGPT
+    case action(ActionRow)
     case hit(Hit)
 }
 
@@ -1100,12 +1101,15 @@ final class LauncherModel: ObservableObject {
                 isFollowUp = true
             }
             if answer == nil {
+                // A system command ("volume 50", "тёмная тема") shows as rows above the files; Enter runs the first one.
+                actions = SystemActions.rows(for: query)
                 search.search(query)
-                selection = looksLikeQuestion(query) || hits.isEmpty ? 0 : firstHit
+                selection = !actions.isEmpty ? firstAction : looksLikeQuestion(query) || hits.isEmpty ? 0 : firstHit
             }
         }
     }
     @Published var hits: [Hit] = []
+    @Published var actions: [ActionRow] = []
     @Published var selection = 0
     @Published var answer: String?
     @Published var asked = ""
@@ -1124,10 +1128,10 @@ final class LauncherModel: ObservableObject {
         search.onResults = { [weak self] hits in
             guard let self else { return }
             self.hits = hits
-            let maxIndex = hits.count
+            let maxIndex = hits.count + self.actions.count
             if self.selection > maxIndex { self.selection = maxIndex }
             // A search lands on the first file or app; a question stays on the ask row.
-            if !self.looksLikeQuestion(self.query), self.selection < self.firstHit, !hits.isEmpty { self.selection = self.firstHit }
+            if self.actions.isEmpty, !self.looksLikeQuestion(self.query), self.selection < self.firstHit, !hits.isEmpty { self.selection = self.firstHit }
         }
         // Published fires before the value is stored, so retry on the next turn of the run loop.
         choiceWatch = Settings.shared.$choice.dropFirst().sink { [weak self] _ in
@@ -1149,11 +1153,14 @@ final class LauncherModel: ObservableObject {
 
     var rows: [Row] {
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else { return [] }
-        return [.ask] + (Settings.shared.showsChatGPT ? [.chatGPT] : []) + hits.map { .hit($0) }
+        return [.ask] + (Settings.shared.showsChatGPT ? [.chatGPT] : []) + actions.map { .action($0) } + hits.map { .hit($0) }
     }
 
-    /// Where the file results start, after the ask rows.
-    var firstHit: Int { Settings.shared.showsChatGPT ? 2 : 1 }
+    /// Where the system actions start, after the ask rows.
+    var firstAction: Int { Settings.shared.showsChatGPT ? 2 : 1 }
+
+    /// Where the file results start, after the ask rows and the system actions.
+    var firstHit: Int { firstAction + actions.count }
 
     /// ⇧⌘↩ or the ChatGPT row: the typed text, else the question on screen.
     func askChatGPT() {
@@ -1186,6 +1193,13 @@ final class LauncherModel: ObservableObject {
             askChatGPT()
             return
         }
+        if case let .action(action) = rows[selection] {
+            // Hidden first, so the lock screen isn't covered by the bar.
+            query = ""
+            hide()
+            DispatchQueue.main.async { action.run() }
+            return
+        }
         if case let .hit(hit) = rows[selection] {
             if reveal {
                 NSWorkspace.shared.activateFileViewerSelecting([hit.url])
@@ -1198,6 +1212,7 @@ final class LauncherModel: ObservableObject {
 
     func ask(_ text: String) {
         search.stop()
+        actions = []
         asked = text
         answer = ""
         answerError = nil
@@ -1245,6 +1260,7 @@ final class LauncherModel: ObservableObject {
         } else if !query.isEmpty {
             query = ""
             hits = []
+            actions = []
         } else {
             hide()
         }
@@ -1266,6 +1282,7 @@ final class LauncherModel: ObservableObject {
         codex.reset()
         query = ""
         hits = []
+        actions = []
         selection = 0
     }
 }
@@ -1366,6 +1383,21 @@ struct RowView: View {
                 }
                 Spacer()
                 Text("⇧⌘↩").font(.system(size: 12)).foregroundStyle(.tertiary)
+            case let .action(action):
+                Image(systemName: action.symbol)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(isSelected ? Color.white : Color.accentColor)
+                    .frame(width: 28, height: 28)
+                    .background(
+                        RoundedRectangle(cornerRadius: 7, style: .continuous)
+                            .fill(isSelected ? Color.white.opacity(0.2) : Color.primary.opacity(0.06))
+                    )
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(action.title).font(.system(size: 14, weight: .semibold)).lineLimit(1)
+                    Text(action.subtitle).font(.system(size: 11)).foregroundStyle(.secondary).lineLimit(1)
+                }
+                Spacer()
+                Text(S.actionHint).font(.system(size: 12)).foregroundStyle(.tertiary)
             case let .hit(hit):
                 Image(nsImage: NSWorkspace.shared.icon(forFile: hit.path))
                     .resizable()

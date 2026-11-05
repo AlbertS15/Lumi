@@ -28,6 +28,7 @@
     <Compile Include="../../windows/Lumi/LumiModels.cs" Link="Shared/LumiModels.cs" />
     <Compile Include="../../windows/Lumi/Library.cs" Link="Shared/Library.cs" />
     <Compile Include="../../windows/Lumi/FilesRunner.cs" Link="Shared/FilesRunner.cs" />
+    <Compile Include="../../windows/Lumi/SystemCommands.cs" Link="Shared/SystemCommands.cs" />
   </ItemGroup>
 
   <ItemGroup>

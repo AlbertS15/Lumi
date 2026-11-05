@@ -174,6 +174,17 @@ public static class S
         ["files_empty"] = new[] { "No text found in the chosen folders yet.", "В выбранных папках пока не найдено текста.", "In den gewählten Ordnern wurde noch kein Text gefunden.", "Aún no se ha encontrado texto en las carpetas elegidas.", "Aucun texte trouvé pour l'instant dans les dossiers choisis." },
         ["files_no_chat_model"] = new[] { "No local model to answer with. Install Lumi's offline model in the welcome window.", "Нет локальной модели для ответа. Установите офлайн-модель Lumi в окне приветствия.", "Kein lokales Modell zum Antworten. Installieren Sie Lumis Offline-Modell im Willkommensfenster.", "No hay un modelo local para responder. Instala el modelo sin conexión de Lumi en la ventana de bienvenida.", "Aucun modèle local pour répondre. Installez le modèle hors ligne de Lumi dans la fenêtre d'accueil." },
         ["files_failed"] = new[] { "Couldn't answer from your files: {0}", "Не удалось ответить по файлам: {0}", "Antwort aus Ihren Dateien nicht möglich: {0}", "No se pudo responder con tus archivos: {0}", "Impossible de répondre à partir de vos fichiers : {0}" },
+        ["action_volume"] = new[] { "Set volume to {0}%", "Громкость {0}%", "Lautstärke auf {0} %", "Volumen al {0} %", "Volume à {0} %" },
+        ["action_mute"] = new[] { "Mute sound", "Выключить звук", "Ton aus", "Silenciar el sonido", "Couper le son" },
+        ["action_unmute"] = new[] { "Unmute sound", "Включить звук", "Ton an", "Activar el sonido", "Rétablir le son" },
+        ["action_dark"] = new[] { "Switch to dark theme", "Включить тёмную тему", "Dunkles Design einschalten", "Activar el tema oscuro", "Passer au thème sombre" },
+        ["action_light"] = new[] { "Switch to light theme", "Включить светлую тему", "Helles Design einschalten", "Activar el tema claro", "Passer au thème clair" },
+        ["action_wifi_off"] = new[] { "Turn Wi-Fi off", "Выключить Wi-Fi", "WLAN ausschalten", "Desactivar el Wi-Fi", "Désactiver le Wi-Fi" },
+        ["action_wifi_on"] = new[] { "Turn Wi-Fi on", "Включить Wi-Fi", "WLAN einschalten", "Activar el Wi-Fi", "Activer le Wi-Fi" },
+        ["action_lock"] = new[] { "Lock the screen", "Заблокировать экран", "Bildschirm sperren", "Bloquear la pantalla", "Verrouiller l'écran" },
+        ["action_window"] = new[] { "Switch to this window", "Перейти в это окно", "Zu diesem Fenster wechseln", "Ir a esta ventana", "Aller à cette fenêtre" },
+        ["action_note"] = new[] { "System action", "Действие системы", "Systemaktion", "Acción del sistema", "Action système" },
+        ["action_hint"] = new[] { "↩ run", "↩ выполнить", "↩ ausführen", "↩ ejecutar", "↩ exécuter" },
     };
 
     private static string F(string key, params string[] args)
@@ -322,4 +333,15 @@ public static class S
     public static string FilesEmpty => F("files_empty");
     public static string FilesNoChatModel => F("files_no_chat_model");
     public static string FilesFailed(string a0) => F("files_failed", a0);
+    public static string ActionVolume(string a0) => F("action_volume", a0);
+    public static string ActionMute => F("action_mute");
+    public static string ActionUnmute => F("action_unmute");
+    public static string ActionDark => F("action_dark");
+    public static string ActionLight => F("action_light");
+    public static string ActionWifiOff => F("action_wifi_off");
+    public static string ActionWifiOn => F("action_wifi_on");
+    public static string ActionLock => F("action_lock");
+    public static string ActionWindow => F("action_window");
+    public static string ActionNote => F("action_note");
+    public static string ActionHint => F("action_hint");
 }

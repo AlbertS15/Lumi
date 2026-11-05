@@ -163,6 +163,17 @@ private let table: [String: [String]] = [
     "files_empty": ["No text found in the chosen folders yet.", "В выбранных папках пока не найдено текста.", "In den gewählten Ordnern wurde noch kein Text gefunden.", "Aún no se ha encontrado texto en las carpetas elegidas.", "Aucun texte trouvé pour l'instant dans les dossiers choisis."],
     "files_no_chat_model": ["No local model to answer with. Install Lumi's offline model in the welcome window.", "Нет локальной модели для ответа. Установите офлайн-модель Lumi в окне приветствия.", "Kein lokales Modell zum Antworten. Installieren Sie Lumis Offline-Modell im Willkommensfenster.", "No hay un modelo local para responder. Instala el modelo sin conexión de Lumi en la ventana de bienvenida.", "Aucun modèle local pour répondre. Installez le modèle hors ligne de Lumi dans la fenêtre d'accueil."],
     "files_failed": ["Couldn't answer from your files: {0}", "Не удалось ответить по файлам: {0}", "Antwort aus Ihren Dateien nicht möglich: {0}", "No se pudo responder con tus archivos: {0}", "Impossible de répondre à partir de vos fichiers : {0}"],
+    "action_volume": ["Set volume to {0}%", "Громкость {0}%", "Lautstärke auf {0} %", "Volumen al {0} %", "Volume à {0} %"],
+    "action_mute": ["Mute sound", "Выключить звук", "Ton aus", "Silenciar el sonido", "Couper le son"],
+    "action_unmute": ["Unmute sound", "Включить звук", "Ton an", "Activar el sonido", "Rétablir le son"],
+    "action_dark": ["Switch to dark theme", "Включить тёмную тему", "Dunkles Design einschalten", "Activar el tema oscuro", "Passer au thème sombre"],
+    "action_light": ["Switch to light theme", "Включить светлую тему", "Helles Design einschalten", "Activar el tema claro", "Passer au thème clair"],
+    "action_wifi_off": ["Turn Wi-Fi off", "Выключить Wi-Fi", "WLAN ausschalten", "Desactivar el Wi-Fi", "Désactiver le Wi-Fi"],
+    "action_wifi_on": ["Turn Wi-Fi on", "Включить Wi-Fi", "WLAN einschalten", "Activar el Wi-Fi", "Activer le Wi-Fi"],
+    "action_lock": ["Lock the screen", "Заблокировать экран", "Bildschirm sperren", "Bloquear la pantalla", "Verrouiller l'écran"],
+    "action_window": ["Switch to this window", "Перейти в это окно", "Zu diesem Fenster wechseln", "Ir a esta ventana", "Aller à cette fenêtre"],
+    "action_note": ["System action", "Действие системы", "Systemaktion", "Acción del sistema", "Action système"],
+    "action_hint": ["↩ run", "↩ выполнить", "↩ ausführen", "↩ ejecutar", "↩ exécuter"],
 ]
 
 private func format(_ key: String, _ args: [String]) -> String {
@@ -312,4 +323,15 @@ enum S {
     static var filesEmpty: String { format("files_empty", []) }
     static var filesNoChatModel: String { format("files_no_chat_model", []) }
     static func filesFailed(_ a0: String) -> String { format("files_failed", [a0]) }
+    static func actionVolume(_ a0: String) -> String { format("action_volume", [a0]) }
+    static var actionMute: String { format("action_mute", []) }
+    static var actionUnmute: String { format("action_unmute", []) }
+    static var actionDark: String { format("action_dark", []) }
+    static var actionLight: String { format("action_light", []) }
+    static var actionWifiOff: String { format("action_wifi_off", []) }
+    static var actionWifiOn: String { format("action_wifi_on", []) }
+    static var actionLock: String { format("action_lock", []) }
+    static var actionWindow: String { format("action_window", []) }
+    static var actionNote: String { format("action_note", []) }
+    static var actionHint: String { format("action_hint", []) }
 }
