@@ -5,8 +5,12 @@ Usage: telegram.py <tag>              release-notes/<tag>.html plus download lin
        telegram.py posts/<name>.html   any other post, as written
 (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID and GITHUB_REPOSITORY in the environment)
 Posts are Telegram's HTML subset: <b>, <i>, <a>, <code>.
+A post may start with comment lines:
+  <!-- photo: https://... -->  show that image large, above the text (as the link preview)
+  <!-- no-link -->             don't append the "download Lumi" link (the post has its own)
 """
 import json
+import re
 import os
 import sys
 import urllib.request
@@ -24,7 +28,11 @@ else:
 if not notes.exists():
     sys.exit(f"no {notes.name}, nothing to post")
 
-text = notes.read_text().strip() + "\n\n" + link
+body = notes.read_text().strip()
+photo = re.search(r"<!--\s*photo:\s*(\S+)\s*-->", body)
+no_link = "<!-- no-link -->" in body
+body = re.sub(r"<!--.*?-->\s*", "", body).strip()
+text = body if no_link else body + "\n\n" + link
 if len(text) > 4096:
     sys.exit(f"{notes.name} is {len(text)} characters with the link; Telegram allows 4096")
 
@@ -34,7 +42,10 @@ request = urllib.request.Request(
         "chat_id": os.environ["TELEGRAM_CHAT_ID"],
         "text": text,
         "parse_mode": "HTML",
-        "link_preview_options": {"is_disabled": True},
+        "link_preview_options": (
+            {"url": photo.group(1), "prefer_large_media": True, "show_above_text": True}
+            if photo else {"is_disabled": True}
+        ),
     }).encode(),
     headers={"Content-Type": "application/json"},
 )
