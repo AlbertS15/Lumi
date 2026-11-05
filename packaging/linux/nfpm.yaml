@@ -1,7 +1,7 @@
 # .deb and .rpm from the same self-contained build as the AppImage, so Ubuntu and Fedora users install without FUSE.
 # Built by linux/package.sh with nfpm; APP_VERSION comes from the tag.
 name: lumi-launcher
-arch: amd64
+arch: ${NFPM_ARCH} # amd64 or arm64, set by linux/package.sh
 platform: linux
 version: ${APP_VERSION}
 release: 1

@@ -76,6 +76,8 @@ sudo apt install ./Lumi-*-amd64.deb
 sudo dnf install ./Lumi-*-x86_64.rpm
 ```
 
+**ARM (aarch64): Linux на Mac с Apple Silicon в UTM, ARM-ноутбуки.** Те же файлы для ARM: `Lumi-*-arm64.deb`, `Lumi-*-aarch64.rpm` и `Lumi-aarch64.AppImage`.
+
 **Любой другой дистрибутив.** Скачайте `Lumi-x86_64.AppImage` со страницы [Releases](https://github.com/AlbertS15/Lumi/releases/latest), затем:
 
 ```bash
@@ -89,7 +91,7 @@ chmod +x Lumi-x86_64.AppImage
 
 **Модели без интернета.** «Установить Lumi» распаковывает Ollama в `~/.local/share/lumi` (без sudo), проверив её SHA-256, и настраивает модель.
 
-**Сборка из исходников.** Нужен .NET 8 SDK: `./linux/package.sh` собирает `dist/Lumi-x86_64.AppImage`. Код: `linux/Lumi/` (Avalonia, .NET 8), общий с `windows/Lumi/` в части ИИ, настроек и строк.
+**Сборка из исходников.** Нужен .NET 8 SDK: `./linux/package.sh` собирает `dist/Lumi-x86_64.AppImage` (на ARM-машине или с `LUMI_ARCH=arm64` — `dist/Lumi-aarch64.AppImage`). Код: `linux/Lumi/` (Avalonia, .NET 8), общий с `windows/Lumi/` в части ИИ, настроек и строк.
 
 ## Клавиши
 

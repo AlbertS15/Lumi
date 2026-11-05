@@ -69,20 +69,29 @@ public sealed class FileSearch
         Task.Run(async () =>
         {
             await Task.Delay(120, cts.Token);
-            var apps = _apps
-                .Where(a => a.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
-                .OrderBy(a => a.Name.StartsWith(term, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
-                .ThenBy(a => a.Name.Length)
-                .Take(5)
-                .ToList();
+            var apps = MatchApps(_apps, term);
             if (!cts.IsCancellationRequested) onResults(apps);
 
             var files = QueryIndex(term, cts.Token);
             if (cts.IsCancellationRequested) return;
-            var named = files.Where(f => f.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
-            var rest = files.Where(f => !f.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
-            onResults(apps.Concat(named.Concat(rest).Take(12 - apps.Count)).ToList());
+            onResults(Merge(apps, files, term));
         }, cts.Token);
+    }
+
+    /// Apps whose name contains the text: those starting with it first, then shorter names, at most five.
+    internal static List<Hit> MatchApps(IEnumerable<Hit> apps, string term) => apps
+        .Where(a => a.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+        .OrderBy(a => a.Name.StartsWith(term, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
+        .ThenBy(a => a.Name.Length)
+        .Take(5)
+        .ToList();
+
+    /// Apps, then files named like the text, then files that only match inside: twelve rows in all.
+    internal static List<Hit> Merge(List<Hit> apps, List<Hit> files, string term)
+    {
+        var named = files.Where(f => f.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
+        var rest = files.Where(f => !f.Name.Contains(term, StringComparison.OrdinalIgnoreCase));
+        return apps.Concat(named.Concat(rest).Take(12 - apps.Count)).ToList();
     }
 
     private static List<Hit> QueryIndex(string term, CancellationToken token)
@@ -116,7 +125,7 @@ public sealed class FileSearch
         return hits;
     }
 
-    private static bool IsNoise(string path)
+    internal static bool IsNoise(string path)
     {
         var blocked = new[] { @"\AppData\", @"\Windows\", @"\ProgramData\", @"\$Recycle.Bin\", @"\node_modules\", @"\.git\" };
         return blocked.Any(b => path.Contains(b, StringComparison.OrdinalIgnoreCase));

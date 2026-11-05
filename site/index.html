@@ -5,16 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lumi — нейросеть одной клавишей</title>
 <meta name="description" content="Lumi — бесплатная строка в стиле Spotlight для Mac, Windows и Linux: открывает программы и файлы и отвечает на вопросы с помощью ИИ. Может работать без интернета.">
+<link rel="canonical" href="https://alberts15.github.io/Lumi/">
+<link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/?lang=ru">
+<link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/?lang=en">
+<link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/?lang=de">
+<link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/?lang=es">
+<link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/">
 <meta property="og:title" content="Lumi — нейросеть одной клавишей">
 <meta property="og:description" content="Бесплатная строка с ИИ для Mac, Windows и Linux. Может работать без интернета.">
 <meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Пиксельный призрак Lumi и надпись «Spotlight + AI in one bar»">
+<meta property="og:url" content="https://alberts15.github.io/Lumi/">
+<meta property="og:site_name" content="Lumi">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lumi — нейросеть одной клавишей">
+<meta name="twitter:description" content="Бесплатная строка с ИИ для Mac, Windows и Linux. Может работать без интернета.">
+<meta name="twitter:image" content="https://alberts15.github.io/Lumi/og.png">
 <meta name="theme-color" content="#060808">
-<link rel="icon" href="icon.png">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lumi",
+  "alternateName": "ClaudeLight",
+  "description": "A free, open-source Spotlight-style bar for macOS, Windows and Linux that opens apps and files and answers questions with Claude, ChatGPT, Gemini or Lumi's own offline model.",
+  "url": "https://alberts15.github.io/Lumi/",
+  "image": "https://alberts15.github.io/Lumi/og.png",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "macOS 14+, Windows 10, Windows 11, Linux (x86-64)",
+  "downloadUrl": "https://github.com/AlbertS15/Lumi/releases/latest",
+  "releaseNotes": "https://alberts15.github.io/Lumi/changelog.html",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "inLanguage": ["en", "ru", "de", "es", "fr"],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "AlbertS15", "url": "https://github.com/AlbertS15" },
+  "sameAs": ["https://github.com/AlbertS15/Lumi", "https://t.me/lumimacos"]
+}
+</script>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="refresh.css">
 <style>
@@ -162,9 +206,10 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main" data-i18n="ui_skip">Перейти к содержанию</a>
 
-<nav class="nav">
-  <a class="logo" href="#"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+<nav class="nav" aria-label="Lumi">
+  <a class="logo" href="./"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
   <div class="links">
     <a href="#features" data-i18n="nav_features">Возможности</a>
     <a href="#offline" data-i18n="nav_offline">Без интернета</a>
@@ -172,11 +217,12 @@
     <a href="#faq" data-i18n="nav_faq">Вопросы</a>
   </div>
   <div class="r">
-    <button class="lang" id="lang">EN</button>
+    <button class="lang" id="lang" type="button" aria-label="Язык: Русский">RU</button>
     <a class="btn sm" href="#download"><span class="roll"><span data-i18n="download">Скачать</span><span data-i18n="download">Скачать</span></span></a>
   </div>
 </nav>
 
+<main id="main" tabindex="-1">
 <header class="hero">
   <canvas class="pixels" data-count="80"></canvas>
   <div class="inner">
@@ -190,7 +236,7 @@
     </div>
     <p class="plats mono fade-in" style="animation-delay:.8s">macOS · Windows · Linux · MIT</p>
   </div>
-  <div class="cue"></div>
+  <div class="cue" aria-hidden="true"></div>
 </header>
 
 <section class="scene" id="demo">
@@ -201,7 +247,7 @@
       <div data-c="2"><h3 data-i18n="cap2">Ответ прямо в строке</h3><p data-i18n="cap2_p">Печатается сразу, как в чате. Можно уточнить, и разговор продолжится</p></div>
       <div data-c="3"><h3 data-i18n="cap3">И даже без интернета</h3><p data-i18n="cap3_p">Своя модель Lumi работает на вашем компьютере</p></div>
     </div>
-    <div class="screen" id="screen">
+    <div class="screen" id="screen" aria-hidden="true">
       <canvas class="pixels" data-count="45"></canvas>
       <div class="menubar"><span>●  ●  ●</span><span id="clock">9:41</span></div>
       <canvas class="px ghost wall" data-color="#4fb896" width="14" height="13"></canvas>
@@ -212,7 +258,7 @@
           <div class="ans"><div class="q" id="asked"></div><div id="answer"></div></div>
         </div>
       </div>
-      <div class="note mono" id="note"><span class="wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.6a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg><span data-i18n="note">Wi-Fi выключен · настоящий ответ модели Lumi</span></span></div>
+      <div class="note mono" id="note"><span class="wifi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.6a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg><span data-i18n="note">Wi-Fi выключен · настоящий ответ модели Lumi</span></span></div>
     </div>
   </div>
 </section>
@@ -227,16 +273,16 @@
     <h2 class="h2 reveal" data-i18n-html="f_title">Одна строка.<br><span class="mute">Всё под рукой.</span></h2>
     <div class="bento">
       <div class="card s4 reveal"><h3 data-i18n="b1_h">Ответы в строке</h3><p data-i18n="b1_p">Ответ печатается сразу, как в чате. Уточняйте, и разговор продолжится.</p>
-        <div class="demo"><div class="stream" id="stream"></div></div></div>
+        <div class="demo" aria-hidden="true"><div class="stream" id="stream"></div></div></div>
       <div class="card s2 reveal d1"><h3 data-i18n="b2_h">Программы и файлы</h3><p data-i18n="b2_p">Начните вводить название, Enter откроет нужное.</p>
-        <div class="demo apps" id="apps"></div></div>
+        <div class="demo apps" id="apps" aria-hidden="true"></div></div>
       <div class="card s2 reveal"><h3 data-i18n="b3_h">Любая нейросеть</h3><p data-i18n="b3_p">Claude, ChatGPT и Gemini по вашей подписке, без API-ключей. Или любой сервис по ключу.</p>
-        <div class="demo marquee">
+        <div class="demo marquee" aria-hidden="true">
           <div class="track"><span class="chip t">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip t">Lumi</span><span class="chip">DeepSeek</span><span class="chip">Mistral</span><span class="chip t">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip t">Lumi</span><span class="chip">DeepSeek</span><span class="chip">Mistral</span></div>
           <div class="track rev"><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip t">YandexGPT</span><span class="chip">Ollama</span><span class="chip">OpenRouter</span><span class="chip">GigaChat</span><span class="chip t">YandexGPT</span><span class="chip">Ollama</span></div>
         </div></div>
       <div class="card s2 reveal d1"><h3 data-i18n="b4_h">Пять языков</h3><p data-i18n="b4_p">Интерфейс на пяти языках. Lumi отвечает на языке вопроса.</p>
-        <div class="demo"><div class="hello" id="hello"></div></div></div>
+        <div class="demo" aria-hidden="true"><div class="hello" id="hello"></div></div></div>
       <div class="card s2 reveal d2"><h3 data-i18n="b5_h">Своя клавиша</h3><p data-i18n="b5_p">Сочетание по умолчанию или любое другое, какое удобно вам.</p>
         <div class="demo keyshow" id="keyshow"></div></div>
     </div>
@@ -245,7 +291,7 @@
 
 <section class="zoom" id="offline">
   <div class="sticky">
-    <div class="glow"></div>
+    <div class="glow" aria-hidden="true"></div>
     <div class="wrap center">
       <h2 id="zoomh" data-i18n-html="o_title">Свой ИИ.<br><span class="grad">Ноль серверов.</span></h2>
       <p class="sub lead" id="zoomlead" data-i18n="o_lead">Модель Lumi работает прямо на вашем компьютере. Вопросы его не покидают: у Lumi нет своих серверов. Ставится одной кнопкой, а размер подбирается сам.</p>
@@ -274,7 +320,7 @@
     <div class="ctas reveal">
       <a class="btn" href="os.html"><span class="roll"><span data-i18n="os_more">Подробнее о Lumi OS</span><span data-i18n="os_more">Подробнее о Lumi OS</span></span><span class="arr">→</span></a>
     </div>
-    <div class="persp"><div class="shot" id="osshot"><img src="img/os-bar-empty.jpg" width="1280" height="800" alt="Lumi OS: рабочий стол с призраком и строкой Lumi" loading="lazy"></div></div>
+    <div class="persp"><div class="shot" id="osshot"><picture><source type="image/webp" srcset="img/os-bar-empty-640.webp 640w, img/os-bar-empty.webp 1280w" sizes="(max-width: 1240px) calc(100vw - 40px), 1200px"><img src="img/os-bar-empty.jpg" srcset="img/os-bar-empty-640.jpg 640w, img/os-bar-empty.jpg 1280w" sizes="(max-width: 1240px) calc(100vw - 40px), 1200px" width="1280" height="800" alt="Lumi OS: рабочий стол с призраком и строкой Lumi" data-i18n-attr="alt:shot_alt" loading="lazy" decoding="async"></picture></div></div>
   </div>
 </section>
 
@@ -303,7 +349,7 @@
         <p data-i18n="pw">Установщик без прав администратора. Если SmartScreen спросит: «Подробнее» → «Выполнить в любом случае».</p>
         <a class="btn" data-asset="win" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi-Setup.exe</a></div>
       <div class="card plat reveal d2" data-os="linux"><div class="top mono"><span>x86-64</span><span class="yours" data-i18n="yours">● Ваша система</span></div>
-        <h3>Linux</h3><div class="hk"><kbd class="sm">Ctrl</kbd><kbd class="sm" data-i18n="space">Пробел</kbd></div>
+        <h3>Linux</h3><div class="hk"><kbd class="sm" data-i18n="ctrl">Ctrl</kbd><kbd class="sm" data-i18n="space">Пробел</kbd></div>
         <p data-i18n-html="pl">Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Остальные: AppImage, <code>chmod +x</code> и запуск.</p>
         <a class="btn" data-asset="linux" href="https://github.com/AlbertS15/Lumi/releases/latest">Lumi.AppImage</a></div>
     </div>
@@ -336,6 +382,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer class="foot">
   <div class="wrap">
@@ -344,6 +391,8 @@
       <span>© 2026 Lumi · MIT</span>
       <div class="r">
         <a href="os.html">Lumi OS</a>
+        <a href="about.html" data-i18n="ui_about">О проекте</a>
+        <a href="changelog.html" data-i18n="ui_changelog">Что нового</a>
         <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
         <a href="https://t.me/lumimacos">Telegram</a>
         <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
@@ -357,8 +406,15 @@
 
 <script>
 window.PAGE = {
+  // Only what the script writes; everything else in Russian is the HTML itself.
+  ru: {
+    statement: "Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* и спросите.",
+    js_ph: "Поиск или вопрос", js_followup: "Уточните вопрос…", js_dl_for: "Скачать для ", js_dl_free: "Скачать бесплатно",
+    js_or: "или", js_press: "Нажмите", js_pill: "{n} ★ на GitHub · открытый код",
+  },
   en: {
     title: "Lumi — AI on one key",
+    description: "Lumi is a free Spotlight-style bar for Mac, Windows and Linux: it opens apps and files and answers questions with AI. It can work offline.",
     nav_features: "Features", nav_offline: "Offline", nav_faq: "FAQ", download: "Download", free: "Free", pill: "Open source on GitHub",
     hero_title: '<span class="ln"><span style="animation-delay:.15s">AI on</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">one key.</span></span>',
     hero_sub: "Press a key in any window and ask. The answer appears right in the bar: no browser, no tabs, no accounts. It can work offline.",
@@ -382,13 +438,13 @@ window.PAGE = {
     howto: "<b>Add model</b> → <b>Ollama</b> → <b>Install Lumi</b>. Lumi installs Ollama for you too.",
     os_label: "New · Lumi OS", os_title: 'A whole system<br><span class="grad">with Lumi from minute one.</span>',
     os_sub: "Linux based on Fedora with Lumi already in it: it opens on Ctrl+Space, starts at login and helps you install an offline AI.",
-    os_more: "More about Lumi OS",
+    os_more: "More about Lumi OS", shot_alt: "Lumi OS: the desktop with the ghost and the Lumi bar",
     n_os: "systems: Mac, Windows, Linux", n_lang: "interface languages",
     d_label: "Download", d_title: 'Free.<br><span class="mute">On any computer.</span>', yours: "● Your system",
     pm: "Drag Lumi to Applications. First launch: right-click → Open.",
     pw: "An installer with no admin rights needed. If SmartScreen asks: “More info” → “Run anyway”.",
     pl: 'Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Anything else: the AppImage, <code>chmod +x</code> and run.',
-    space: "Space", q_label: "Questions", q_title: "FAQ",
+    space: "Space", ctrl: "Ctrl", q_label: "Questions", q_title: "FAQ",
     q1: "Is it really free?", a1: "Yes. Lumi is free and open source. You only pay for the AI itself if you choose a paid service, and nothing at all with Lumi's own model.",
     q2: "Does it need the internet?", a2: "Cloud AIs do. Lumi's own model works fully offline; you only need the internet once to download it.",
     q3: "Where do my questions go?", a3: "Only to the service you picked. With Lumi's own model, nowhere: everything stays on your computer. Lumi has no servers of its own.",
@@ -397,6 +453,140 @@ window.PAGE = {
     c_label: "Contact", c_title: "Complaints and ideas", c_sub: "Found a bug or want a new feature? Write to us, we read every message.", c_gh: "Report a bug on GitHub",
     releases: "All versions", bug: "Report a bug",
     legal: "An independent open-source project, not affiliated with Apple, Anthropic, OpenAI or Google. Answers in the demo are real answers from the Lumi model, shortened to fit.",
+    js_ph: "Search or ask", js_followup: "Ask a follow-up…", js_dl_for: "Download for ", js_dl_free: "Download for free",
+    js_or: "or", js_press: "Press", js_pill: "{n} ★ on GitHub · open source",
+  },
+  de: {
+    title: "Lumi — KI auf einer Taste",
+    description: "Lumi ist eine kostenlose Leiste im Stil von Spotlight für Mac, Windows und Linux: Sie öffnet Programme und Dateien und beantwortet Fragen mit KI. Auch offline.",
+    nav_features: "Funktionen", nav_offline: "Offline", nav_faq: "Fragen", download: "Download", free: "Kostenlos", pill: "Open Source auf GitHub",
+    hero_title: '<span class="ln"><span style="animation-delay:.15s">KI auf</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">einer Taste.</span></span>',
+    hero_sub: "Drücken Sie in jedem Fenster eine Taste und fragen Sie. Die Antwort erscheint direkt in der Leiste: ohne Browser, Tabs und Konten. Auch offline.",
+    see: "So funktioniert es",
+    cap0_p: "Lumi wartet im Hintergrund und erscheint über jedem Programm",
+    cap1: "Fragen Sie, was Sie wollen", cap1_p: "Oder tippen Sie den Namen eines Programms oder einer Datei",
+    cap2: "Die Antwort direkt in der Leiste", cap2_p: "Sie erscheint Wort für Wort wie in einem Chat. Rückfragen setzen das Gespräch fort",
+    cap3: "Sogar ohne Internet", cap3_p: "Lumis eigenes Modell läuft auf Ihrem Computer",
+    note: "WLAN aus · eine echte Antwort des Lumi-Modells",
+    statement: "Keinen Browser öffnen. Keine Website suchen. Bei keinem Konto anmelden. Einfach *Alt+^* drücken und fragen.",
+    f_label: "Funktionen", f_title: 'Eine Leiste.<br><span class="mute">Alles griffbereit.</span>',
+    b1_h: "Antworten in der Leiste", b1_p: "Die Antwort erscheint Wort für Wort wie in einem Chat. Rückfragen setzen das Gespräch fort.",
+    b2_h: "Programme und Dateien", b2_p: "Namen eintippen, Enter öffnet es.",
+    b3_h: "Jede KI", b3_p: "Claude, ChatGPT und Gemini mit Ihrem Abo, ohne API-Schlüssel. Oder jeder Dienst mit Schlüssel.",
+    b4_h: "Fünf Sprachen", b4_p: "Die Oberfläche gibt es in fünf Sprachen. Lumi antwortet in der Sprache der Frage.",
+    b5_h: "Ihr eigenes Kürzel", b5_p: "Das Standardkürzel oder jedes andere, das Ihnen passt.",
+    o_title: 'Eigene KI.<br><span class="grad">Null Server.</span>',
+    o_lead: "Das Lumi-Modell läuft direkt auf Ihrem Computer. Ihre Fragen verlassen ihn nicht: Lumi hat keine eigenen Server. Ein Klick installiert es, die Größe wird automatisch gewählt.",
+    rec: "Ihr Computer", rec_most: "Passt für die meisten", ram: "Speicher", size: "Download",
+    m0: "Ältere Laptops. Am schnellsten.", m1: "Die meisten Computer. Die beste Balance.", m2: "Leistungsstarke Computer. Am klügsten.",
+    howto: "<b>Modell verbinden</b> → <b>Ollama</b> → <b>Lumi installieren</b>. Lumi installiert Ollama gleich mit.",
+    os_label: "Neu · Lumi OS", os_title: 'Ein ganzes System,<br><span class="grad">mit Lumi ab der ersten Minute.</span>',
+    os_sub: "Ein Linux auf Fedora-Basis, in dem Lumi schon steckt: Es öffnet sich mit Strg+Leertaste, startet bei der Anmeldung und hilft, eine Offline-KI einzurichten.",
+    os_more: "Mehr über Lumi OS", shot_alt: "Lumi OS: der Desktop mit dem Geist und der Lumi-Leiste",
+    n_os: "Systeme: Mac, Windows, Linux", n_lang: "Sprachen der Oberfläche",
+    d_label: "Download", d_title: 'Kostenlos.<br><span class="mute">Auf jedem Computer.</span>', yours: "● Ihr System",
+    pm: "Lumi in „Programme“ ziehen. Beim ersten Start: Rechtsklick → „Öffnen“.",
+    pw: "Installation ohne Administratorrechte. Wenn SmartScreen nachfragt: „Weitere Informationen“ → „Trotzdem ausführen“.",
+    pl: 'Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Alle anderen: das AppImage, <code>chmod +x</code> und starten.',
+    space: "Leertaste", ctrl: "Strg", q_label: "Fragen", q_title: "Häufige Fragen",
+    q1: "Ist das wirklich kostenlos?", a1: "Ja. Lumi ist kostenlos und Open Source. Bezahlen müssen Sie nur die KI selbst, wenn Sie einen kostenpflichtigen Dienst wählen. Mit Lumis eigenem Modell zahlen Sie gar nichts.",
+    q2: "Braucht Lumi Internet?", a2: "Für Cloud-KIs ja. Lumis eigenes Modell arbeitet komplett offline: Internet brauchen Sie nur einmal zum Herunterladen.",
+    q3: "Wohin gehen meine Fragen?", a3: "Nur an den Dienst, den Sie gewählt haben. Mit Lumis eigenem Modell nirgendwohin: Alles bleibt auf Ihrem Computer. Lumi hat keine eigenen Server.",
+    q4: "Warum warnt mein System beim ersten Start?", a4: "Lumi ist ein unabhängiges Projekt ohne kostenpflichtiges Apple- oder Microsoft-Zertifikat, deshalb kennt das System es noch nicht. Der Code liegt vollständig offen auf GitHub.",
+    q5: "Gehört Lumi zu Apple, Anthropic, OpenAI oder Google?", a5: "Nein, es ist ein unabhängiges Projekt. Claude, ChatGPT, Gemini, Mac und Spotlight sind Marken ihrer Inhaber.",
+    c_label: "Kontakt", c_title: "Kritik und Ideen", c_sub: "Einen Fehler gefunden oder eine Idee für eine neue Funktion? Schreiben Sie uns, wir lesen jede Nachricht.", c_gh: "Fehler auf GitHub melden",
+    releases: "Alle Versionen", bug: "Fehler melden",
+    legal: "Ein unabhängiges Open-Source-Projekt, nicht mit Apple, Anthropic, OpenAI oder Google verbunden. Die Antworten in der Demo sind echte Antworten des Lumi-Modells (auf Englisch), für den Bildschirm gekürzt.",
+    js_ph: "Suchen oder fragen", js_followup: "Rückfrage stellen…", js_dl_for: "Download für ", js_dl_free: "Kostenlos herunterladen",
+    js_or: "oder", js_press: "Drücken Sie", js_pill: "{n} ★ auf GitHub · Open Source",
+  },
+  es: {
+    title: "Lumi — IA en una tecla",
+    description: "Lumi es una barra gratuita al estilo de Spotlight para Mac, Windows y Linux: abre aplicaciones y archivos y responde preguntas con IA. También sin conexión.",
+    nav_features: "Funciones", nav_offline: "Sin conexión", nav_faq: "Preguntas", download: "Descargar", free: "Gratis", pill: "Código abierto en GitHub",
+    hero_title: '<span class="ln"><span style="animation-delay:.15s">IA en</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">una tecla.</span></span>',
+    hero_sub: "Pulsa una tecla en cualquier ventana y pregunta. La respuesta aparece en la propia barra: sin navegador, sin pestañas, sin cuentas. También funciona sin conexión.",
+    see: "Mira cómo funciona",
+    cap0_p: "Lumi espera en segundo plano y aparece encima de cualquier aplicación",
+    cap1: "Pregunta lo que quieras", cap1_p: "O empieza a escribir el nombre de una aplicación o de un archivo",
+    cap2: "La respuesta, en la propia barra", cap2_p: "Se escribe a medida que llega, como en un chat. Sigue preguntando y la conversación continúa",
+    cap3: "Incluso sin conexión", cap3_p: "El modelo propio de Lumi funciona en tu ordenador",
+    note: "Wi-Fi apagado · una respuesta real del modelo Lumi",
+    statement: "Sin abrir el navegador. Sin buscar una web. Sin iniciar sesión. Solo pulsa *Alt+º* y pregunta.",
+    f_label: "Funciones", f_title: 'Una barra.<br><span class="mute">Todo a mano.</span>',
+    b1_h: "Respuestas en la barra", b1_p: "La respuesta se escribe a medida que llega, como en un chat. Sigue preguntando y la conversación continúa.",
+    b2_h: "Aplicaciones y archivos", b2_p: "Empieza a escribir un nombre e Intro lo abre.",
+    b3_h: "Cualquier IA", b3_p: "Claude, ChatGPT y Gemini con tu suscripción, sin claves de API. O cualquier servicio con clave.",
+    b4_h: "Cinco idiomas", b4_p: "La interfaz está en cinco idiomas. Lumi responde en el idioma de la pregunta.",
+    b5_h: "Tu propio atajo", b5_p: "El atajo predeterminado o el que te resulte más cómodo.",
+    o_title: 'Tu propia IA.<br><span class="grad">Cero servidores.</span>',
+    o_lead: "El modelo Lumi funciona en tu propio ordenador. Tus preguntas no salen de él: Lumi no tiene servidores propios. Se instala con un botón y el tamaño se elige solo.",
+    rec: "Tu ordenador", rec_most: "Para la mayoría", ram: "Memoria", size: "Descarga",
+    m0: "Portátiles antiguos. El más rápido.", m1: "La mayoría de ordenadores. El mejor equilibrio.", m2: "Ordenadores potentes. El más inteligente.",
+    howto: "<b>Conectar un modelo</b> → <b>Ollama</b> → <b>Instalar Lumi</b>. Lumi también instala Ollama por ti.",
+    os_label: "Nuevo · Lumi OS", os_title: 'Un sistema entero<br><span class="grad">con Lumi desde el primer minuto.</span>',
+    os_sub: "Un Linux basado en Fedora con Lumi ya dentro: se abre con Ctrl+Espacio, arranca al iniciar sesión y te ayuda a instalar una IA sin conexión.",
+    os_more: "Más sobre Lumi OS", shot_alt: "Lumi OS: el escritorio con el fantasma y la barra de Lumi",
+    n_os: "sistemas: Mac, Windows, Linux", n_lang: "idiomas de la interfaz",
+    d_label: "Descargar", d_title: 'Gratis.<br><span class="mute">En cualquier ordenador.</span>', yours: "● Tu sistema",
+    pm: "Arrastra Lumi a Aplicaciones. La primera vez: clic derecho → Abrir.",
+    pw: "Un instalador que no requiere permisos de administrador. Si SmartScreen avisa: «Más información» → «Ejecutar de todas formas».",
+    pl: 'Ubuntu, Debian, Mint: <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora: <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Cualquier otra: el AppImage, <code>chmod +x</code> y a funcionar.',
+    space: "Espacio", ctrl: "Ctrl", q_label: "Preguntas", q_title: "Preguntas frecuentes",
+    q1: "¿De verdad es gratis?", a1: "Sí. Lumi es gratuita y de código abierto. Solo pagas por la IA si eliges un servicio de pago. Con el modelo propio de Lumi no pagas nada.",
+    q2: "¿Necesita internet?", a2: "Las IA en la nube, sí. El modelo propio de Lumi funciona totalmente sin conexión: solo necesitas internet una vez para descargarlo.",
+    q3: "¿Adónde van mis preguntas?", a3: "Solo al servicio que hayas elegido. Con el modelo propio de Lumi, a ninguna parte: todo se queda en tu ordenador. Lumi no tiene servidores propios.",
+    q4: "¿Por qué el sistema me avisa la primera vez?", a4: "Lumi es un proyecto independiente sin un certificado de pago de Apple o Microsoft, así que el sistema todavía no la conoce. El código está abierto en GitHub.",
+    q5: "¿Lumi es de Apple, Anthropic, OpenAI o Google?", a5: "No, es un proyecto independiente. Claude, ChatGPT, Gemini, Mac y Spotlight son marcas de sus propietarios.",
+    c_label: "Contacto", c_title: "Quejas y sugerencias", c_sub: "¿Has encontrado un error o quieres una función nueva? Escríbenos, leemos todos los mensajes.", c_gh: "Avisar de un error en GitHub",
+    releases: "Todas las versiones", bug: "Avisar de un error",
+    legal: "Proyecto independiente de código abierto, sin relación con Apple, Anthropic, OpenAI ni Google. Las respuestas de la demostración son respuestas reales del modelo Lumi (en inglés), acortadas para la pantalla.",
+    js_ph: "Buscar o preguntar", js_followup: "Haz una pregunta de seguimiento…", js_dl_for: "Descargar para ", js_dl_free: "Descargar gratis",
+    js_or: "o", js_press: "Pulsa", js_pill: "{n} ★ en GitHub · código abierto",
+  },
+  fr: {
+    title: "Lumi — l'IA sur une touche",
+    description: "Lumi est une barre gratuite façon Spotlight pour Mac, Windows et Linux : elle ouvre applications et fichiers et répond aux questions avec l'IA. Même hors ligne.",
+    nav_features: "Fonctionnalités", nav_offline: "Hors ligne", nav_faq: "Questions", download: "Télécharger", free: "Gratuit", pill: "Code ouvert sur GitHub",
+    hero_title: '<span class="ln"><span style="animation-delay:.15s">L\'IA sur</span></span><span class="ln"><span class="grad" style="animation-delay:.27s">une touche.</span></span>',
+    hero_sub: "Appuyez sur une touche dans n'importe quelle fenêtre et posez votre question. La réponse s'affiche dans la barre : sans navigateur, sans onglets, sans compte. Même hors ligne.",
+    see: "Voir comment ça marche",
+    cap0_p: "Lumi attend en arrière-plan et s'ouvre par-dessus n'importe quelle application",
+    cap1: "Demandez ce que vous voulez", cap1_p: "Ou commencez à taper le nom d'une application ou d'un fichier",
+    cap2: "La réponse, dans la barre", cap2_p: "Elle s'affiche au fil de l'eau, comme dans un chat. Posez une question de suivi et la conversation continue",
+    cap3: "Même hors ligne", cap3_p: "Le modèle de Lumi tourne sur votre ordinateur",
+    note: "Wi-Fi coupé · une vraie réponse du modèle Lumi",
+    statement: "Pas de navigateur à ouvrir. Pas de site à chercher. Pas de compte. Appuyez sur *Alt+²* et demandez.",
+    f_label: "Fonctionnalités", f_title: 'Une barre.<br><span class="mute">Tout sous la main.</span>',
+    b1_h: "Réponses dans la barre", b1_p: "La réponse s'affiche au fil de l'eau, comme dans un chat. Posez une question de suivi et la conversation continue.",
+    b2_h: "Applications et fichiers", b2_p: "Tapez un nom, Entrée l'ouvre.",
+    b3_h: "N'importe quelle IA", b3_p: "Claude, ChatGPT et Gemini avec votre abonnement, sans clé d'API. Ou tout service avec une clé.",
+    b4_h: "Cinq langues", b4_p: "L'interface existe en cinq langues. Lumi répond dans la langue de la question.",
+    b5_h: "Votre raccourci", b5_p: "Le raccourci par défaut ou celui qui vous convient.",
+    o_title: 'Votre propre IA.<br><span class="grad">Zéro serveur.</span>',
+    o_lead: "Le modèle Lumi tourne directement sur votre ordinateur. Vos questions n'en sortent pas : Lumi n'a pas de serveurs. Un bouton l'installe et la taille est choisie pour vous.",
+    rec: "Votre ordinateur", rec_most: "Convient à la plupart", ram: "Mémoire", size: "Téléchargement",
+    m0: "Anciens portables. Le plus rapide.", m1: "La plupart des ordinateurs. Le meilleur équilibre.", m2: "Ordinateurs puissants. Le plus intelligent.",
+    howto: "<b>Connecter un modèle</b> → <b>Ollama</b> → <b>Installer Lumi</b>. Lumi installe aussi Ollama pour vous.",
+    os_label: "Nouveau · Lumi OS", os_title: 'Tout un système<br><span class="grad">avec Lumi dès la première minute.</span>',
+    os_sub: "Un Linux basé sur Fedora où Lumi est déjà là : elle s'ouvre avec Ctrl+Espace, démarre à la connexion et aide à installer une IA hors ligne.",
+    os_more: "En savoir plus sur Lumi OS", shot_alt: "Lumi OS : le bureau avec le fantôme et la barre Lumi",
+    n_os: "systèmes : Mac, Windows, Linux", n_lang: "langues d'interface",
+    d_label: "Télécharger", d_title: 'Gratuit.<br><span class="mute">Sur tout ordinateur.</span>', yours: "● Votre système",
+    pm: "Glissez Lumi dans Applications. Au premier lancement : clic droit → Ouvrir.",
+    pw: "Un installateur sans droits administrateur. Si SmartScreen demande : « Informations complémentaires » → « Exécuter quand même ».",
+    pl: 'Ubuntu, Debian, Mint : <a data-asset="deb" href="https://github.com/AlbertS15/Lumi/releases/latest">.deb</a>. Fedora : <a data-asset="rpm" href="https://github.com/AlbertS15/Lumi/releases/latest">.rpm</a>. Les autres : l\'AppImage, <code>chmod +x</code> et c\'est parti.',
+    space: "Espace", ctrl: "Ctrl", q_label: "Questions", q_title: "Questions fréquentes",
+    q1: "C'est vraiment gratuit ?", a1: "Oui. Lumi est gratuite et open source. Vous ne payez que l'IA elle-même si vous choisissez un service payant. Avec le modèle de Lumi, rien du tout.",
+    q2: "Faut-il internet ?", a2: "Pour les IA dans le cloud, oui. Le modèle de Lumi fonctionne entièrement hors ligne : internet ne sert qu'une fois, pour le télécharger.",
+    q3: "Où vont mes questions ?", a3: "Uniquement vers le service que vous avez choisi. Avec le modèle de Lumi, nulle part : tout reste sur votre ordinateur. Lumi n'a pas de serveurs.",
+    q4: "Pourquoi mon système m'avertit au premier lancement ?", a4: "Lumi est un projet indépendant sans certificat payant d'Apple ou de Microsoft, donc le système ne la connaît pas encore. Le code est entièrement ouvert sur GitHub.",
+    q5: "Lumi vient-elle d'Apple, Anthropic, OpenAI ou Google ?", a5: "Non, c'est un projet indépendant. Claude, ChatGPT, Gemini, Mac et Spotlight sont des marques de leurs propriétaires.",
+    c_label: "Contact", c_title: "Remarques et idées", c_sub: "Vous avez trouvé un bug ou voulez une nouvelle fonction ? Écrivez-nous, nous lisons chaque message.", c_gh: "Signaler un bug sur GitHub",
+    releases: "Toutes les versions", bug: "Signaler un bug",
+    legal: "Projet indépendant et open source, sans lien avec Apple, Anthropic, OpenAI ou Google. Les réponses de la démo sont de vraies réponses du modèle Lumi (en anglais), raccourcies pour l'écran.",
+    js_ph: "Rechercher ou poser une question", js_followup: "Posez une question de suivi…", js_dl_for: "Télécharger pour ", js_dl_free: "Télécharger gratuitement",
+    js_or: "ou", js_press: "Appuyez sur", js_pill: "{n} ★ sur GitHub · open source",
   },
   onLang: l => window.pageLang && window.pageLang(l),
   onCounts: (c, l) => window.pagePill && window.pagePill(c, l),
@@ -405,9 +595,12 @@ window.PAGE = {
 <script src="site.js"></script>
 <script>
 const { reduced, os } = Site;
-const RU_STATEMENT = "Не нужно открывать браузер. Искать сайт. Входить в аккаунт. Просто нажмите *Alt+Ё* и спросите.";
+const T = Site.t;
+// The key left of 1 as it's printed on each language's keyboard.
+const KEY = { ru: "Ё", en: "`", de: "^", es: "º", fr: "²" };
 
-// Real answers from the lumi model (Gemma 4 E4B), 10 Oct 2026, lightly shortened.
+// Real answers from the lumi model (Gemma 4 E4B), 10 Oct 2026, lightly shortened. German, Spanish and French pages show the
+// English ones until real answers in those languages are recorded.
 const SCENE = {
   ru: ["как выйти из vim?", "Сначала нажмите Esc, затем введите :q и Enter. Чтобы сохранить изменения перед выходом — :wq. Чтобы выйти, не сохраняя, — :q!"],
   en: ["how do I exit vim?", "Press Esc to make sure you're in normal mode. Type :q and Enter to quit, :q! to quit without saving, or :wq to save and quit."],
@@ -424,11 +617,12 @@ const APPS = [["#2aabee", "T", "Telegram"], ["#a259ff", "F", "Figma"], ["#e0a800
 const HELLO = ["Привет.", "Hello.", "Hallo.", "Hola.", "Bonjour."];
 
 let lang = Site.lang;
-const hotkey = () => os === "linux" ? ["Ctrl", lang === "ru" ? "Пробел" : "Space"] : [os === "win" ? "Alt" : "⌥", lang === "ru" ? "Ё" : "`"];
+const hotkey = () => os === "linux" ? [T("ctrl"), T("space")] : [os === "win" ? "Alt" : "⌥", KEY[lang]];
+const scene = () => SCENE[lang] || SCENE.en, streams = () => STREAM[lang] || STREAM.en;
 const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 // ---------- the scroll scene
-const scene = document.getElementById("demo"), screen = document.getElementById("screen"), sbar = document.getElementById("sbar");
+const sceneEl = document.getElementById("demo"), screen = document.getElementById("screen"), sbar = document.getElementById("sbar");
 const typed = document.getElementById("typed"), asked = document.getElementById("asked"), answer = document.getElementById("answer");
 const keys = document.getElementById("keys"), k1 = document.getElementById("k1"), k2 = document.getElementById("k2"), note = document.getElementById("note");
 const caps = [...document.querySelectorAll(".captions > div")];
@@ -436,8 +630,8 @@ const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const ease = x => 1 - Math.pow(1 - x, 3);
 let lastCap = -1;
 function drawScene() {
-  const p = reduced ? 0.8 : Site.progress(scene);
-  const [q, a] = SCENE[lang];
+  const p = reduced ? 0.8 : Site.progress(sceneEl);
+  const [q, a] = scene();
   const grow = ease(clamp(p / 0.12));
   screen.style.transform = `scale(${0.84 + 0.16 * grow})`;
   screen.style.borderRadius = 34 - 16 * grow + "px";
@@ -452,11 +646,11 @@ function drawScene() {
   sbar.classList.toggle("answered", answered);
   if (answered) {
     asked.textContent = q;
-    typed.innerHTML = '<span class="ph">' + (lang === "ru" ? "Уточните вопрос…" : "Ask a follow-up…") + "</span>";
+    typed.innerHTML = '<span class="ph">' + esc(T("js_followup")) + "</span>";
     const m = Math.round(clamp((p - 0.47) / 0.3) * a.length);
     answer.innerHTML = esc(a.slice(0, m)) + (m < a.length ? '<span class="caret"></span>' : "");
   } else {
-    typed.innerHTML = n ? esc(q.slice(0, n)) + '<span class="caret"></span>' : '<span class="ph">' + (lang === "ru" ? "Поиск или вопрос" : "Search or ask") + "</span>";
+    typed.innerHTML = n ? esc(q.slice(0, n)) + '<span class="caret"></span>' : '<span class="ph">' + esc(T("js_ph")) + "</span>";
   }
   note.classList.toggle("on", p > 0.8);
   const c = p < 0.2 ? 0 : p < 0.45 ? 1 : p < 0.8 ? 2 : 3;
@@ -468,7 +662,7 @@ Site.onScroll(drawScene);
 function buildStatement() {
   const el = document.getElementById("statement");
   const [a, b] = hotkey();
-  const text = (lang === "ru" ? RU_STATEMENT : PAGE.en.statement).replace(/\*[^*]+\*/, "*" + a + "+" + b + "*");
+  const text = T("statement").replace(/\*[^*]+\*/, "*" + a + "+" + b + "*");
   el.innerHTML = "";
   for (const part of text.split(/(\*[^*]+\*)/)) {
     if (!part) continue;
@@ -478,7 +672,7 @@ function buildStatement() {
 }
 function lightStatement() {
   const el = document.getElementById("statement");
-  const r = el.getBoundingClientRect();
+  const r = Site.rect(el);
   const p = clamp((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.35));
   const words = el.querySelectorAll(".w");
   words.forEach((w, i) => w.classList.toggle("on", reduced || i < Math.round(p * words.length)));
@@ -498,7 +692,7 @@ Site.onScroll(() => {
 // ---------- Lumi OS screenshot tilts flat as it comes in
 const shot = document.getElementById("osshot");
 Site.onScroll(() => {
-  const p = reduced ? 1 : ease(Site.entering(shot));
+  const p = reduced ? 1 : ease(Site.entering(shot.parentNode));   // the frame around it, so its own tilt does not feed back
   shot.style.transform = `rotateX(${(1 - p) * 28}deg) scale(${0.88 + 0.12 * p})`;
   shot.style.opacity = 0.3 + 0.7 * p;
 });
@@ -510,8 +704,8 @@ let run = 0;
 const loop = fn => { const id = run; const wait = async ms => { await sleep(ms); if (id !== run) throw 0; }; fn(wait).catch(() => {}); };
 async function streamDemo(wait) {
   const box = document.getElementById("stream");
-  for (let i = 0; ; i = (i + 1) % STREAM[lang].length) {
-    const [q, a] = STREAM[lang][i];
+  for (let i = 0; ; i = (i + 1) % streams().length) {
+    const [q, a] = streams()[i];
     box.innerHTML = '<div class="q"></div><div class="txt"></div>';
     box.querySelector(".q").textContent = q;
     const txt = box.querySelector(".txt");
@@ -539,7 +733,7 @@ function restart() { run++; if (!reduced) [streamDemo, appsDemo, helloDemo].forE
 const assets = {};
 function setOs() {
   const label = { mac: "Mac", win: "Windows", linux: "Linux" }[os];
-  const text = label ? (lang === "ru" ? "Скачать для " : "Download for ") + label : (lang === "ru" ? "Скачать бесплатно" : "Download for free");
+  const text = label ? T("js_dl_for") + label : T("js_dl_free");
   document.getElementById("dl-label").textContent = text; document.getElementById("dl-label2").textContent = text;
   document.getElementById("dl-main").href = (os && assets[os]) || "#download";
   document.querySelectorAll("[data-asset]").forEach(a => { if (assets[a.dataset.asset]) a.href = assets[a.dataset.asset]; });
@@ -560,7 +754,7 @@ Site.cached("assets", "https://api.github.com/repos/AlbertS15/Lumi/releases/late
 // ---------- the pill shows live stars once GitHub answers
 window.pagePill = (c, l) => {
   if (c.stars == null) return;
-  document.getElementById("pill-text").textContent = l === "ru" ? `${c.stars} ★ на GitHub · открытый код` : `${c.stars} ★ on GitHub · open source`;
+  document.getElementById("pill-text").textContent = T("js_pill").replace("{n}", c.stars.toLocaleString(Site.locale));
 };
 
 // ---------- the recommended model. Browsers don't tell real memory (Chrome caps it at 8 GB, Safari and Firefox say
@@ -573,9 +767,9 @@ window.pageLang = l => {
   lang = l;
   const [a, b] = hotkey();
   k1.textContent = a; k2.textContent = b;
-  document.getElementById("cap0").textContent = (l === "ru" ? "Нажмите " : "Press ") + a + " " + b;
-  document.querySelectorAll(".lk").forEach(k => k.textContent = l === "ru" ? "Ё" : "`");
-  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;${l === "ru" ? "или" : "or"}&nbsp;</span><kbd>Ctrl</kbd><kbd>${l === "ru" ? "Пробел" : "Space"}</kbd>`;
+  document.getElementById("cap0").textContent = T("js_press") + " " + a + " " + b;
+  document.querySelectorAll(".lk").forEach(k => k.textContent = KEY[l]);
+  document.getElementById("keyshow").innerHTML = `<kbd>${a}</kbd><kbd>${b}</kbd><span>&nbsp;${T("js_or")}&nbsp;</span><kbd>${T("ctrl")}</kbd><kbd>${T("space")}</kbd>`;
   buildStatement(); lightStatement(); drawScene(); setOs(); restart();
 };
 document.getElementById("clock").textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });

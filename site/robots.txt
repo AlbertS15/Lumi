@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alberts15.github.io/Lumi/sitemap.xml

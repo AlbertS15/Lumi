@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Lumi.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Shared with the Windows app: models, AI runners, settings, strings. -->
     <Compile Include="../../windows/Lumi/Runners.cs" Link="Shared/Runners.cs" />
     <Compile Include="../../windows/Lumi/Settings.cs" Link="Shared/Settings.cs" />

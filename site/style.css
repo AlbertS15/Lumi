@@ -1,8 +1,8 @@
-/* Lumi site: shared styles for index.html and os.html. Dark, one teal accent, the pixel ghost. */
+/* Lumi site: shared styles for every page. Dark, one teal accent, the pixel ghost. */
 :root {
   --bg: #060808; --bg2: #0b0f0f; --card: #0f1414; --card2: #141a1a;
   --line: rgba(255, 255, 255, .08); --line2: rgba(255, 255, 255, .14);
-  --text: #f2f5f4; --mute: #8a9693; --dim: #5c6866;
+  --text: #f2f5f4; --mute: #8a9693; --dim: #7d8a87; /* --dim passes 4.5:1 on the page and on cards */
   --teal: #5fd3ad; --teal2: #2fa483; --glow: rgba(95, 211, 173, .35);
   --r: 22px; --ease: cubic-bezier(.2, .8, .2, 1);
   --max: 1200px;
@@ -35,7 +35,27 @@ canvas.px { image-rendering: pixelated; image-rendering: crisp-edges; }
 .nav .links a:hover, .nav .links a.on { color: #fff; }
 .nav .r { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .nav .lang { background: none; border: 1px solid var(--line2); color: #c4ccca; border-radius: 999px; padding: 7px 11px; font: 500 12.5px "Geist Mono", monospace; cursor: pointer; }
-.nav .lang:hover { color: #fff; border-color: #fff3; }
+.nav .lang:hover, .nav .lang[aria-expanded="true"] { color: #fff; border-color: #fff3; }
+.nav .lang::after { content: ""; display: inline-block; width: 5px; height: 5px; margin: 0 0 2px 7px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); opacity: .7; }
+/* the language menu hangs under its button, glass like the nav */
+.langs { position: relative; }
+.lang-menu { position: absolute; top: calc(100% + 10px); right: 0; min-width: 180px; margin: 0; padding: 6px; list-style: none; border-radius: 18px;
+  background: rgba(10, 14, 14, .94); border: 1px solid var(--line2); box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+  backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); }
+.lang-menu[hidden] { display: none; }
+.lang-menu button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 9px 12px; border: 0; border-radius: 12px; background: none;
+  color: #c4ccca; font: 500 14.5px "Geist", sans-serif; text-align: left; cursor: pointer; }
+.lang-menu button .mono { color: var(--dim); width: 22px; }
+.lang-menu button:hover, .lang-menu button:focus-visible { background: #ffffff0d; color: #fff; outline: none; }
+.lang-menu button[aria-checked="true"] { color: var(--teal); }
+.lang-menu button[aria-checked="true"] .mono { color: var(--teal); }
+
+/* ---------- skip link: hidden until a keyboard user tabs onto it */
+.skip { position: fixed; left: 16px; top: 16px; z-index: 100; padding: 10px 16px; border-radius: 999px; background: var(--teal); color: #03140f; font-weight: 500;
+  transform: translateY(-160%); transition: transform .2s var(--ease); }
+.skip:focus { transform: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+main:focus { outline: none; }
 @media (max-width: 780px) { .nav .links { display: none; } .nav { gap: 10px; } }
 
 /* ---------- buttons with rolling labels */
@@ -117,4 +137,9 @@ code, .code { font: 500 14px "Geist Mono", monospace; }
   .lines .ln > span { animation: none; transform: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+  /* endless loops (marquee, floating ghost, scroll cue, caret) stop instead of spinning at 0.01 ms */
+  *, *::before, *::after { animation-iteration-count: 1 !important; }
 }
+
+/* <picture> only picks the file; the <img> inside keeps its own layout */
+picture { display: contents; }

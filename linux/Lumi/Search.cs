@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Lumi;
 
 /// An app (its .desktop file) or a file.
-public sealed record Hit(string Name, string Path, bool IsApp, string Exec = "", bool InTerminal = false)
+public sealed record Hit(string Name, string Path, bool IsApp, string Exec = "", bool InTerminal = false, string Icon = "")
 {
     public string Subtitle =>
         IsApp ? S.Application : (System.IO.Path.GetDirectoryName(Path) ?? "")
@@ -68,11 +68,12 @@ public sealed class FileSearch
         yield return "/var/lib/snapd/desktop/applications";
     }
 
-    private static List<Hit> LoadApps()
+    private static List<Hit> LoadApps() => LoadApps(AppFolders(), Lang.Codes[Lang.Index]);
+
+    internal static List<Hit> LoadApps(IEnumerable<string> folders, string lang)
     {
-        var lang = Lang.Codes[Lang.Index];
         var apps = new Dictionary<string, Hit>();
-        foreach (var folder in AppFolders().Distinct().Where(Directory.Exists))
+        foreach (var folder in folders.Distinct().Where(Directory.Exists))
         {
             IEnumerable<string> files;
             try { files = Directory.EnumerateFiles(folder, "*.desktop", SearchOption.AllDirectories).ToList(); }
@@ -89,11 +90,11 @@ public sealed class FileSearch
     }
 
     /// The [Desktop Entry] of an app shown in menus, or null for hidden ones.
-    private static Hit? ReadEntry(string file, string lang)
+    internal static Hit? ReadEntry(string file, string lang)
     {
         try
         {
-            string? name = null, localized = null, exec = null;
+            string? name = null, localized = null, exec = null, icon = null;
             var terminal = false;
             var inEntry = false;
             foreach (var raw in File.ReadLines(file))
@@ -116,6 +117,7 @@ public sealed class FileSearch
                         return null;
                     case "Name": name = value; break;
                     case "Exec": exec = value; break;
+                    case "Icon": icon = value; break;
                     case "Terminal": terminal = value == "true"; break;
                     default:
                         if (key == $"Name[{lang}]") localized = value;
@@ -123,7 +125,7 @@ public sealed class FileSearch
                 }
             }
             var title = localized ?? name;
-            return title == null || exec == null ? null : new Hit(title, file, true, exec, terminal);
+            return title == null || exec == null ? null : new Hit(title, file, true, exec, terminal, icon ?? "");
         }
         catch
         {
@@ -143,11 +145,7 @@ public sealed class FileSearch
             done(new List<Hit>());
             return;
         }
-        var apps = _apps
-            .Where(a => a.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(a => a.Name.StartsWith(q, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
-            .Take(6)
-            .ToList();
+        var apps = MatchApps(_apps, q);
         done(apps);
         if (q.Length < 3) return;
         Task.Run(() =>
@@ -157,7 +155,21 @@ public sealed class FileSearch
         });
     }
 
-    private static readonly string[] Blocked = { "/.cache/", "/.local/share/Trash/", "/node_modules/", "/.git/", "/.npm/", "/.cargo/" };
+    /// Apps whose name contains the text, those starting with it first, at most six.
+    internal static List<Hit> MatchApps(IEnumerable<Hit> apps, string q) => apps
+        .Where(a => a.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
+        .OrderBy(a => a.Name.StartsWith(q, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
+        .Take(6)
+        .ToList();
+
+    /// Which of locate's lines (full paths) are shown: files under home, not hidden or in a cache, at most eight.
+    internal static List<Hit> FilterLocate(IEnumerable<string> lines, string home) => lines
+        .Where(l => l.StartsWith(home + "/") && !l[home.Length..].Contains("/.") && !Blocked.Any(l.Contains))
+        .Take(8)
+        .Select(l => new Hit(System.IO.Path.GetFileName(l), l, false))
+        .ToList();
+
+    private static readonly string[] Blocked ={ "/.cache/", "/.local/share/Trash/", "/node_modules/", "/.git/", "/.npm/", "/.cargo/" };
 
     private static List<Hit> Locate(string query, CancellationToken cancel)
     {
@@ -172,11 +184,7 @@ public sealed class FileSearch
             var lines = p.StandardOutput.ReadToEnd().Split('\n', StringSplitOptions.RemoveEmptyEntries);
             p.WaitForExit(3000);
             if (cancel.IsCancellationRequested) return new List<Hit>();
-            return lines
-                .Where(l => l.StartsWith(home + "/") && !l[home.Length..].Contains("/.") && !Blocked.Any(l.Contains))
-                .Take(8)
-                .Select(l => new Hit(System.IO.Path.GetFileName(l), l, false))
-                .ToList();
+            return FilterLocate(lines, home);
         }
         catch
         {

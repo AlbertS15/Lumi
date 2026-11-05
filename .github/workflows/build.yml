@@ -11,7 +11,8 @@ permissions:
   contents: write
 
 jobs:
-  tests:
+  tests-linux:
+    name: Unit tests (Linux + shared code)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +21,40 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Unit tests (chunking, ranking, index, text extraction)
+      - name: Install gsettings and GNOME's shortcut schemas
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libglib2.0-bin gnome-settings-daemon-common > /dev/null 2>&1 || sudo apt-get install -y -qq libglib2.0-bin gnome-settings-daemon > /dev/null
+          gsettings list-keys org.gnome.settings-daemon.plugins.media-keys
+
+      - name: dotnet test
+        env:
+          LUMI_REQUIRE_GSETTINGS: "1"
+        run: dotnet test tests/Lumi.Tests -c Release
+
+      - name: Ask my files (chunking, ranking, index, text extraction)
         run: dotnet test windows/Lumi.Tests/Lumi.Tests.csproj -c Release
+
+  tests-windows:
+    name: Unit tests (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: dotnet test
+        run: dotnet test tests/Lumi.Windows.Tests -c Release
+
+  tests-macos:
+    name: Unit tests (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: swift test
+        run: swift test
 
   windows:
     runs-on: windows-latest
@@ -91,7 +124,29 @@ jobs:
           path: dist/Lumi-macOS.dmg
 
   linux:
-    runs-on: ubuntu-latest
+    # x64 keeps the job name, artifact and file names it always had; arm64 builds natively on GitHub's ARM runner.
+    name: ${{ matrix.arch == 'x64' && 'linux' || 'linux-arm64' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-latest
+            deb: amd64
+            rpm: x86_64
+            appimage: x86_64
+            elf: x86-64
+            suffix: ""
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            deb: arm64
+            rpm: aarch64
+            appimage: aarch64
+            elf: aarch64
+            suffix: "-arm64"
+    runs-on: ${{ matrix.runner }}
+    env:
+      LUMI_ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
 
@@ -106,7 +161,7 @@ jobs:
 
       - name: Install nfpm
         run: |
-          curl -fsSL -o /tmp/nfpm.deb https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_amd64.deb
+          curl -fsSL -o /tmp/nfpm.deb "https://github.com/goreleaser/nfpm/releases/download/v2.41.1/nfpm_2.41.1_$(dpkg --print-architecture).deb"
           sudo dpkg -i /tmp/nfpm.deb
 
       - name: Build AppImage, .deb and .rpm
@@ -114,10 +169,23 @@ jobs:
 
       - name: Check the .deb installs and the .rpm reads
         run: |
-          sudo apt-get install -y -qq ./dist/Lumi-*-amd64.deb rpm > /dev/null
+          sudo apt-get install -y -qq ./dist/Lumi-*-${{ matrix.deb }}.deb rpm file > /dev/null
           ls -la /usr/bin/lumi /usr/share/applications/lumi.desktop /usr/share/pixmaps/lumi.png
-          rpm -qip dist/Lumi-*-x86_64.rpm
-          rpm -qlp dist/Lumi-*-x86_64.rpm
+          dpkg-deb -I dist/Lumi-*-${{ matrix.deb }}.deb
+          rpm -qip dist/Lumi-*-${{ matrix.rpm }}.rpm
+          rpm -qlp dist/Lumi-*-${{ matrix.rpm }}.rpm
+          file -L /usr/bin/lumi dist/Lumi-${{ matrix.appimage }}.AppImage
+          # Both packages and both executables must be for this CPU.
+          test "$(dpkg-deb -f dist/Lumi-*-${{ matrix.deb }}.deb Architecture)" = "${{ matrix.deb }}"
+          test "$(rpm -qp --qf '%{ARCH}' dist/Lumi-*-${{ matrix.rpm }}.rpm)" = "${{ matrix.rpm }}"
+          file -L /usr/bin/lumi | grep -q "${{ matrix.elf }}"
+          file dist/Lumi-${{ matrix.appimage }}.AppImage | grep -q "${{ matrix.elf }}"
+
+      - name: GNOME shortcut (real Lumi, real gsettings)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb dbus-x11 libglib2.0-bin gnome-settings-daemon-common > /dev/null 2>&1 || sudo apt-get install -y -qq xvfb dbus-x11 libglib2.0-bin gnome-settings-daemon > /dev/null
+          xvfb-run -a -s "-screen 0 1280x800x24" dbus-run-session ./linux/ci/gnome-keybinding.sh
 
       - name: Smoke test (launch, toggle, search)
         run: |
@@ -129,20 +197,59 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Linux-screenshots
+          name: Linux${{ matrix.suffix }}-screenshots
           path: dist/screenshots
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Lumi-Linux
+          name: Lumi-Linux${{ matrix.suffix }}
           path: |
-            dist/Lumi-x86_64.AppImage
-            dist/Lumi-*-amd64.deb
-            dist/Lumi-*-x86_64.rpm
+            dist/Lumi-${{ matrix.appimage }}.AppImage
+            dist/Lumi-*-${{ matrix.deb }}.deb
+            dist/Lumi-*-${{ matrix.rpm }}.rpm
+
+  install-deb:
+    name: Install .deb on clean Ubuntu
+    needs: linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Lumi-Linux
+          path: dist
+      - name: Install and run
+        run: |
+          docker run --rm -v "$PWD/dist:/dist:ro" ubuntu:24.04 bash -euxc '
+            apt-get update -qq
+            apt-get install -y -qq /dist/Lumi-*-amd64.deb
+            test -x /usr/bin/lumi
+            test -f /usr/share/applications/lumi.desktop
+            lumi --version
+            dpkg -r lumi-launcher
+            test ! -e /usr/bin/lumi'
+
+  install-rpm:
+    name: Install .rpm on clean Fedora
+    needs: linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Lumi-Linux
+          path: dist
+      - name: Install and run
+        run: |
+          docker run --rm -v "$PWD/dist:/dist:ro" fedora:latest bash -euxc '
+            dnf install -y -q /dist/Lumi-*-x86_64.rpm
+            test -x /usr/bin/lumi
+            test -f /usr/share/applications/lumi.desktop
+            lumi --version
+            dnf remove -y -q lumi-launcher
+            test ! -e /usr/bin/lumi'
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [windows, macos, linux]
+    needs: [windows, macos, linux, tests-linux, tests-windows, tests-macos, install-deb, install-rpm]
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

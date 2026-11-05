@@ -105,17 +105,23 @@ public static class Hotkeys
 {
     public static HotkeyMode Mode { get; } = Detect();
 
-    private static HotkeyMode Detect()
+    private static HotkeyMode Detect() => Detect(
+        Environment.GetEnvironmentVariable("XDG_SESSION_TYPE") ?? "",
+        Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP") ?? "",
+        Environment.GetEnvironmentVariable("DISPLAY") ?? "",
+        Tools.Find("gsettings") != null);
+
+    internal static HotkeyMode Detect(string session, string desktop, string display, bool hasGsettings)
     {
-        var session = Environment.GetEnvironmentVariable("XDG_SESSION_TYPE") ?? "";
-        var desktop = Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP") ?? "";
-        if (session != "wayland" && Environment.GetEnvironmentVariable("DISPLAY") is { Length: > 0 }) return HotkeyMode.X11;
-        if (desktop.Contains("GNOME", StringComparison.OrdinalIgnoreCase) && Tools.Find("gsettings") != null) return HotkeyMode.Gnome;
+        if (session != "wayland" && display.Length > 0) return HotkeyMode.X11;
+        if (desktop.Contains("GNOME", StringComparison.OrdinalIgnoreCase) && hasGsettings) return HotkeyMode.Gnome;
         return HotkeyMode.Manual;
     }
 
     /// The command that opens or hides the bar, for desktop shortcuts.
-    public static string ToggleCommand => $"\"{Settings.LaunchPath}\" --toggle";
+    public static string ToggleCommand => ToggleCommandFor(Settings.LaunchPath);
+
+    internal static string ToggleCommandFor(string path) => $"\"{path}\" --toggle";
 
     private static X11Grab? _grab;
 
@@ -132,12 +138,15 @@ public static class Hotkeys
                 if (!grab.IsGrabbed)
                 {
                     grab.Dispose();
+                    Log.Write("hotkey: x11 grab failed");
                     return false;
                 }
                 _grab = grab;
+                Log.Write($"hotkey: x11 {key.Gnome}");
                 return true;
             case HotkeyMode.Gnome:
                 SetGnomeShortcut(key);
+                Log.Write($"hotkey: gnome {key?.Gnome ?? "(none)"}");
                 return true;
             default:
                 return true;
@@ -148,20 +157,14 @@ public static class Hotkeys
     private const string GnomePath = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/lumi/";
 
     /// Adds (or with null, disables) Lumi's entry among GNOME's custom shortcuts.
-    private static void SetGnomeShortcut(Shortcut? key)
+    private static void SetGnomeShortcut(Shortcut? key) => SetGnomeShortcut(key, ToggleCommand, Tools.Find("gsettings") ?? "gsettings");
+
+    internal static void SetGnomeShortcut(Shortcut? key, string toggleCommand, string gsettings)
     {
         try
         {
-            var list = Run("get", GnomeList, "custom-keybindings").Trim();
-            if (!list.Contains(GnomePath))
-            {
-                var inner = list.StartsWith("@as") ? "" : list.Trim('[', ']').Trim();
-                Run("set", GnomeList, "custom-keybindings", "[" + (inner.Length > 0 ? inner + ", " : "") + $"'{GnomePath}']");
-            }
-            var schema = $"{GnomeList}.custom-keybinding:{GnomePath}";
-            Run("set", schema, "name", Quote("Lumi"));
-            Run("set", schema, "command", Quote(ToggleCommand));
-            Run("set", schema, "binding", Quote(key?.Gnome ?? ""));
+            var list = Run(gsettings, "get", GnomeList, "custom-keybindings").Trim();
+            foreach (var args in GnomeCommands(list, key, toggleCommand)) Run(gsettings, args);
         }
         catch
         {
@@ -169,13 +172,29 @@ public static class Hotkeys
         }
     }
 
+    /// The `gsettings` calls that put Lumi's entry in place, given the current list of custom shortcuts.
+    internal static string[][] GnomeCommands(string currentList, Shortcut? key, string toggleCommand)
+    {
+        var commands = new System.Collections.Generic.List<string[]>();
+        if (!currentList.Contains(GnomePath))
+        {
+            var inner = currentList.StartsWith("@as") ? "" : currentList.Trim('[', ']').Trim();
+            commands.Add(new[] { "set", GnomeList, "custom-keybindings", "[" + (inner.Length > 0 ? inner + ", " : "") + $"'{GnomePath}']" });
+        }
+        var schema = $"{GnomeList}.custom-keybinding:{GnomePath}";
+        commands.Add(new[] { "set", schema, "name", Quote("Lumi") });
+        commands.Add(new[] { "set", schema, "command", Quote(toggleCommand) });
+        commands.Add(new[] { "set", schema, "binding", Quote(key?.Gnome ?? "") });
+        return commands.ToArray();
+    }
+
     /// A string as a GVariant literal. gsettings parses values as GVariant first, so a command that starts with a quote,
     /// "/usr/bin/lumi" --toggle, was rejected ("expected end of input") and the shortcut ran nothing.
-    private static string Quote(string s) => "'" + s.Replace("\\", "\\\\").Replace("'", "\\'") + "'";
+    internal static string Quote(string s) => "'" + s.Replace("\\", "\\\\").Replace("'", "\\'") + "'";
 
-    private static string Run(params string[] args)
+    private static string Run(string gsettings, params string[] args)
     {
-        var psi = new ProcessStartInfo(Tools.Find("gsettings") ?? "gsettings") { RedirectStandardOutput = true, UseShellExecute = false };
+        var psi = new ProcessStartInfo(gsettings) { RedirectStandardOutput = true, UseShellExecute = false };
         foreach (var a in args) psi.ArgumentList.Add(a);
         using var p = Process.Start(psi)!;
         var output = p.StandardOutput.ReadToEnd();
