@@ -207,10 +207,10 @@
       </div>
       <div class="card reveal d1">
         <h3 data-i18n="i2">С нуля, с флешки</h3>
-        <p data-i18n="i2p">Установочный ISO собирает GitHub. Пока он лежит в сборках, а не в релизах, поэтому нужен вход в GitHub.</p>
+        <p data-i18n="i2p">Установщик для компьютеров с Intel или AMD, около 3,9 ГБ. Аккаунт на GitHub не нужен.</p>
         <ol class="steps">
-          <li data-i18n-html="s1">Откройте <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> на GitHub</li>
-          <li data-i18n="s2">Выберите последнюю успешную сборку и скачайте артефакт anaconda-iso: около 4 ГБ, внутри zip-архива</li>
+          <li data-i18n-html="s1">Откройте <a href="https://github.com/AlbertS15/lumi-os/releases/latest">последний релиз</a> Lumi OS</li>
+          <li data-i18n="s2">Скачайте все части ISO и SHA256SUMS в одну папку и склейте их, как написано в релизе</li>
           <li data-i18n="s3">Запишите ISO на флешку, например через Fedora Media Writer или balenaEtcher</li>
           <li data-i18n="s4">Загрузитесь с флешки и следуйте установщику</li>
         </ol>
@@ -277,9 +277,9 @@ window.PAGE = {
     i1: "Already on Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite or Aurora switch to Lumi OS with two commands. Your files stay where they are.",
     terminal: "Terminal", copy: "Copy",
     i1back: "Going back: pick the previous entry in the boot menu, or run <code>sudo bootc switch</code> to the image you had.",
-    i2: "From scratch, from a USB stick", i2p: "GitHub builds the installer ISO. For now it sits in the builds rather than in releases, so you need to sign in to GitHub.",
-    s1: 'Open <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> on GitHub',
-    s2: "Pick the latest successful run and download the anaconda-iso artifact: about 4 GB, inside a zip", s3: "Write the ISO to a USB stick, for example with Fedora Media Writer or balenaEtcher",
+    i2: "From scratch, from a USB stick", i2p: "The installer for Intel or AMD computers, about 3.9 GB. No GitHub account needed.",
+    s1: 'Open the <a href="https://github.com/AlbertS15/lumi-os/releases/latest">latest release</a> of Lumi OS',
+    s2: "Download all ISO parts and SHA256SUMS into one folder and join them as the release explains", s3: "Write the ISO to a USB stick, for example with Fedora Media Writer or balenaEtcher",
     s4: "Boot from the stick and follow the installer",
     n1: "x86-64 or ARM64", n1p: 'Intel and AMD, plus ARM, including a Mac with Apple silicon in a virtual machine: <a href="https://github.com/AlbertS15/lumi-os#on-a-mac-with-apple-silicon-utm">how to run it in UTM</a>.',
     n2: "Early version", n2p: 'If something doesn\'t work, open an <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, it helps a lot.',
@@ -309,9 +309,9 @@ window.PAGE = {
     i1: "Schon auf Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite oder Aurora wechseln mit zwei Befehlen zu Lumi OS. Ihre Dateien bleiben, wo sie sind.",
     terminal: "Terminal", copy: "Kopieren",
     i1back: "Zurück: Wählen Sie den vorherigen Eintrag im Bootmenü oder wechseln Sie mit <code>sudo bootc switch</code> zurück zu Ihrem bisherigen Image.",
-    i2: "Von Grund auf, vom USB-Stick", i2p: "Das Installations-ISO baut GitHub. Vorerst liegt es bei den Builds statt bei den Releases, daher ist eine Anmeldung bei GitHub nötig.",
-    s1: 'Öffnen Sie <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> auf GitHub',
-    s2: "Wählen Sie den letzten erfolgreichen Lauf und laden Sie das Artefakt anaconda-iso herunter: etwa 4 GB, in einem ZIP-Archiv", s3: "Schreiben Sie das ISO auf einen USB-Stick, zum Beispiel mit Fedora Media Writer oder balenaEtcher",
+    i2: "Von Grund auf, vom USB-Stick", i2p: "Der Installer für Computer mit Intel oder AMD, etwa 3,9 GB. Kein GitHub-Konto nötig.",
+    s1: 'Öffnen Sie das <a href="https://github.com/AlbertS15/lumi-os/releases/latest">neueste Release</a> von Lumi OS',
+    s2: "Laden Sie alle ISO-Teile und SHA256SUMS in einen Ordner und fügen Sie sie zusammen, wie im Release beschrieben", s3: "Schreiben Sie das ISO auf einen USB-Stick, zum Beispiel mit Fedora Media Writer oder balenaEtcher",
     s4: "Vom Stick starten und dem Installer folgen",
     n1: "x86-64 oder ARM64", n1p: 'Intel und AMD, dazu ARM, auch ein Mac mit Apple-Chip in einer virtuellen Maschine: <a href="https://github.com/AlbertS15/lumi-os#on-a-mac-with-apple-silicon-utm">so läuft es in UTM</a>.',
     n2: "Frühe Version", n2p: 'Wenn etwas nicht funktioniert, schreiben Sie ein <a href="https://github.com/AlbertS15/lumi-os/issues">Issue</a>, das hilft sehr.',
@@ -341,9 +341,9 @@ window.PAGE = {
     i1: "Si ya usas Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite o Aurora se pasan a Lumi OS con dos comandos. Tus archivos se quedan donde están.",
     terminal: "Terminal", copy: "Copiar",
     i1back: "Para volver: elige la entrada anterior en el menú de arranque o vuelve a tu imagen de antes con <code>sudo bootc switch</code>.",
-    i2: "Desde cero, con un USB", i2p: "GitHub compila la ISO de instalación. De momento está en las compilaciones y no en las versiones publicadas, así que hay que iniciar sesión en GitHub.",
-    s1: 'Abre <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> en GitHub',
-    s2: "Elige la última compilación correcta y descarga el artefacto anaconda-iso: unos 4 GB, dentro de un zip", s3: "Graba la ISO en un USB, por ejemplo con Fedora Media Writer o balenaEtcher",
+    i2: "Desde cero, con un USB", i2p: "El instalador para ordenadores con Intel o AMD, unos 3,9 GB. No hace falta cuenta de GitHub.",
+    s1: 'Abre la <a href="https://github.com/AlbertS15/lumi-os/releases/latest">última versión</a> de Lumi OS',
+    s2: "Descarga todas las partes de la ISO y SHA256SUMS en una carpeta y únelas como explica la versión", s3: "Graba la ISO en un USB, por ejemplo con Fedora Media Writer o balenaEtcher",
     s4: "Arranca desde el USB y sigue el instalador",
     n1: "x86-64 o ARM64", n1p: 'Intel y AMD, y también ARM, incluido un Mac con chip Apple en una máquina virtual: <a href="https://github.com/AlbertS15/lumi-os#on-a-mac-with-apple-silicon-utm">cómo usarlo en UTM</a>.',
     n2: "Versión temprana", n2p: 'Si algo no funciona, abre un <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ayuda mucho.',
@@ -373,9 +373,9 @@ window.PAGE = {
     i1: "Déjà sous Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite ou Aurora passent à Lumi OS en deux commandes. Vos fichiers restent en place.",
     terminal: "Terminal", copy: "Copier",
     i1back: "Pour revenir en arrière : choisissez l'entrée précédente dans le menu de démarrage ou repassez à votre image d'avant avec <code>sudo bootc switch</code>.",
-    i2: "De zéro, depuis une clé USB", i2p: "GitHub construit l'ISO d'installation. Pour l'instant, elle se trouve dans les builds et non dans les versions publiées : il faut donc se connecter à GitHub.",
-    s1: 'Ouvrez <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> sur GitHub',
-    s2: "Choisissez le dernier build réussi et téléchargez l'artefact anaconda-iso : environ 4 Go, dans un zip", s3: "Écrivez l'ISO sur une clé USB, par exemple avec Fedora Media Writer ou balenaEtcher",
+    i2: "De zéro, depuis une clé USB", i2p: "L'installateur pour les ordinateurs Intel ou AMD, environ 3,9 Go. Aucun compte GitHub nécessaire.",
+    s1: 'Ouvrez la <a href="https://github.com/AlbertS15/lumi-os/releases/latest">dernière version</a> de Lumi OS',
+    s2: "Téléchargez toutes les parties de l'ISO et SHA256SUMS dans un dossier et assemblez-les comme l'explique la version", s3: "Écrivez l'ISO sur une clé USB, par exemple avec Fedora Media Writer ou balenaEtcher",
     s4: "Démarrez sur la clé et suivez l'installateur",
     n1: "x86-64 ou ARM64", n1p: 'Intel et AMD, ainsi que ARM, y compris un Mac à puce Apple dans une machine virtuelle : <a href="https://github.com/AlbertS15/lumi-os#on-a-mac-with-apple-silicon-utm">le lancer dans UTM</a>.',
     n2: "Version préliminaire", n2p: 'Si quelque chose ne marche pas, ouvrez une <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ça aide beaucoup.',
