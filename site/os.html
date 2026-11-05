@@ -47,7 +47,7 @@
   "image": "https://alberts15.github.io/Lumi/og-os.png",
   "screenshot": ["https://alberts15.github.io/Lumi/img/os-lock.jpg", "https://alberts15.github.io/Lumi/img/os-desktop.jpg", "https://alberts15.github.io/Lumi/img/os-bar-empty.jpg", "https://alberts15.github.io/Lumi/img/os-overview.jpg"],
   "applicationCategory": "OperatingSystem",
-  "operatingSystem": "Linux (x86-64)",
+  "operatingSystem": "Linux (x86-64, ARM64)",
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "author": { "@type": "Person", "name": "AlbertS15", "url": "https://github.com/AlbertS15" },
@@ -143,7 +143,7 @@
 <header class="hero">
   <canvas class="pixels" data-count="60"></canvas>
   <div class="wrap">
-    <span class="pill fade-in"><span class="dot" data-i18n="early">Ранняя версия</span><span data-i18n="pill">Fedora Silverblue · GNOME · x86-64</span></span>
+    <span class="pill fade-in"><span class="dot" data-i18n="early">Ранняя версия</span><span data-i18n="pill">Fedora Silverblue · GNOME · x86-64 · ARM64</span></span>
     <h1 class="lines"><span class="ln"><span class="grad" style="animation-delay:.12s">Lumi OS</span></span></h1>
     <p class="sub fade-in" style="animation-delay:.45s" data-i18n="hero_sub">Linux, в котором Lumi живёт с первой минуты. Включили компьютер, нажали Ctrl+Пробел и спросили. Ничего не нужно ставить и настраивать.</p>
     <div class="ctas fade-in" style="animation-delay:.6s">
@@ -217,7 +217,7 @@
       </div>
     </div>
     <div class="notes">
-      <div class="reveal"><b data-i18n="n1">Компьютер x86-64</b><span data-i18n="n1p">Intel или AMD. Версии для ARM пока нет.</span></div>
+      <div class="reveal"><b data-i18n="n1">x86-64 или ARM64</b><span data-i18n="n1p">Intel и AMD, а также ARM, в том числе Mac с Apple-чипом в виртуальной машине (UTM или QEMU).</span></div>
       <div class="reveal d1"><b data-i18n="n2">Ранняя версия</b><span data-i18n-html="n2p">Если что-то не работает, напишите в <a href="https://github.com/AlbertS15/lumi-os/issues">issues</a>, это очень поможет.</span></div>
       <div class="reveal d2"><b data-i18n="n3">Независимый проект</b><span data-i18n="n3p">Не связан с Fedora, Red Hat и Universal Blue. Основан на их открытом шаблоне образа.</span></div>
     </div>
@@ -281,7 +281,7 @@ window.PAGE = {
     s1: 'Open <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> on GitHub',
     s2: "Pick the latest successful run and download the anaconda-iso artifact: about 4 GB, inside a zip", s3: "Write the ISO to a USB stick, for example with Fedora Media Writer or balenaEtcher",
     s4: "Boot from the stick and follow the installer",
-    n1: "An x86-64 computer", n1p: "Intel or AMD. There's no ARM version yet.",
+    n1: "x86-64 or ARM64", n1p: "Intel and AMD, plus ARM, including a Mac with Apple silicon in a virtual machine (UTM or QEMU).",
     n2: "Early version", n2p: 'If something doesn\'t work, open an <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, it helps a lot.',
     n3: "An independent project", n3p: "Not affiliated with Fedora, Red Hat or Universal Blue. Based on their open image template.",
     c_title: 'On a Mac or Windows?<br><span class="grad">Lumi works there too.</span>', c_btn: "Download Lumi",
@@ -313,7 +313,7 @@ window.PAGE = {
     s1: 'Öffnen Sie <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> auf GitHub',
     s2: "Wählen Sie den letzten erfolgreichen Lauf und laden Sie das Artefakt anaconda-iso herunter: etwa 4 GB, in einem ZIP-Archiv", s3: "Schreiben Sie das ISO auf einen USB-Stick, zum Beispiel mit Fedora Media Writer oder balenaEtcher",
     s4: "Vom Stick starten und dem Installer folgen",
-    n1: "Ein x86-64-Computer", n1p: "Intel oder AMD. Eine ARM-Version gibt es noch nicht.",
+    n1: "x86-64 oder ARM64", n1p: "Intel und AMD, dazu ARM, auch ein Mac mit Apple-Chip in einer virtuellen Maschine (UTM oder QEMU).",
     n2: "Frühe Version", n2p: 'Wenn etwas nicht funktioniert, schreiben Sie ein <a href="https://github.com/AlbertS15/lumi-os/issues">Issue</a>, das hilft sehr.',
     n3: "Ein unabhängiges Projekt", n3p: "Nicht mit Fedora, Red Hat oder Universal Blue verbunden. Basiert auf deren offener Image-Vorlage.",
     c_title: 'Auf dem Mac oder unter Windows?<br><span class="grad">Lumi läuft auch dort.</span>', c_btn: "Lumi herunterladen",
@@ -345,7 +345,7 @@ window.PAGE = {
     s1: 'Abre <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> en GitHub',
     s2: "Elige la última compilación correcta y descarga el artefacto anaconda-iso: unos 4 GB, dentro de un zip", s3: "Graba la ISO en un USB, por ejemplo con Fedora Media Writer o balenaEtcher",
     s4: "Arranca desde el USB y sigue el instalador",
-    n1: "Un ordenador x86-64", n1p: "Intel o AMD. Todavía no hay versión para ARM.",
+    n1: "x86-64 o ARM64", n1p: "Intel y AMD, y también ARM, incluido un Mac con chip Apple en una máquina virtual (UTM o QEMU).",
     n2: "Versión temprana", n2p: 'Si algo no funciona, abre un <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ayuda mucho.',
     n3: "Un proyecto independiente", n3p: "Sin relación con Fedora, Red Hat ni Universal Blue. Basado en su plantilla de imagen abierta.",
     c_title: '¿Usas Mac o Windows?<br><span class="grad">Lumi también funciona ahí.</span>', c_btn: "Descargar Lumi",
@@ -377,7 +377,7 @@ window.PAGE = {
     s1: 'Ouvrez <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> sur GitHub',
     s2: "Choisissez le dernier build réussi et téléchargez l'artefact anaconda-iso : environ 4 Go, dans un zip", s3: "Écrivez l'ISO sur une clé USB, par exemple avec Fedora Media Writer ou balenaEtcher",
     s4: "Démarrez sur la clé et suivez l'installateur",
-    n1: "Un ordinateur x86-64", n1p: "Intel ou AMD. Pas encore de version ARM.",
+    n1: "x86-64 ou ARM64", n1p: "Intel et AMD, ainsi que ARM, y compris un Mac à puce Apple dans une machine virtuelle (UTM ou QEMU).",
     n2: "Version préliminaire", n2p: 'Si quelque chose ne marche pas, ouvrez une <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ça aide beaucoup.',
     n3: "Un projet indépendant", n3p: "Sans lien avec Fedora, Red Hat ou Universal Blue. Basé sur leur modèle d'image ouvert.",
     c_title: 'Sur Mac ou Windows ?<br><span class="grad">Lumi y fonctionne aussi.</span>', c_btn: "Télécharger Lumi",
