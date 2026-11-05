@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Lumi;
 
 /// An app (its .desktop file) or a file.
-public sealed record Hit(string Name, string Path, bool IsApp, string Exec = "", bool InTerminal = false)
+public sealed record Hit(string Name, string Path, bool IsApp, string Exec = "", bool InTerminal = false, string Icon = "")
 {
     public string Subtitle =>
         IsApp ? S.Application : (System.IO.Path.GetDirectoryName(Path) ?? "")
@@ -93,7 +93,7 @@ public sealed class FileSearch
     {
         try
         {
-            string? name = null, localized = null, exec = null;
+            string? name = null, localized = null, exec = null, icon = null;
             var terminal = false;
             var inEntry = false;
             foreach (var raw in File.ReadLines(file))
@@ -116,6 +116,7 @@ public sealed class FileSearch
                         return null;
                     case "Name": name = value; break;
                     case "Exec": exec = value; break;
+                    case "Icon": icon = value; break;
                     case "Terminal": terminal = value == "true"; break;
                     default:
                         if (key == $"Name[{lang}]") localized = value;
@@ -123,7 +124,7 @@ public sealed class FileSearch
                 }
             }
             var title = localized ?? name;
-            return title == null || exec == null ? null : new Hit(title, file, true, exec, terminal);
+            return title == null || exec == null ? null : new Hit(title, file, true, exec, terminal, icon ?? "");
         }
         catch
         {
