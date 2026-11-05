@@ -106,6 +106,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Parser tests (system commands)
+        run: ./tests/swift/run.sh
+
       - name: Build app and disk image
         run: |
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then export LUMI_VERSION="${GITHUB_REF#refs/tags/v}"; else export LUMI_VERSION="0.0.${GITHUB_RUN_NUMBER}"; fi
@@ -155,6 +158,9 @@ jobs:
         run: |
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then v="${GITHUB_REF#refs/tags/v}"; else v="0.0.${GITHUB_RUN_NUMBER}"; fi
           echo "APP_VERSION=$v" >> "$GITHUB_ENV"
+
+      - name: Unit tests
+        run: dotnet test tests/Lumi.Tests -c Release
 
       - name: Install nfpm
         run: |

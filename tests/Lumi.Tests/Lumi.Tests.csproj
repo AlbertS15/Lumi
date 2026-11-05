@@ -26,6 +26,8 @@
   <ItemGroup>
     <!-- Cases shared with the Windows test project. -->
     <Compile Include="../Shared/**/*.cs" Link="Shared/%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- Phrase table for the system actions; SystemCommands.cs itself comes in through the Linux project. -->
+    <None Include="../system-commands.json" Link="system-commands.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

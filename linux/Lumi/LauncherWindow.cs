@@ -36,6 +36,7 @@ public sealed class LauncherWindow : Window
     private readonly Border _frame;
 
     private List<Hit> _hits = new();
+    private List<ActionRow> _actions = new();
     private int _selection;
     private bool _hasAnswer;
     private bool _isAnswering;
@@ -237,6 +238,7 @@ public sealed class LauncherWindow : Window
         _isAnswering = false;
         _input.Text = "";
         _hits = new List<Hit>();
+        _actions = new List<ActionRow>();
         _selection = 0;
         ShowResultsMode();
     }
@@ -247,13 +249,15 @@ public sealed class LauncherWindow : Window
     {
         if (_hasAnswer) return;
         var text = _input.Text ?? "";
-        _selection = LooksLikeQuestion(text) ? 0 : FirstHit;
+        // A system command ("volume 50", "тёмная тема") shows as rows above the files; Enter runs the first one.
+        _actions = SystemActions.For(text);
+        _selection = _actions.Count > 0 ? FirstAction : LooksLikeQuestion(text) ? 0 : FirstHit;
         _search.Search(text, hits => Dispatcher.UIThread.Post(() =>
         {
             if ((_input.Text ?? "") != text) return;
             _hits = hits;
             // A search lands on the first file or app; a question stays on the ask row.
-            if (!LooksLikeQuestion(text) && _selection < FirstHit && hits.Count > 0) _selection = FirstHit;
+            if (_actions.Count == 0 && !LooksLikeQuestion(text) && _selection < FirstHit && hits.Count > 0) _selection = FirstHit;
             if (_selection >= RowCount) _selection = Math.Max(RowCount - 1, 0);
             RenderResults();
         }));
@@ -269,10 +273,12 @@ public sealed class LauncherWindow : Window
         return words.Length > 0 && Lang.QuestionWords.Contains(words[0]);
     }
 
-    /// Rows: ask the model, then "Ask in ChatGPT" when shown, then the hits from FirstHit on.
-    private int FirstHit => Settings.Shared.ShowChatGpt ? 2 : 1;
+    /// Rows: ask the model, then "Ask in ChatGPT" when shown, then system actions from FirstAction, then the hits from FirstHit on.
+    private int FirstAction => Settings.Shared.ShowChatGpt ? 2 : 1;
+    private int FirstHit => FirstAction + _actions.Count;
     private int RowCount => (_input.Text ?? "").Trim().Length == 0 ? 0 : FirstHit + _hits.Count;
     private bool IsChatGptRow(int i) => Settings.Shared.ShowChatGpt && i == 1;
+    private bool IsActionRow(int i) => i >= FirstAction && i < FirstHit;
 
     /// Ctrl+Shift+Enter or the ChatGPT row: opens chatgpt.com with the typed text, else the question on screen.
     private void AskChatGpt()
@@ -318,6 +324,29 @@ public sealed class LauncherWindow : Window
                 texts.Children.Add(Look.Label(S.AskChatgpt, 14, fg, FontWeight.SemiBold));
                 texts.Children.Add(Look.Label(S.ChatgptNote, 12, sub));
                 var hint = Look.Label("Ctrl+Shift+↩", 12, sub);
+                DockPanel.SetDock(hint, Dock.Right);
+                row.Children.Add(hint);
+            }
+            else if (IsActionRow(i))
+            {
+                var action = _actions[i - FirstAction];
+                icon = new Border
+                {
+                    Width = 28,
+                    Height = 28,
+                    CornerRadius = new CornerRadius(7),
+                    Background = selected ? Look.Brush("#33FFFFFF") : Look.Card,
+                    Child = new TextBlock
+                    {
+                        Text = action.Icon,
+                        FontSize = 15,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    },
+                };
+                texts.Children.Add(Look.Label(action.Title, 14, fg, FontWeight.SemiBold));
+                texts.Children.Add(Look.Label(action.Subtitle, 11, sub));
+                var hint = Look.Label(S.ActionHint, 12, sub);
                 DockPanel.SetDock(hint, Dock.Right);
                 row.Children.Add(hint);
             }
@@ -426,6 +455,15 @@ public sealed class LauncherWindow : Window
         if (IsChatGptRow(_selection))
         {
             AskChatGpt();
+            return;
+        }
+        if (IsActionRow(_selection))
+        {
+            // Hidden first, so the lock screen or the raised window isn't covered by the bar.
+            var action = _actions[_selection - FirstAction];
+            _input.Text = "";
+            HideBar();
+            SystemActions.Start(action);
             return;
         }
         var hit = _hits[_selection - FirstHit];
