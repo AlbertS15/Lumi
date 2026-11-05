@@ -28,6 +28,11 @@ public static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        if (args.Contains("--version"))
+        {
+            Console.WriteLine("Lumi " + (typeof(Program).Assembly.GetName().Version?.ToString(3) ?? "?"));
+            return;
+        }
         StartedForToggle = args.Contains("--toggle");
         IsStartup = args.Contains("--startup");
         if (Send(StartedForToggle ? "toggle" : "show")) return;
@@ -129,6 +134,7 @@ public sealed class App : Application
 
         if (Program.StartedForToggle) _launcher.ShowBar();
         else if (Settings.Shared.ShowWelcomeOnLaunch && !Program.IsStartup) ShowWelcome();
+        Log.Write("started");
         base.OnFrameworkInitializationCompleted();
     }
 
