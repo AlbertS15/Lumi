@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Что нового в Lumi — список версий</title>
+<meta name="description" content="Все версии Lumi с описанием изменений, от новых к старым: что добавлено и что исправлено в приложении для Mac, Windows и Linux.">
+<link rel="canonical" href="https://alberts15.github.io/Lumi/changelog.html">
+<link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/changelog.html?lang=ru">
+<link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/changelog.html?lang=en">
+<link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/changelog.html?lang=de">
+<link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/changelog.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/changelog.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/changelog.html">
+<meta property="og:title" content="Что нового в Lumi — список версий">
+<meta property="og:description" content="Все версии Lumi с описанием изменений, от новых к старым.">
+<meta property="og:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Пиксельный призрак Lumi и надпись «Spotlight + AI in one bar»">
+<meta property="og:url" content="https://alberts15.github.io/Lumi/changelog.html">
+<meta property="og:site_name" content="Lumi">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Что нового в Lumi — список версий">
+<meta name="twitter:description" content="Все версии Lumi с описанием изменений, от новых к старым.">
+<meta name="twitter:image" content="https://alberts15.github.io/Lumi/og.png">
+<meta name="theme-color" content="#060808">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Lumi changelog",
+  "url": "https://alberts15.github.io/Lumi/changelog.html",
+  "about": { "@type": "SoftwareApplication", "name": "Lumi", "url": "https://alberts15.github.io/Lumi/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 14+, Windows 10, Windows 11, Linux (x86-64)", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" } }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="refresh.css">
+<style>
+.head { padding: 150px 0 40px; }
+.head h1 { font-size: clamp(44px, 7vw, 96px); letter-spacing: -0.055em; margin-top: 18px; }
+.rels { display: grid; gap: 14px; padding-bottom: 120px; max-width: 820px; }
+.rel { padding: 30px 32px; }
+.rel header { display: flex; gap: 14px; align-items: center; color: var(--dim); }
+.rel .ver { color: var(--teal); }
+.rel h2 { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.035em; line-height: 1.15; margin-top: 12px; }
+.rel h3 { font-size: 17px; letter-spacing: -0.01em; margin: 22px 0 6px; }
+.rel p { color: var(--mute); margin: 12px 0 0; font-size: 16px; }
+.rel ul { margin: 10px 0 0; padding-left: 20px; color: #c4ccca; font-size: 16px; }
+.rel li { margin: 5px 0; }
+.rel code { background: #ffffff0d; border-radius: 6px; padding: 1px 6px; font-size: 13.5px; }
+.rel .more { display: inline-block; margin-top: 18px; color: var(--teal); font-size: 15px; }
+.rel .more:hover { text-decoration: underline; }
+.note { color: var(--dim); font-size: 14.5px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="ui_skip">Перейти к содержанию</a>
+
+<nav class="nav" aria-label="Lumi">
+  <a class="logo" href="./"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
+  <div class="links">
+    <a href="./">Lumi</a>
+    <a href="os.html">Lumi OS</a>
+    <a href="about.html" data-i18n="ui_about">О проекте</a>
+    <a href="changelog.html" class="on" aria-current="page" data-i18n="ui_changelog">Что нового</a>
+  </div>
+  <div class="r">
+    <button class="lang" id="lang" type="button" aria-label="Язык: Русский">RU</button>
+    <a class="btn sm" href="index.html#download"><span class="roll"><span data-i18n="download">Скачать</span><span data-i18n="download">Скачать</span></span></a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+<header class="head">
+  <div class="wrap">
+    <span class="eyebrow mono" data-i18n="label">Версии</span>
+    <h1 class="grad" data-i18n="h1">Что нового</h1>
+    <p class="sub" data-i18n="sub">Все версии Lumi, от новых к старым. Здесь @@COUNT@@ версий.</p>
+    <p class="note" data-i18n="note">Описания версий написаны по-русски: так они выходят в Telegram-канале.</p>
+  </div>
+</header>
+
+<div class="wrap rels">
+<!--ENTRIES-->
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="big"><span class="grad">Lumi</span><canvas class="px ghost live" width="14" height="13"></canvas></div>
+    <div class="row">
+      <span>© 2026 Lumi · MIT</span>
+      <div class="r">
+        <a href="os.html">Lumi OS</a>
+        <a href="about.html" data-i18n="ui_about">О проекте</a>
+        <a href="https://github.com/AlbertS15/Lumi">GitHub</a>
+        <a href="https://t.me/lumimacos">Telegram</a>
+        <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
+        <a href="https://github.com/AlbertS15/Lumi/releases" data-i18n="releases">Все версии</a>
+        <a href="https://github.com/AlbertS15/Lumi/issues" data-i18n="bug">Сообщить об ошибке</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PAGE = {
+  en: { title: "What's new in Lumi — every release", description: "Every Lumi release with its notes, newest first: what was added and fixed in the app for Mac, Windows and Linux.",
+    label: "Releases", h1: "What's new", sub: "Every Lumi release, newest first. There are @@COUNT@@ of them.",
+    note: "The release notes are written in Russian, as they appear in the Telegram channel.", download: "Download", releases: "All releases", bug: "Report a bug" },
+  de: { title: "Neu in Lumi — alle Versionen", description: "Alle Lumi-Versionen mit ihren Notizen, die neuesten zuerst: was in der App für Mac, Windows und Linux dazukam und behoben wurde.",
+    label: "Versionen", h1: "Neuigkeiten", sub: "Alle Lumi-Versionen, die neuesten zuerst. Es sind @@COUNT@@.",
+    note: "Die Versionshinweise sind auf Russisch geschrieben, so wie im Telegram-Kanal.", download: "Herunterladen", releases: "Alle Versionen", bug: "Fehler melden" },
+  es: { title: "Novedades de Lumi — todas las versiones", description: "Todas las versiones de Lumi con sus notas, de la más nueva a la más antigua: qué se añadió y se corrigió en la app para Mac, Windows y Linux.",
+    label: "Versiones", h1: "Novedades", sub: "Todas las versiones de Lumi, de la más nueva a la más antigua. Hay @@COUNT@@.",
+    note: "Las notas de cada versión están escritas en ruso, tal como salen en el canal de Telegram.", download: "Descargar", releases: "Todas las versiones", bug: "Avisar de un error" },
+  fr: { title: "Nouveautés de Lumi — toutes les versions", description: "Toutes les versions de Lumi avec leurs notes, de la plus récente à la plus ancienne : ce qui a été ajouté et corrigé dans l'app pour Mac, Windows et Linux.",
+    label: "Versions", h1: "Nouveautés", sub: "Toutes les versions de Lumi, de la plus récente à la plus ancienne. Il y en a @@COUNT@@.",
+    note: "Les notes de version sont rédigées en russe, comme sur le canal Telegram.", download: "Télécharger", releases: "Toutes les versions", bug: "Signaler un bug" },
+};
+</script>
+<script src="site.js"></script>
+<script>Site.applyLang();</script>
+</body>
+</html>

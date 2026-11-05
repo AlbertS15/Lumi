@@ -5,15 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lumi OS — Linux, где Lumi с первой минуты</title>
 <meta name="description" content="Lumi OS — Linux на основе Fedora Silverblue, в котором уже стоит Lumi: строка с ИИ по Ctrl+Пробел, запуск при входе, нейросеть без интернета одной кнопкой.">
+<link rel="canonical" href="https://alberts15.github.io/Lumi/os.html">
+<link rel="alternate" hreflang="ru" href="https://alberts15.github.io/Lumi/os.html?lang=ru">
+<link rel="alternate" hreflang="en" href="https://alberts15.github.io/Lumi/os.html?lang=en">
+<link rel="alternate" hreflang="de" href="https://alberts15.github.io/Lumi/os.html?lang=de">
+<link rel="alternate" hreflang="es" href="https://alberts15.github.io/Lumi/os.html?lang=es">
+<link rel="alternate" hreflang="fr" href="https://alberts15.github.io/Lumi/os.html?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://alberts15.github.io/Lumi/os.html">
 <meta property="og:title" content="Lumi OS — Linux, где Lumi с первой минуты">
 <meta property="og:description" content="Fedora Silverblue с Lumi внутри: строка с ИИ по Ctrl+Пробел с первой минуты.">
-<meta property="og:image" content="https://alberts15.github.io/Lumi/img/os-bar-empty.jpg">
+<meta property="og:image" content="https://alberts15.github.io/Lumi/og-os.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Lumi OS: надпись и настоящий скриншот рабочего стола со строкой Lumi">
+<meta property="og:url" content="https://alberts15.github.io/Lumi/os.html">
+<meta property="og:site_name" content="Lumi">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lumi OS — Linux, где Lumi с первой минуты">
+<meta name="twitter:description" content="Fedora Silverblue с Lumi внутри: строка с ИИ по Ctrl+Пробел с первой минуты.">
+<meta name="twitter:image" content="https://alberts15.github.io/Lumi/og-os.png">
 <meta name="theme-color" content="#060808">
-<link rel="icon" href="icon.png">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lumi OS",
+  "description": "A Linux system based on Fedora Silverblue with Lumi built in: the AI bar opens on Ctrl+Space from the first login and an offline model installs with one button.",
+  "url": "https://alberts15.github.io/Lumi/os.html",
+  "image": "https://alberts15.github.io/Lumi/og-os.png",
+  "screenshot": ["https://alberts15.github.io/Lumi/img/os-lock.jpg", "https://alberts15.github.io/Lumi/img/os-desktop.jpg", "https://alberts15.github.io/Lumi/img/os-bar-empty.jpg", "https://alberts15.github.io/Lumi/img/os-overview.jpg"],
+  "applicationCategory": "OperatingSystem",
+  "operatingSystem": "Linux (x86-64)",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "AlbertS15", "url": "https://github.com/AlbertS15" },
+  "sameAs": ["https://github.com/AlbertS15/lumi-os"]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="refresh.css">
@@ -83,8 +123,9 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main" data-i18n="ui_skip">Перейти к содержанию</a>
 
-<nav class="nav">
+<nav class="nav" aria-label="Lumi OS">
   <a class="logo" href="index.html"><canvas class="px ghost" width="14" height="13"></canvas>Lumi</a>
   <div class="links">
     <a href="index.html">Lumi</a>
@@ -93,11 +134,12 @@
     <a href="https://github.com/AlbertS15/lumi-os">GitHub</a>
   </div>
   <div class="r">
-    <button class="lang" id="lang">EN</button>
+    <button class="lang" id="lang" type="button" aria-label="Язык: Русский">RU</button>
     <a class="btn sm teal" href="#install"><span class="roll"><span data-i18n="get">Установить</span><span data-i18n="get">Установить</span></span></a>
   </div>
 </nav>
 
+<main id="main" tabindex="-1">
 <header class="hero">
   <canvas class="pixels" data-count="60"></canvas>
   <div class="wrap">
@@ -120,12 +162,12 @@
       <div><h3 data-i18n="t3">Lumi первая в доке</h3><p data-i18n="t3p">Рядом Firefox, Файлы, Терминал и магазин приложений</p></div>
     </div>
     <div class="frame" id="frame">
-      <img src="img/os-lock.jpg" width="1280" height="800" alt="Экран блокировки Lumi OS">
-      <img src="img/os-desktop.jpg" width="1280" height="800" alt="Рабочий стол Lumi OS с призраком" loading="lazy">
-      <img src="img/os-bar-empty.jpg" width="1280" height="800" alt="Строка Lumi на рабочем столе Lumi OS" loading="lazy">
-      <img src="img/os-overview.jpg" width="1280" height="800" alt="Обзор GNOME с Lumi первой в доке" loading="lazy">
+      <picture><source type="image/webp" srcset="img/os-lock-640.webp 640w, img/os-lock.webp 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px"><img src="img/os-lock.jpg" srcset="img/os-lock-640.jpg 640w, img/os-lock.jpg 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px" width="1280" height="800" alt="Экран блокировки Lumi OS" data-i18n-attr="alt:alt0" decoding="async"></picture>
+      <picture><source type="image/webp" srcset="img/os-desktop-640.webp 640w, img/os-desktop.webp 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px"><img src="img/os-desktop.jpg" srcset="img/os-desktop-640.jpg 640w, img/os-desktop.jpg 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px" width="1280" height="800" alt="Рабочий стол Lumi OS с призраком" data-i18n-attr="alt:alt1" loading="lazy" decoding="async"></picture>
+      <picture><source type="image/webp" srcset="img/os-bar-empty-640.webp 640w, img/os-bar-empty.webp 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px"><img src="img/os-bar-empty.jpg" srcset="img/os-bar-empty-640.jpg 640w, img/os-bar-empty.jpg 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px" width="1280" height="800" alt="Строка Lumi на рабочем столе Lumi OS" data-i18n-attr="alt:alt2" loading="lazy" decoding="async"></picture>
+      <picture><source type="image/webp" srcset="img/os-overview-640.webp 640w, img/os-overview.webp 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px"><img src="img/os-overview.jpg" srcset="img/os-overview-640.jpg 640w, img/os-overview.jpg 1280w" sizes="(max-width: 1132px) calc(100vw - 32px), 1100px" width="1280" height="800" alt="Обзор GNOME с Lumi первой в доке" data-i18n-attr="alt:alt3" loading="lazy" decoding="async"></picture>
     </div>
-    <div class="dots"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    <div class="dots" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
   </div>
 </section>
 
@@ -134,17 +176,17 @@
     <span class="eyebrow mono reveal" data-i18n="in_label">Что внутри</span>
     <h2 class="h2 reveal" data-i18n-html="in_title">Обычный Linux.<br><span class="mute">Только с Lumi внутри.</span></h2>
     <div class="grid">
-      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg></div>
         <h3 data-i18n="g1">Lumi уже стоит</h3><p data-i18n="g1p">Запускается при входе. При первом входе открывается приветствие, где нейросеть без интернета ставится одной кнопкой.</p></div>
-      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M7 14h10"/></svg></div>
+      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M7 14h10"/></svg></div>
         <h3 data-i18n="g2">Ctrl+Пробел сразу</h3><p data-i18n="g2p">Клавиша назначена заранее, строка открывается поверх любого окна.</p></div>
-      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div>
+      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div>
         <h3 data-i18n="g3">Поиск файлов</h3><p data-i18n="g3p">Индекс файлов обновляется каждый день, поэтому Lumi находит их по имени.</p></div>
-      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
         <h3 data-i18n="g4">Обновления с откатом</h3><p data-i18n="g4p">Система обновляется целиком, как один образ. Если что-то сломалось, прошлую версию можно выбрать при загрузке.</p></div>
-      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
+      <div class="card reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
         <h3 data-i18n="g5">Пересборка каждый день</h3><p data-i18n="g5p">Свежая Fedora и новые версии Lumi приходят сами, без ручных обновлений.</p></div>
-      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+      <div class="card reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
         <h3 data-i18n="g6">Первая настройка короче</h3><p data-i18n="g6p">Часовой пояс ставится сам, раскладки английская и русская уже добавлены.</p></div>
     </div>
   </div>
@@ -158,7 +200,7 @@
       <div class="card reveal">
         <h3 data-i18n="i1">Уже на Fedora Atomic</h3>
         <p data-i18n="i1p">Silverblue, Bluefin, Bazzite или Aurora переключаются на Lumi OS двумя командами. Ваши файлы остаются на месте.</p>
-        <div class="term"><div class="bar mono"><span data-i18n="terminal">Терминал</span><button data-copy="#cmd" data-i18n="copy">Копировать</button></div>
+        <div class="term"><div class="bar mono"><span data-i18n="terminal">Терминал</span><button type="button" data-copy="#cmd" data-i18n="copy">Копировать</button></div>
           <pre id="cmd"><span class="pr">$ </span>sudo bootc switch ghcr.io/alberts15/lumi-os:latest
 <span class="pr">$ </span>systemctl reboot</pre></div>
         <p data-i18n-html="i1back" style="font-size:15px;margin-top:16px">Вернуться назад: выберите прошлую запись в меню загрузки или переключитесь обратно командой <code>sudo bootc switch</code> на ваш прежний образ.</p>
@@ -191,6 +233,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer class="foot">
   <div class="wrap">
@@ -199,6 +242,8 @@
       <span>© 2026 Lumi · MIT · Apache-2.0</span>
       <div class="r">
         <a href="index.html">Lumi</a>
+        <a href="about.html" data-i18n="ui_about">О проекте</a>
+        <a href="changelog.html" data-i18n="ui_changelog">Что нового</a>
         <a href="https://github.com/AlbertS15/lumi-os">GitHub</a>
         <a href="https://t.me/lumimacos">Telegram</a>
         <a href="mailto:starosta093@gmail.com">starosta093@gmail.com</a>
@@ -213,12 +258,14 @@
 window.PAGE = {
   en: {
     title: "Lumi OS — Linux with Lumi from minute one",
+    description: "Lumi OS is Linux based on Fedora Silverblue with Lumi already in it: the AI bar on Ctrl+Space, starts at login, an offline AI with one button.",
     nav_inside: "Inside", nav_install: "Install", get: "Install", early: "Early version", code: "Source code",
     hero_sub: "Linux where Lumi lives from minute one. Turn the computer on, press Ctrl+Space and ask. Nothing to install or set up.",
     t0: "A lock screen with the ghost", t0p: "Its own wallpaper, a dark theme and a teal accent from the first boot",
     t1: "A clean desktop", t1p: "No logos, no clutter. Lumi is already running in the background",
     t2: "Ctrl+Space, and Lumi is here", t2p: "Apps, files and AI questions in one bar. Nothing to set up",
     t3: "Lumi first in the dock", t3p: "Next to Firefox, Files, Terminal and the app store",
+    alt0: "The Lumi OS lock screen", alt1: "The Lumi OS desktop with the ghost", alt2: "The Lumi bar on the Lumi OS desktop", alt3: "The GNOME overview with Lumi first in the dock",
     in_label: "Inside", in_title: 'Regular Linux.<br><span class="mute">With Lumi inside.</span>',
     g1: "Lumi is already there", g1p: "It starts at login. The first login opens a welcome window where one button installs an offline AI.",
     g2: "Ctrl+Space from the start", g2p: "The shortcut is set up in advance; the bar opens over any window.",
@@ -241,6 +288,102 @@ window.PAGE = {
     bug: "Report a bug",
     legal: "The screenshots are the real Lumi OS in a virtual machine. Fedora is a trademark of Red Hat, Inc. Lumi OS is not affiliated with Fedora, Red Hat or Universal Blue.",
   },
+  de: {
+    title: "Lumi OS — Linux mit Lumi ab der ersten Minute",
+    description: "Lumi OS ist ein Linux auf Basis von Fedora Silverblue, in dem Lumi schon steckt: die KI-Leiste auf Strg+Leertaste, Start bei der Anmeldung, Offline-KI mit einem Klick.",
+    nav_inside: "Was drin ist", nav_install: "Installation", get: "Installieren", early: "Frühe Version", code: "Quellcode",
+    hero_sub: "Ein Linux, in dem Lumi ab der ersten Minute lebt. Computer einschalten, Strg+Leertaste drücken und fragen. Nichts zu installieren oder einzurichten.",
+    t0: "Ein Sperrbildschirm mit dem Geist", t0p: "Eigenes Hintergrundbild, dunkles Design und türkiser Akzent ab dem ersten Start",
+    t1: "Ein aufgeräumter Desktop", t1p: "Keine Logos, kein Durcheinander. Lumi läuft schon im Hintergrund",
+    t2: "Strg+Leertaste, und Lumi ist da", t2p: "Programme, Dateien und Fragen an die KI in einer Leiste. Nichts einzurichten",
+    t3: "Lumi zuerst im Dock", t3p: "Neben Firefox, Dateien, Terminal und dem App-Store",
+    alt0: "Der Sperrbildschirm von Lumi OS", alt1: "Der Desktop von Lumi OS mit dem Geist", alt2: "Die Lumi-Leiste auf dem Desktop von Lumi OS", alt3: "Die GNOME-Übersicht mit Lumi zuerst im Dock",
+    in_label: "Was drin ist", in_title: 'Ein normales Linux.<br><span class="mute">Nur mit Lumi drin.</span>',
+    g1: "Lumi ist schon da", g1p: "Startet bei der Anmeldung. Bei der ersten Anmeldung öffnet sich ein Willkommensfenster, in dem ein Klick eine Offline-KI installiert.",
+    g2: "Strg+Leertaste von Anfang an", g2p: "Das Kürzel ist schon belegt, die Leiste öffnet sich über jedem Fenster.",
+    g3: "Dateisuche", g3p: "Der Dateiindex wird täglich aktualisiert, so findet Lumi Dateien nach Namen.",
+    g4: "Updates mit Rückweg", g4p: "Das System wird als ein ganzes Image aktualisiert. Geht etwas kaputt, wählen Sie beim Start die vorherige Version.",
+    g5: "Jeden Tag neu gebaut", g5p: "Aktuelles Fedora und neue Lumi-Versionen kommen von selbst, ohne manuelle Updates.",
+    g6: "Kürzere Ersteinrichtung", g6p: "Die Zeitzone stellt sich selbst ein, englisches und russisches Tastaturlayout sind schon hinzugefügt.",
+    i_label: "Installation", i_title: 'Zwei Befehle.<br><span class="mute">Oder von Grund auf.</span>',
+    i1: "Schon auf Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite oder Aurora wechseln mit zwei Befehlen zu Lumi OS. Ihre Dateien bleiben, wo sie sind.",
+    terminal: "Terminal", copy: "Kopieren",
+    i1back: "Zurück: Wählen Sie den vorherigen Eintrag im Bootmenü oder wechseln Sie mit <code>sudo bootc switch</code> zurück zu Ihrem bisherigen Image.",
+    i2: "Von Grund auf, vom USB-Stick", i2p: "Das Installations-ISO baut GitHub. Vorerst liegt es bei den Builds statt bei den Releases, daher ist eine Anmeldung bei GitHub nötig.",
+    s1: 'Öffnen Sie <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> auf GitHub',
+    s2: "Wählen Sie den letzten erfolgreichen Lauf und laden Sie das Artefakt anaconda-iso herunter: etwa 4 GB, in einem ZIP-Archiv", s3: "Schreiben Sie das ISO auf einen USB-Stick, zum Beispiel mit Fedora Media Writer oder balenaEtcher",
+    s4: "Vom Stick starten und dem Installer folgen",
+    n1: "Ein x86-64-Computer", n1p: "Intel oder AMD. Eine ARM-Version gibt es noch nicht.",
+    n2: "Frühe Version", n2p: 'Wenn etwas nicht funktioniert, schreiben Sie ein <a href="https://github.com/AlbertS15/lumi-os/issues">Issue</a>, das hilft sehr.',
+    n3: "Ein unabhängiges Projekt", n3p: "Nicht mit Fedora, Red Hat oder Universal Blue verbunden. Basiert auf deren offener Image-Vorlage.",
+    c_title: 'Auf dem Mac oder unter Windows?<br><span class="grad">Lumi läuft auch dort.</span>', c_btn: "Lumi herunterladen",
+    bug: "Fehler melden",
+    legal: "Die Screenshots zeigen das echte Lumi OS in einer virtuellen Maschine. Fedora ist eine Marke von Red Hat, Inc. Lumi OS ist nicht mit Fedora, Red Hat oder Universal Blue verbunden.",
+  },
+  es: {
+    title: "Lumi OS — Linux con Lumi desde el primer minuto",
+    description: "Lumi OS es un Linux basado en Fedora Silverblue con Lumi ya dentro: la barra de IA con Ctrl+Espacio, arranque al iniciar sesión e IA sin conexión con un botón.",
+    nav_inside: "Qué incluye", nav_install: "Instalación", get: "Instalar", early: "Versión temprana", code: "Código fuente",
+    hero_sub: "Un Linux en el que Lumi vive desde el primer minuto. Enciendes el ordenador, pulsas Ctrl+Espacio y preguntas. Nada que instalar ni configurar.",
+    t0: "Pantalla de bloqueo con el fantasma", t0p: "Fondo propio, tema oscuro y acento turquesa desde el primer arranque",
+    t1: "Un escritorio limpio", t1p: "Sin logotipos ni iconos de más. Lumi ya está abierta y espera en segundo plano",
+    t2: "Ctrl+Espacio, y Lumi aparece", t2p: "Aplicaciones, archivos y preguntas a la IA en una sola barra. Nada que configurar",
+    t3: "Lumi, la primera del dock", t3p: "Junto a Firefox, Archivos, Terminal y la tienda de aplicaciones",
+    alt0: "La pantalla de bloqueo de Lumi OS", alt1: "El escritorio de Lumi OS con el fantasma", alt2: "La barra de Lumi en el escritorio de Lumi OS", alt3: "La vista general de GNOME con Lumi la primera del dock",
+    in_label: "Qué incluye", in_title: 'Un Linux normal.<br><span class="mute">Con Lumi dentro.</span>',
+    g1: "Lumi ya está instalada", g1p: "Arranca al iniciar sesión. La primera vez se abre una bienvenida donde un botón instala una IA sin conexión.",
+    g2: "Ctrl+Espacio desde el principio", g2p: "El atajo ya está asignado y la barra se abre encima de cualquier ventana.",
+    g3: "Búsqueda de archivos", g3p: "El índice de archivos se actualiza cada día, así que Lumi los encuentra por su nombre.",
+    g4: "Actualizaciones con vuelta atrás", g4p: "El sistema se actualiza entero, como una sola imagen. Si algo falla, eliges la versión anterior al arrancar.",
+    g5: "Se reconstruye cada día", g5p: "Fedora al día y las nuevas versiones de Lumi llegan solas, sin actualizar a mano.",
+    g6: "Primera configuración más corta", g6p: "La zona horaria se ajusta sola y las distribuciones de teclado inglesa y rusa ya están añadidas.",
+    i_label: "Instalación", i_title: 'Dos comandos.<br><span class="mute">O desde cero.</span>',
+    i1: "Si ya usas Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite o Aurora se pasan a Lumi OS con dos comandos. Tus archivos se quedan donde están.",
+    terminal: "Terminal", copy: "Copiar",
+    i1back: "Para volver: elige la entrada anterior en el menú de arranque o vuelve a tu imagen de antes con <code>sudo bootc switch</code>.",
+    i2: "Desde cero, con un USB", i2p: "GitHub compila la ISO de instalación. De momento está en las compilaciones y no en las versiones publicadas, así que hay que iniciar sesión en GitHub.",
+    s1: 'Abre <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> en GitHub',
+    s2: "Elige la última compilación correcta y descarga el artefacto anaconda-iso: unos 4 GB, dentro de un zip", s3: "Graba la ISO en un USB, por ejemplo con Fedora Media Writer o balenaEtcher",
+    s4: "Arranca desde el USB y sigue el instalador",
+    n1: "Un ordenador x86-64", n1p: "Intel o AMD. Todavía no hay versión para ARM.",
+    n2: "Versión temprana", n2p: 'Si algo no funciona, abre un <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ayuda mucho.',
+    n3: "Un proyecto independiente", n3p: "Sin relación con Fedora, Red Hat ni Universal Blue. Basado en su plantilla de imagen abierta.",
+    c_title: '¿Usas Mac o Windows?<br><span class="grad">Lumi también funciona ahí.</span>', c_btn: "Descargar Lumi",
+    bug: "Avisar de un error",
+    legal: "Las capturas son de Lumi OS real en una máquina virtual. Fedora es una marca de Red Hat, Inc. Lumi OS no tiene relación con Fedora, Red Hat ni Universal Blue.",
+  },
+  fr: {
+    title: "Lumi OS — Linux avec Lumi dès la première minute",
+    description: "Lumi OS est un Linux basé sur Fedora Silverblue où Lumi est déjà installée : la barre d'IA sur Ctrl+Espace, lancement à la connexion, IA hors ligne en un bouton.",
+    nav_inside: "Contenu", nav_install: "Installation", get: "Installer", early: "Version préliminaire", code: "Code source",
+    hero_sub: "Un Linux où Lumi est là dès la première minute. Allumez l'ordinateur, appuyez sur Ctrl+Espace et posez votre question. Rien à installer ni à configurer.",
+    t0: "Un écran de verrouillage avec le fantôme", t0p: "Son fond d'écran, un thème sombre et un accent turquoise dès le premier démarrage",
+    t1: "Un bureau épuré", t1p: "Ni logos ni icônes superflues. Lumi tourne déjà en arrière-plan",
+    t2: "Ctrl+Espace, et Lumi est là", t2p: "Applications, fichiers et questions à l'IA dans une seule barre. Rien à configurer",
+    t3: "Lumi en tête du dock", t3p: "À côté de Firefox, Fichiers, Terminal et de la logithèque",
+    alt0: "L'écran de verrouillage de Lumi OS", alt1: "Le bureau de Lumi OS avec le fantôme", alt2: "La barre Lumi sur le bureau de Lumi OS", alt3: "La vue d'ensemble de GNOME avec Lumi en tête du dock",
+    in_label: "Contenu", in_title: 'Un Linux ordinaire.<br><span class="mute">Avec Lumi dedans.</span>',
+    g1: "Lumi est déjà là", g1p: "Elle démarre à la connexion. À la première connexion, une fenêtre d'accueil installe une IA hors ligne en un bouton.",
+    g2: "Ctrl+Espace d'emblée", g2p: "Le raccourci est déjà attribué, la barre s'ouvre par-dessus n'importe quelle fenêtre.",
+    g3: "Recherche de fichiers", g3p: "L'index des fichiers est mis à jour chaque jour, Lumi les trouve donc par leur nom.",
+    g4: "Des mises à jour réversibles", g4p: "Le système se met à jour d'un bloc, comme une seule image. En cas de souci, choisissez la version précédente au démarrage.",
+    g5: "Reconstruit chaque jour", g5p: "Fedora à jour et les nouvelles versions de Lumi arrivent toutes seules, sans mise à jour manuelle.",
+    g6: "Une première configuration plus courte", g6p: "Le fuseau horaire se règle tout seul, les dispositions anglaise et russe sont déjà ajoutées.",
+    i_label: "Installation", i_title: 'Deux commandes.<br><span class="mute">Ou de zéro.</span>',
+    i1: "Déjà sous Fedora Atomic", i1p: "Silverblue, Bluefin, Bazzite ou Aurora passent à Lumi OS en deux commandes. Vos fichiers restent en place.",
+    terminal: "Terminal", copy: "Copier",
+    i1back: "Pour revenir en arrière : choisissez l'entrée précédente dans le menu de démarrage ou repassez à votre image d'avant avec <code>sudo bootc switch</code>.",
+    i2: "De zéro, depuis une clé USB", i2p: "GitHub construit l'ISO d'installation. Pour l'instant, elle se trouve dans les builds et non dans les versions publiées : il faut donc se connecter à GitHub.",
+    s1: 'Ouvrez <a href="https://github.com/AlbertS15/lumi-os/actions/workflows/build-disk.yml">Build disk images</a> sur GitHub',
+    s2: "Choisissez le dernier build réussi et téléchargez l'artefact anaconda-iso : environ 4 Go, dans un zip", s3: "Écrivez l'ISO sur une clé USB, par exemple avec Fedora Media Writer ou balenaEtcher",
+    s4: "Démarrez sur la clé et suivez l'installateur",
+    n1: "Un ordinateur x86-64", n1p: "Intel ou AMD. Pas encore de version ARM.",
+    n2: "Version préliminaire", n2p: 'Si quelque chose ne marche pas, ouvrez une <a href="https://github.com/AlbertS15/lumi-os/issues">issue</a>, ça aide beaucoup.',
+    n3: "Un projet indépendant", n3p: "Sans lien avec Fedora, Red Hat ou Universal Blue. Basé sur leur modèle d'image ouvert.",
+    c_title: 'Sur Mac ou Windows ?<br><span class="grad">Lumi y fonctionne aussi.</span>', c_btn: "Télécharger Lumi",
+    bug: "Signaler un bug",
+    legal: "Les captures montrent le vrai Lumi OS dans une machine virtuelle. Fedora est une marque de Red Hat, Inc. Lumi OS n'a aucun lien avec Fedora, Red Hat ou Universal Blue.",
+  },
 };
 </script>
 <script src="site.js"></script>
@@ -251,7 +394,7 @@ const imgs = [...frame.querySelectorAll("img")], caps = [...document.querySelect
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 let shown = -1;
 Site.onScroll(() => {
-  const p = Site.reduced ? 0 : Site.progress(tour);
+  const p = Site.progress(tour);
   const settle = 1 - Math.pow(1 - clamp(Site.entering(tour) * 1.3), 3);
   frame.style.transform = Site.reduced ? "none" : `perspective(1400px) rotateX(${(1 - settle) * 22}deg) scale(${0.9 + 0.1 * settle})`;
   const i = Math.min(3, Math.floor(p * 4));
