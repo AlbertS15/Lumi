@@ -29,6 +29,7 @@ public sealed class WelcomeWindow : Window
             Mascot.TrayIcon().Handle, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
 
         Settings.Shared.Changed += () => Dispatcher.Invoke(Build);
+        Library.Shared.Changed += () => Dispatcher.InvokeAsync(UpdateFilesStatus);
         Activated += async (_, _) =>
         {
             _auth = await ClaudeAuth.CheckAsync();
@@ -97,6 +98,7 @@ public sealed class WelcomeWindow : Window
             CornerRadius = new CornerRadius(12),
             Margin = new Thickness(0, 22, 0, 0),
         });
+        stack.Children.Add(FilesCard());
 
         var open = new Button
         {
@@ -122,7 +124,107 @@ public sealed class WelcomeWindow : Window
         quit.HorizontalAlignment = HorizontalAlignment.Center;
         quit.Margin = new Thickness(0, 12, 0, 0);
         stack.Children.Add(quit);
-        Content = stack;
+        // Scrolls on short screens, now that the files card makes the window taller.
+        MaxHeight = SystemParameters.WorkArea.Height;
+        Content = new ScrollViewer { Content = stack, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
+    }
+
+    // MARK: ask my files
+
+    private TextBlock? _filesStatus;
+    private bool _filesNeedsModel;
+
+    /// Folders for "Ask my files", what the index is doing, and the promise that nothing leaves the computer.
+    private UIElement FilesCard()
+    {
+        var card = new StackPanel();
+        var head = new StackPanel { Margin = new Thickness(14, 10, 14, 4) };
+        var title = new StackPanel { Orientation = Orientation.Horizontal };
+        title.Children.Add(Theme.Label(S.FilesTitle, 13, null, FontWeights.SemiBold));
+        title.Children.Add(new Border
+        {
+            Child = Theme.Label(S.Experimental, 10, Theme.Accent),
+            BorderBrush = Theme.Accent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(5, 0, 5, 1),
+            Margin = new Thickness(8, 0, 0, 0),
+            VerticalAlignment = VerticalAlignment.Center,
+        });
+        head.Children.Add(title);
+        foreach (var note in new[] { "🔒 " + S.FilesPrivacy, S.FilesFormats })
+        {
+            var label = Theme.Label(note, 11, Theme.Secondary);
+            label.TextWrapping = TextWrapping.Wrap;
+            label.TextTrimming = TextTrimming.None;
+            label.Margin = new Thickness(0, 4, 0, 0);
+            head.Children.Add(label);
+        }
+        card.Children.Add(WithDivider(head, false));
+
+        foreach (var folder in Settings.Shared.LibraryFolders)
+        {
+            var name = Theme.Label("📁 " + LibraryHost.Short(folder));
+            name.ToolTip = folder;
+            var remove = new Button
+            {
+                Content = "✕",
+                ToolTip = S.FilesRemoveFolder,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = Theme.Secondary,
+                Cursor = Cursors.Hand,
+                Padding = new Thickness(6, 2, 6, 2),
+            };
+            remove.Click += (_, _) => LibraryHost.RemoveFolder(folder);
+            var dock = new DockPanel { Margin = new Thickness(14, 6, 14, 6) };
+            DockPanel.SetDock(remove, Dock.Right);
+            dock.Children.Add(remove);
+            dock.Children.Add(name);
+            card.Children.Add(WithDivider(dock, false));
+        }
+        card.Children.Add(Row(null, LinkButton(S.FilesAddFolder, AddFolders)));
+
+        _filesStatus = Theme.Label(LibraryHost.StatusText, 11, Theme.Secondary);
+        _filesStatus.TextWrapping = TextWrapping.Wrap;
+        _filesStatus.TextTrimming = TextTrimming.None;
+        _filesNeedsModel = LibraryHost.NeedsModel;
+        var status = new DockPanel { Margin = new Thickness(14, 8, 14, 10) };
+        if (_filesNeedsModel)
+        {
+            var download = LinkButton(S.Download, () => _ = LibraryHost.PullModelAsync(() => Dispatcher.InvokeAsync(UpdateFilesStatus)));
+            download.Margin = new Thickness(10, 0, 0, 0);
+            DockPanel.SetDock(download, Dock.Right);
+            status.Children.Add(download);
+        }
+        status.Children.Add(_filesStatus);
+        card.Children.Add(status);
+
+        return new Border
+        {
+            Child = card,
+            Background = Theme.Card,
+            CornerRadius = new CornerRadius(12),
+            Margin = new Thickness(0, 14, 0, 0),
+        };
+    }
+
+    /// New counts change the text only; the download link comes and goes with a full redraw.
+    private void UpdateFilesStatus()
+    {
+        if (_filesStatus == null) return;
+        if (LibraryHost.NeedsModel != _filesNeedsModel)
+        {
+            Build();
+            return;
+        }
+        _filesStatus.Text = LibraryHost.StatusText;
+    }
+
+    private void AddFolders()
+    {
+        var dialog = new Microsoft.Win32.OpenFolderDialog { Multiselect = true, Title = S.FilesTitle };
+        if (dialog.ShowDialog(this) == true) LibraryHost.AddFolders(dialog.FolderNames);
     }
 
     public void AddConnection(string? preset = null)

@@ -20,6 +20,7 @@ public sealed class LauncherWindow : Window
     private readonly ApiRunner _api = new();
     private readonly GeminiRunner _gemini = new();
     private readonly CodexRunner _codex = new();
+    private readonly FilesRunner _files = new();
 
     private readonly TextBox _input = new();
     private readonly MascotView _mascot = new();
@@ -32,6 +33,8 @@ public sealed class LauncherWindow : Window
     private readonly TextBlock _footer;
     private readonly ScrollViewer _answerScroll;
     private readonly StackPanel _answerPanel;
+    private readonly WrapPanel _sources = new() { IsVisible = false, Margin = new Thickness(0, 10, 0, 0) };
+    private readonly TextBlock _filesNote;
     private readonly Border _divider;
     private readonly Border _frame;
 
@@ -40,6 +43,8 @@ public sealed class LauncherWindow : Window
     private int _selection;
     private bool _hasAnswer;
     private bool _isAnswering;
+    /// The answer on screen came from the person's files; follow-ups go there too.
+    private bool _filesMode;
     private DateTime _hiddenAt = DateTime.MinValue;
 
     public LauncherWindow()
@@ -110,6 +115,12 @@ public sealed class LauncherWindow : Window
         _answerPanel.Children.Add(_asked);
         _answerPanel.Children.Add(_answer);
         _answerPanel.Children.Add(_error);
+        _filesNote = Look.Label("", 11);
+        _filesNote.TextWrapping = TextWrapping.Wrap;
+        _filesNote.Margin = new Thickness(0, 8, 0, 0);
+        _filesNote.IsVisible = false;
+        _answerPanel.Children.Add(_sources);
+        _answerPanel.Children.Add(_filesNote);
         _answerScroll = new ScrollViewer
         {
             Content = _answerPanel,
@@ -161,6 +172,7 @@ public sealed class LauncherWindow : Window
         _answer.Foreground = Look.Text;
         _asked.Foreground = Look.Secondary;
         _footer.Foreground = Look.Secondary;
+        _filesNote.Foreground = Look.Secondary;
         _input.Watermark = _hasAnswer ? S.FollowupPlaceholder : S.SearchPlaceholder;
         _modelButton.Content = Settings.Shared.ChoiceTitle;
         _modelButton.Background = Look.Card;
@@ -234,8 +246,10 @@ public sealed class LauncherWindow : Window
         _api.Reset();
         _gemini.Reset();
         _codex.Reset();
+        _files.Cancel();
         _hasAnswer = false;
         _isAnswering = false;
+        _filesMode = false;
         _input.Text = "";
         _hits = new List<Hit>();
         _actions = new List<ActionRow>();
@@ -273,12 +287,14 @@ public sealed class LauncherWindow : Window
         return words.Length > 0 && Lang.QuestionWords.Contains(words[0]);
     }
 
-    /// Rows: ask the model, then "Ask in ChatGPT" when shown, then system actions from FirstAction, then the hits from FirstHit on.
+    /// Rows: ask the model, then "Ask in ChatGPT" when shown, then system actions from FirstAction, then
+    /// "Ask my files" when folders are chosen, then the hits from FirstHit on.
     private int FirstAction => Settings.Shared.ShowChatGpt ? 2 : 1;
-    private int FirstHit => FirstAction + _actions.Count;
+    private int FirstHit => FirstAction + _actions.Count + (LibraryHost.IsEnabled ? 1 : 0);
     private int RowCount => (_input.Text ?? "").Trim().Length == 0 ? 0 : FirstHit + _hits.Count;
     private bool IsChatGptRow(int i) => Settings.Shared.ShowChatGpt && i == 1;
-    private bool IsActionRow(int i) => i >= FirstAction && i < FirstHit;
+    private bool IsActionRow(int i) => i >= FirstAction && i < FirstAction + _actions.Count;
+    private bool IsFilesRow(int i) => LibraryHost.IsEnabled && i == FirstHit - 1;
 
     /// Ctrl+Shift+Enter or the ChatGPT row: opens chatgpt.com with the typed text, else the question on screen.
     private void AskChatGpt()
@@ -326,6 +342,12 @@ public sealed class LauncherWindow : Window
                 var hint = Look.Label("Ctrl+Shift+↩", 12, sub);
                 DockPanel.SetDock(hint, Dock.Right);
                 row.Children.Add(hint);
+            }
+            else if (IsFilesRow(i))
+            {
+                icon = Look.Label("📄", 18, fg);
+                texts.Children.Add(Look.Label(S.FilesTitle, 14, fg, FontWeight.SemiBold));
+                texts.Children.Add(Look.Label("🔒 " + S.FilesRowNote, 12, sub));
             }
             else if (IsActionRow(i))
             {
@@ -449,7 +471,12 @@ public sealed class LauncherWindow : Window
         }
         if (_hasAnswer || forceAsk || _selection == 0 || _selection >= RowCount)
         {
-            Ask(text);
+            Ask(text, _hasAnswer && _filesMode);
+            return;
+        }
+        if (IsFilesRow(_selection))
+        {
+            Ask(text, true);
             return;
         }
         if (IsChatGptRow(_selection))
@@ -487,6 +514,7 @@ public sealed class LauncherWindow : Window
             _api.Cancel();
             _gemini.Cancel();
             _codex.Cancel();
+            _files.Cancel();
             SetAnswering(false);
         }
         else if (_hasAnswer)
@@ -495,7 +523,9 @@ public sealed class LauncherWindow : Window
             _api.Reset();
             _gemini.Reset();
             _codex.Reset();
+            _files.Cancel();
             _hasAnswer = false;
+            _filesMode = false;
             _input.Text = "";
             ShowResultsMode();
         }
@@ -534,12 +564,16 @@ public sealed class LauncherWindow : Window
         _api.Reset();
         _gemini.Reset();
         _codex.Reset();
-        Ask(_asked.Text!);
+        Ask(_asked.Text!, _filesMode);
     }
 
-    private void Ask(string question)
+    private void Ask(string question, bool files = false)
     {
         _hasAnswer = true;
+        _filesMode = files;
+        _sources.Children.Clear();
+        _sources.IsVisible = false;
+        _filesNote.IsVisible = false;
         _asked.Text = question;
         _error.Text = "";
         _error.IsVisible = false;
@@ -549,7 +583,7 @@ public sealed class LauncherWindow : Window
         _divider.IsVisible = true;
         _answerScroll.IsVisible = true;
         _footer.IsVisible = true;
-        _answer.Text = S.Thinking;
+        _answer.Text = files ? S.FilesSearching : S.Thinking;
         var first = true;
         SetAnswering(true);
 
@@ -579,10 +613,45 @@ public sealed class LauncherWindow : Window
         _api.Cancel();
         _gemini.Cancel();
         _codex.Cancel();
-        if (Settings.Shared.Connection is Connection c) _api.Ask(question, c, Post, OnText, OnDone);
+        _files.Cancel();
+        if (files) _files.Ask(question, Post, ShowSources, OnText, OnDone);
+        else if (Settings.Shared.Connection is Connection c) _api.Ask(question, c, Post, OnText, OnDone);
         else if (Settings.Shared.GeminiModel is GeminiModel g) _gemini.Ask(question, g, Post, OnText, OnDone);
         else if (Settings.Shared.IsCodex) _codex.Ask(question, Post, OnText, OnDone);
         else _claude.Ask(question, Post, OnText, OnDone);
+    }
+
+    /// The files an answer from "Ask my files" was drawn from, each opening on a click, and which local model answered.
+    private void ShowSources(IReadOnlyList<string> paths, string model)
+    {
+        _answer.Text = S.Thinking;
+        _sources.Children.Clear();
+        _sources.Children.Add(new TextBlock { Text = S.FilesSources, FontSize = 12, Foreground = Look.Secondary, Margin = new Thickness(0, 0, 8, 0), VerticalAlignment = VerticalAlignment.Center });
+        foreach (var path in paths)
+        {
+            var link = new Button
+            {
+                Content = "📄 " + System.IO.Path.GetFileName(path),
+                FontSize = 12,
+                Foreground = Look.Accent,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(0),
+                Margin = new Thickness(0, 0, 12, 2),
+                Cursor = new Cursor(StandardCursorType.Hand),
+            };
+            ToolTip.SetTip(link, path);
+            link.Click += (_, _) =>
+            {
+                try { new Hit(System.IO.Path.GetFileName(path), path, false).Open(); }
+                catch { /* nothing to open it with */ }
+                HideBar();
+            };
+            _sources.Children.Add(link);
+        }
+        _sources.IsVisible = true;
+        _filesNote.Text = "🔒 " + S.FilesAnswerNote(model);
+        _filesNote.IsVisible = true;
     }
 
     // MARK: model menu

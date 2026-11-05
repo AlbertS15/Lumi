@@ -32,6 +32,9 @@ jobs:
           LUMI_REQUIRE_GSETTINGS: "1"
         run: dotnet test tests/Lumi.Tests -c Release
 
+      - name: Ask my files (chunking, ranking, index, text extraction)
+        run: dotnet test windows/Lumi.Tests/Lumi.Tests.csproj -c Release
+
   tests-windows:
     name: Unit tests (Windows)
     runs-on: windows-latest

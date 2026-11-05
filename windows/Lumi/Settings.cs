@@ -140,6 +140,10 @@ public sealed class Settings
     /// The bar's shortcut as RegisterHotKey modifiers and virtual key; key 0 means the standard Alt + the key left of 1.
     public uint HotkeyModifiers { get; set; }
     public uint HotkeyKey { get; set; }
+    /// Folders for "Ask my files" (experimental); none keeps it off.
+    public List<string> LibraryFolders { get; set; } = new();
+    /// The Ollama model that turns the files' pieces into vectors.
+    public string LibraryEmbedModel { get; set; } = Library.DefaultEmbedModel;
 
     public event Action? Changed;
 

@@ -140,6 +140,29 @@ private let table: [String: [String]] = [
     "ollama_starting": ["Installing and starting Ollama…", "Устанавливаю и запускаю Ollama…", "Installiere und starte Ollama…", "Instalando e iniciando Ollama…", "Installation et démarrage d'Ollama…"],
     "ollama_not_started": ["Ollama didn't start", "Ollama не запустилась", "Ollama ist nicht gestartet", "Ollama no se inició", "Ollama n'a pas démarré"],
     "err_ollama_model": ["Ollama has no model “{0}”. Installed: {1}. Pick one of these in the connection, or download it: ollama pull {0}", "В Ollama нет модели «{0}». Установлены: {1}. Выберите одну из них в подключении или скачайте: ollama pull {0}", "Ollama hat kein Modell „{0}“. Installiert: {1}. Wählen Sie eines davon in der Verbindung oder laden Sie es: ollama pull {0}", "Ollama no tiene el modelo «{0}». Instalados: {1}. Elige uno de ellos en la conexión o descárgalo: ollama pull {0}", "Ollama n'a pas le modèle « {0} ». Installés : {1}. Choisissez-en un dans la connexion ou téléchargez-le : ollama pull {0}"],
+    "files_title": ["Ask my files", "Спросить по моим файлам", "Meine Dateien fragen", "Preguntar a mis archivos", "Interroger mes fichiers"],
+    "experimental": ["Experimental", "Экспериментально", "Experimentell", "Experimental", "Expérimental"],
+    "files_row_note": ["experimental · offline, answers only from your folders", "экспериментально · офлайн, ответ только по вашим папкам", "experimentell · offline, Antworten nur aus Ihren Ordnern", "experimental · sin conexión, solo con tus carpetas", "expérimental · hors ligne, réponses tirées de vos dossiers uniquement"],
+    "files_privacy": ["Works only through Ollama on this computer, even when a cloud model is chosen for chat. Your files and questions never leave the computer.", "Работает только через Ollama на этом компьютере, даже если для чата выбрана облачная модель. Файлы и вопросы не покидают компьютер.", "Läuft nur über Ollama auf diesem Computer, auch wenn für den Chat ein Cloud-Modell gewählt ist. Ihre Dateien und Fragen verlassen den Computer nie.", "Funciona solo con Ollama en este ordenador, aunque elijas un modelo en la nube para el chat. Tus archivos y preguntas nunca salen del ordenador.", "Fonctionne uniquement avec Ollama sur cet ordinateur, même si un modèle cloud est choisi pour le chat. Vos fichiers et vos questions ne quittent jamais l'ordinateur."],
+    "files_formats": ["Reads .txt, .md, .pdf (with a text layer) and .docx up to 20 MB.", "Читает .txt, .md, .pdf (с текстовым слоем) и .docx до 20 МБ.", "Liest .txt, .md, .pdf (mit Textebene) und .docx bis 20 MB.", "Lee .txt, .md, .pdf (con capa de texto) y .docx de hasta 20 MB.", "Lit les .txt, .md, .pdf (avec couche texte) et .docx jusqu'à 20 Mo."],
+    "files_add_folder": ["Add a folder…", "Добавить папку…", "Ordner hinzufügen…", "Añadir una carpeta…", "Ajouter un dossier…"],
+    "files_remove_folder": ["Remove the folder from the index", "Убрать папку из индекса", "Ordner aus dem Index entfernen", "Quitar la carpeta del índice", "Retirer le dossier de l'index"],
+    "files_status_off": ["Off: add a folder to turn it on", "Выключено: добавьте папку, чтобы включить", "Aus: Ordner hinzufügen, um es einzuschalten", "Desactivado: añade una carpeta para activarlo", "Désactivé : ajoutez un dossier pour l'activer"],
+    "files_status_indexing": ["Indexing… {0} of {1} files", "Индексирую… {0} из {1} файлов", "Indexiere… {0} von {1} Dateien", "Indexando… {0} de {1} archivos", "Indexation… {0} sur {1} fichiers"],
+    "files_status_ready": ["Ready: {0} files, {1} pieces", "Готово: файлов {0}, фрагментов {1}", "Bereit: {0} Dateien, {1} Abschnitte", "Listo: {0} archivos, {1} fragmentos", "Prêt : {0} fichiers, {1} extraits"],
+    "files_status_skipped": ["{0} skipped (too big or no text)", "пропущено {0} (слишком большие или без текста)", "{0} übersprungen (zu groß oder ohne Text)", "{0} omitidos (demasiado grandes o sin texto)", "{0} ignorés (trop gros ou sans texte)"],
+    "files_status_no_ollama": ["Ollama isn't running. Start it (or install Lumi's offline model) and the files will be indexed.", "Ollama не запущена. Запустите её (или установите офлайн-модель Lumi), и файлы проиндексируются.", "Ollama läuft nicht. Starten Sie es (oder installieren Sie Lumis Offline-Modell), dann werden die Dateien indexiert.", "Ollama no está en marcha. Inícialo (o instala el modelo sin conexión de Lumi) y se indexarán los archivos.", "Ollama n'est pas lancé. Démarrez-le (ou installez le modèle hors ligne de Lumi) et les fichiers seront indexés."],
+    "files_status_no_model": ["Needs the {0} search model (about {1}), once", "Нужна модель поиска {0} (около {1}), один раз", "Braucht einmalig das Suchmodell {0} (etwa {1})", "Necesita una vez el modelo de búsqueda {0} (unos {1})", "Nécessite une fois le modèle de recherche {0} (environ {1})"],
+    "files_status_error": ["Indexing stopped: {0}", "Индексация остановилась: {0}", "Indexierung angehalten: {0}", "La indexación se detuvo: {0}", "Indexation interrompue : {0}"],
+    "files_downloading": ["Downloading… {0}%", "Скачиваю… {0}%", "Lade herunter… {0}%", "Descargando… {0}%", "Téléchargement… {0} %"],
+    "files_searching": ["Searching your files…", "Ищу в ваших файлах…", "Durchsuche Ihre Dateien…", "Buscando en tus archivos…", "Recherche dans vos fichiers…"],
+    "files_sources": ["Sources:", "Источники:", "Quellen:", "Fuentes:", "Sources :"],
+    "files_answer_note": ["Offline: {0} in the local Ollama answered from your files · experimental", "Офлайн: ответила {0} в локальной Ollama по вашим файлам · экспериментально", "Offline: {0} im lokalen Ollama hat aus Ihren Dateien geantwortet · experimentell", "Sin conexión: {0} en el Ollama local respondió con tus archivos · experimental", "Hors ligne : {0} dans l'Ollama local a répondu à partir de vos fichiers · expérimental"],
+    "files_no_folders": ["No folders chosen for “Ask my files”. Add them in Lumi's settings.", "Для «Спросить по моим файлам» не выбраны папки. Добавьте их в настройках Lumi.", "Für „Meine Dateien fragen“ sind keine Ordner gewählt. Fügen Sie sie in Lumis Einstellungen hinzu.", "No hay carpetas elegidas para «Preguntar a mis archivos». Añádelas en los ajustes de Lumi.", "Aucun dossier choisi pour « Interroger mes fichiers ». Ajoutez-en dans les réglages de Lumi."],
+    "files_still_indexing": ["Your files are still being indexed ({0} of {1}). Try again in a moment.", "Файлы ещё индексируются ({0} из {1}). Попробуйте чуть позже.", "Ihre Dateien werden noch indexiert ({0} von {1}). Versuchen Sie es gleich noch einmal.", "Tus archivos aún se están indexando ({0} de {1}). Inténtalo en un momento.", "Vos fichiers sont encore en cours d'indexation ({0} sur {1}). Réessayez dans un instant."],
+    "files_empty": ["No text found in the chosen folders yet.", "В выбранных папках пока не найдено текста.", "In den gewählten Ordnern wurde noch kein Text gefunden.", "Aún no se ha encontrado texto en las carpetas elegidas.", "Aucun texte trouvé pour l'instant dans les dossiers choisis."],
+    "files_no_chat_model": ["No local model to answer with. Install Lumi's offline model in the welcome window.", "Нет локальной модели для ответа. Установите офлайн-модель Lumi в окне приветствия.", "Kein lokales Modell zum Antworten. Installieren Sie Lumis Offline-Modell im Willkommensfenster.", "No hay un modelo local para responder. Instala el modelo sin conexión de Lumi en la ventana de bienvenida.", "Aucun modèle local pour répondre. Installez le modèle hors ligne de Lumi dans la fenêtre d'accueil."],
+    "files_failed": ["Couldn't answer from your files: {0}", "Не удалось ответить по файлам: {0}", "Antwort aus Ihren Dateien nicht möglich: {0}", "No se pudo responder con tus archivos: {0}", "Impossible de répondre à partir de vos fichiers : {0}"],
     "action_volume": ["Set volume to {0}%", "Громкость {0}%", "Lautstärke auf {0} %", "Volumen al {0} %", "Volume à {0} %"],
     "action_mute": ["Mute sound", "Выключить звук", "Ton aus", "Silenciar el sonido", "Couper le son"],
     "action_unmute": ["Unmute sound", "Включить звук", "Ton an", "Activar el sonido", "Rétablir le son"],
@@ -277,6 +300,29 @@ enum S {
     static var ollamaStarting: String { format("ollama_starting", []) }
     static var ollamaNotStarted: String { format("ollama_not_started", []) }
     static func errOllamaModel(_ a0: String, _ a1: String) -> String { format("err_ollama_model", [a0, a1]) }
+    static var filesTitle: String { format("files_title", []) }
+    static var experimental: String { format("experimental", []) }
+    static var filesRowNote: String { format("files_row_note", []) }
+    static var filesPrivacy: String { format("files_privacy", []) }
+    static var filesFormats: String { format("files_formats", []) }
+    static var filesAddFolder: String { format("files_add_folder", []) }
+    static var filesRemoveFolder: String { format("files_remove_folder", []) }
+    static var filesStatusOff: String { format("files_status_off", []) }
+    static func filesStatusIndexing(_ a0: String, _ a1: String) -> String { format("files_status_indexing", [a0, a1]) }
+    static func filesStatusReady(_ a0: String, _ a1: String) -> String { format("files_status_ready", [a0, a1]) }
+    static func filesStatusSkipped(_ a0: String) -> String { format("files_status_skipped", [a0]) }
+    static var filesStatusNoOllama: String { format("files_status_no_ollama", []) }
+    static func filesStatusNoModel(_ a0: String, _ a1: String) -> String { format("files_status_no_model", [a0, a1]) }
+    static func filesStatusError(_ a0: String) -> String { format("files_status_error", [a0]) }
+    static func filesDownloading(_ a0: String) -> String { format("files_downloading", [a0]) }
+    static var filesSearching: String { format("files_searching", []) }
+    static var filesSources: String { format("files_sources", []) }
+    static func filesAnswerNote(_ a0: String) -> String { format("files_answer_note", [a0]) }
+    static var filesNoFolders: String { format("files_no_folders", []) }
+    static func filesStillIndexing(_ a0: String, _ a1: String) -> String { format("files_still_indexing", [a0, a1]) }
+    static var filesEmpty: String { format("files_empty", []) }
+    static var filesNoChatModel: String { format("files_no_chat_model", []) }
+    static func filesFailed(_ a0: String) -> String { format("files_failed", [a0]) }
     static func actionVolume(_ a0: String) -> String { format("action_volume", [a0]) }
     static var actionMute: String { format("action_mute", []) }
     static var actionUnmute: String { format("action_unmute", []) }

@@ -119,7 +119,10 @@ public sealed class App : Application
             // A freshly started Ollama needs a moment before it answers.
             for (var i = 0; i < 15 && await Ollama.ModelsAsync() == null; i++) await Task.Delay(1000);
             await Ollama.RefreshOwnModelsAsync();
+            // Ollama is up now (if it can be): the files' index can catch up.
+            Library.Shared.Refresh();
         });
+        LibraryHost.Start();
 
         Updates.CheckDaily(version => Dispatcher.UIThread.Post(() =>
         {
