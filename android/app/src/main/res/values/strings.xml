@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lumi</string>
+    <string name="ask_lumi">Ask Lumi</string>
+    <string name="ask_placeholder">Ask anything…</string>
+    <string name="send">Send</string>
+    <string name="stop">Stop</string>
+    <string name="copy">Copy</string>
+    <string name="new_chat">New chat</string>
+    <string name="settings">Settings</string>
+    <string name="done">Done</string>
+    <string name="welcome">Hi! I\'m Lumi. Connect an AI service to start: pick one below, paste its API key and save. Many have a free tier — Gemini, Groq and OpenRouter, for example.</string>
+    <string name="connections">Connections</string>
+    <string name="add_connection">Add a connection</string>
+    <string name="address">Address</string>
+    <string name="model">Model</string>
+    <string name="api_key">API key</string>
+    <string name="get_key">Get a %1$s key</string>
+    <string name="save">Save</string>
+    <string name="remove">Remove</string>
+    <string name="preset_ollama">Ollama on a computer</string>
+    <string name="preset_other">Other</string>
+    <string name="ollama_hint">Lumi on your computer with its local models, over Wi-Fi. On the computer, start Ollama with OLLAMA_HOST=0.0.0.0 and type the computer\'s IP address here.</string>
+    <string name="privacy">Keys are stored encrypted on this phone only. Questions go straight to the service you chose.</string>
+</resources>
